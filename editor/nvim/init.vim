@@ -38,9 +38,6 @@ set ignorecase
 set smartcase
 set gdefault
 
-""nnoremap * :keepjumps normal! mi*`i<CR>
-
-
 " }}}
 
 " Better safe than sorry {{{
@@ -190,8 +187,6 @@ nnoremap <M-Up> :res +5<CR>
 nnoremap <M-Down> :res -5<CR>
 nnoremap <M-Left> :vertical res +5<CR>
 nnoremap <M-Right> :vertical res -5<CR>
-
-cnoremap <C-b>
 
 map <C-n> :cn<CR>zz
 map <C-p> :cp<CR>zz
