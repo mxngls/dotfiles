@@ -1,0 +1,39 @@
+[user]
+	name = mxngls
+	email = Maximilian.e.hoenig@gmail.com
+[init]
+	defaultBranch = main
+[ui "color"]
+	ui = always
+[color]
+	ui = true
+[merge]
+	tool = nvim -d
+[alias]
+	last = log -1 HEAD
+	f = push --force-with-lease
+	# https://stackoverflow.com/a/11688523/472927
+	ss = "!f() { git stash show stash^{/$*} -p; }; f"
+	sa = "!f() { git stash apply stash^{/$*}; }; f"
+	sl = stash list
+[pull]
+  rebase = false
+	ff = only
+[push]
+	default = simple
+[help]
+	autocorrect = 1
+[url "git@github.com:"]
+	insteadOf = gh:
+[github]
+	user = mxngls
+[diff]
+	algorithm = patience
+	compactionHeuristic = true
+[protocol]
+	version = 2
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
