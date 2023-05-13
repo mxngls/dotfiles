@@ -219,7 +219,7 @@ nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <leader>t :NERDTreeToggle%<CR>
 nnoremap <leader>tf :NERDTreeFind<CR>
 
-nnoremap <leader>ff :FormatCode<CR>
+nnoremap <leader>fc :FormatCode<CR>
 vnoremap <leader>fl :FormatLines<CR>
 
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
