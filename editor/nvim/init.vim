@@ -213,12 +213,19 @@ nnoremap Q <nop>
 
 " Plugin related {{{2
 
+nnoremap <leader>G :Git<CR>
+
 nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <leader>t :NERDTreeToggle%<CR>
 nnoremap <leader>tf :NERDTreeFind<CR>
 
 nnoremap <leader>ff :FormatCode<CR>
 vnoremap <leader>fl :FormatLines<CR>
+
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " }}}
 
