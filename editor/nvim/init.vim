@@ -249,6 +249,8 @@ Plug 'google/vim-glaive'
 Plug 'ElPiloto/luaformatterfiveone'
 
 " Search
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 " NEOVIM specific plugins {{{2
 
