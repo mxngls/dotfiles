@@ -126,14 +126,16 @@ endfunction
 function! PatchColors()
   hi VertSplit ctermfg=250
   hi Visual ctermbg=NONE ctermbg=LightYellow
+
   hi Folded ctermbg=92 guibg=92
   hi FoldColumn ctermbg=92 guibg=92
   hi SignColumn ctermbg=234
+
   hi StatusLine cterm=bold ctermfg=245 ctermbg=235
   hi StatusLineNC cterm=bold ctermfg=245 ctermbg=235
+
   hi FloatBorder  guibg=NONE ctermbg=NONE 
   hi NormalFloat guibg=NONE ctermbg=NONE
-  hi Float guibg=NONE ctermbg=NONE
 endfunction
 
 function! SetColors()
