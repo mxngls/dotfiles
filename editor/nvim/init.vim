@@ -73,6 +73,13 @@ set nofoldenable
 
 " {{{ Functions
 
+function! s:ShowCurrentHunk() abort
+  let h = sy#util#get_hunk_stats()
+  if !empty(h)
+    echo printf('[Hunk %d/%d]', h.current_hunk, h.total_hunks)
+  endif
+endfunction
+
 function! CountFolds()
   let count = 0
   let level = 1
@@ -227,6 +234,12 @@ nnoremap <leader>fg :Telescope live_grep<CR>
 nnoremap <leader>fb :Telescope buffers<CR>
 nnoremap <leader>fh :Telescope help_tags<CR>
 
+nnoremap <leader>gd :SignifyHunkDiff<CR>
+nnoremap <leader>gn <plug>(signify-next-hunk)
+nnoremap <leader>gp <plug>(signify-prev-hunk)
+nnoremap <leader>gN 9999<plug>(signify-next-hunk)
+nnoremap <leader>gP 9999<plug>(signify-prev-hunk)
+
 " }}}
 
 " }}}
@@ -245,7 +258,8 @@ Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Git 
-Plug 'airblade/vim-gitgutter' 
+" Plug 'airblade/vim-gitgutter' 
+Plug 'mhinz/vim-signify'
 Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-fugitive'
 
