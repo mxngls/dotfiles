@@ -333,13 +333,6 @@ augroup END
 
 " Plugin Settings {{{
 
-" let g:NERDTreeShowLineNumbers=1
-" autocmd BufEnter NERD_* setlocal rnu
-
-call glaive#Install()
-Glaive codefmt luaformatterfiveone_executable='/Users/Max/.luarocks/bin/luaformatterfiveone'
-Glaive codefmt prettier_options=`['--tab-width=2']`
-
 let g:NERDTreeShowLineNumbers=1
 autocmd BufEnter NERD_* setlocal rnu
 
