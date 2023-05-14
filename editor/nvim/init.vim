@@ -1,4 +1,4 @@
-" Basic editor settings {{{
+" Basic editor settings {{{1
 
 let mapleader="\<Space>" 
 set mouse=a
@@ -28,9 +28,7 @@ set wildmode=longest,list
 set wildmenu
 set completeopt="menuone,noinsert,noselect"
 
-" }}}
-
-" Searching {{{
+" Searching {{{2
 
 set nohlsearch"{{{}}}
 set incsearch
@@ -146,6 +144,8 @@ call PatchColors()
 call SetColors()
 
 nmap <leader>ct :call jobstart('$HOME/dotfiles/shell/toggle_theme.sh -t')<CR>
+
+" }}}
 
 " }}}
 
@@ -330,6 +330,13 @@ augroup END
 " }}}
 
 " Plugin Settings {{{
+
+" let g:NERDTreeShowLineNumbers=1
+" autocmd BufEnter NERD_* setlocal rnu
+
+call glaive#Install()
+Glaive codefmt luaformatterfiveone_executable='/Users/Max/.luarocks/bin/luaformatterfiveone'
+Glaive codefmt prettier_options=`['--tab-width=2']`
 
 let g:NERDTreeShowLineNumbers=1
 autocmd BufEnter NERD_* setlocal rnu
