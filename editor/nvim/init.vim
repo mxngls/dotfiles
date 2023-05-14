@@ -271,10 +271,6 @@ Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 Plug 'ElPiloto/luaformatterfiveone'
 
-" Search
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-
 " NEOVIM specific plugins {{{2
 
 if has('nvim')
@@ -297,6 +293,10 @@ if has('nvim')
 
   Plug 'windwp/nvim-ts-autotag'
   Plug 'windwp/nvim-autopairs'
+  
+  " Search
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
 
 endif
 
