@@ -292,6 +292,8 @@ call plug#end()
 
 " Autocommands {{{
 
+autocmd VimEnter * so $MYVIMRC
+
 autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 augroup autoformat_settings
@@ -301,8 +303,15 @@ augroup autoformat_settings
   autocmd Filetype lua AutoFormatBuffer luaformatterfiveone
 augroup END
 
-autocmd FileType help wincmd L
-autocmd VimEnter * so $MYVIMRC
+augroup help
+  autocmd!
+  autocmd FileType help wincmd L
+augroup END
+
+augroup singify
+  autocmd!
+  autocmd User SignifyHunk call s:ShowCurrentHunk()
+augroup END
 
 " }}}
 
