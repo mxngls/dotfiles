@@ -10,8 +10,6 @@
 [merge]
 	tool = nvim -d
 [alias]
-	last = log -1 HEAD
-	f = push --force-with-lease
 	# https://stackoverflow.com/a/11688523/472927
 	ss = "!f() { git stash show stash^{/$*} -p; }; f"
 	sa = "!f() { git stash apply stash^{/$*}; }; f"
@@ -20,7 +18,7 @@
   rebase = false
 	ff = only
 [push]
-	default = simple
+	default = tracking
 [help]
 	autocorrect = 1
 [url "git@github.com:"]
@@ -37,3 +35,9 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[branch "master"]
+	rebase = true
+[branch "main"]
+	rebase = true
+[core]
+	editor = nvim
