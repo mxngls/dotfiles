@@ -213,7 +213,7 @@ nnoremap Q <nop>
 
 " Plugin related {{{2
 
-nnoremap <leader>G :Git<CR>
+nnoremap <leader>gg :Git<CR>
 
 nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <leader>t :NERDTreeToggle%<CR>
