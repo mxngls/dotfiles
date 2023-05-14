@@ -222,10 +222,10 @@ nnoremap <leader>tf :NERDTreeFind<CR>
 nnoremap <leader>fc :FormatCode<CR>
 vnoremap <leader>fl :FormatLines<CR>
 
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>ff :Telescope find_files<CR>
+nnoremap <leader>fg :Telescope live_grep<CR>
+nnoremap <leader>fb :Telescope buffers<CR>
+nnoremap <leader>fh :Telescope help_tags<CR>
 
 " }}}
 
