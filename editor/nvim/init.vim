@@ -201,12 +201,12 @@ map <C-p> :lpe<CR>zz
 nnoremap <leader>o :e <C-R>=expand("%:p:h") . "/"<CR>
 nnoremap <leader>so :so $MYVIMRC<CR>
 
-inoremap " ""<left>
-onoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
+"inoremap " ""<left>
+"onoremap ' ''<left>
+"inoremap ( ()<left>
+"inoremap [ []<left>
+"inoremap { {}<left>
+"inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
 nnoremap <C-n> :cnext<CR>zz
