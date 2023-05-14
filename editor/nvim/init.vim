@@ -74,7 +74,7 @@ if !isdirectory($HOME."/.vim")
 endif
 if !isdirectory($HOME."/.vim/undo-dir")
     call mkdir($HOME."/.vim/undo-dir", "p", 0700)
-set undodir="~/.vim/undodir"
+set undodir=~/.vim/undodir
 endi
 set undodir=~/.vim/undo-dir
 set undofile
