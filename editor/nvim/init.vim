@@ -125,7 +125,6 @@ endfunction
 
 function! PatchColors()
   hi VertSplit ctermfg=250
-  hi Visual ctermbg=NONE ctermbg=LightYellow
 
   hi Folded ctermbg=92 guibg=92
   hi FoldColumn ctermbg=92 guibg=92
