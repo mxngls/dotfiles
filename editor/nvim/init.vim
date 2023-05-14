@@ -28,6 +28,35 @@ set wildmode=longest,list
 set wildmenu
 set completeopt="menuone,noinsert,noselect"
 
+" Statusline {{{2
+
+let g:currentmode={
+       \ 'n'  : 'NORMAL ',
+       \ 'v'  : 'VISUAL ',
+       \ 'V'  : 'V·Line ',
+       \ "\<C-V>" : 'V·Block ',
+       \ 'i'  : 'INSERT ',
+       \ 'R'  : 'R ',
+       \ 'Rv' : 'V·Replace ',
+       \ 'c'  : 'Command ',
+       \}
+
+set laststatus=2
+set statusline=
+set statusline+=\ \
+set statusline+=%{toupper(g:currentmode[mode()])}\
+set statusline+=%{expand('%:p:h:t')}/%t\
+set statusline+=%{&modified?'[+]\ ':''}
+set statusline+=%{&readonly?'[RO]\ ':''}
+set statusline+=\ %{FugitiveStatusline()}
+set statusline+=%h%r\ \
+set statusline+=%=
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}\ \
+set statusline+=%p%%\
+set statusline+=%12([%l:%02v/%L]%)\ \
+
+" }}}
+
 " Searching {{{2
 
 set nohlsearch"{{{}}}
@@ -107,31 +136,16 @@ function! PatchColors()
   hi Float guibg=NONE ctermbg=NONE
 endfunction
 
-function! Get_LightLine_Conf() 
-  return {
-    \ 'colorscheme': 'solarized', 
-    \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-    \ },
-    \ 'component_function': {
-    \   'gitbranch': 'gitbranch#name'
-    \ },
-    \ }
-endfunction
-
 function! SetColors()
   if has('gui_running')
     autocmd vimenter * ++nested colorscheme solarized8
     colorscheme solarized8
-    let g:lightline = Get_LightLine_Conf()
   elseif &t_Co < 256
     colorscheme default
     set nocursorline
   else
     set termguicolors
     autocmd vimenter * ++nested colorscheme solarized8
-    let g:lightline = Get_LightLine_Conf()
     call PatchColors()
   endif
 endfunction
@@ -253,7 +267,6 @@ call plug#begin()
 " Colorschemes & Statusline
 Plug 'Mofiqul/vscode.nvim'
 Plug 'lifepillar/vim-solarized8'
-Plug 'itchyny/lightline.vim', {'frozen': 1}
 
 " File and folder view
 Plug 'preservim/nerdtree'
