@@ -69,10 +69,6 @@ set foldlevelstart=10
 set foldnestmax=10
 set nofoldenable
 
-nnoremap <leader>fm :set foldmethod=marker<CR>
-nnoremap <leader>fi :set foldmethod=indent<CR>
-nnoremap <leader>fn :call CountFolds()<CR>
-
 " }}}
 
 " {{{ Functions
@@ -208,6 +204,10 @@ nnoremap <C-n> :cnext<CR>zz
 nnoremap <C-p> :cprevious<CR>zz
 nnoremap <leader>cc :cclose<CR>
 nnoremap <leader>co :cclose<CR>
+
+nnoremap <leader>fm :set foldmethod=marker<CR>
+nnoremap <leader>fi :set foldmethod=indent<CR>
+nnoremap <leader>fn :call CountFolds()<CR>
 
 nnoremap Q <nop>
 
