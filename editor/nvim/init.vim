@@ -162,6 +162,8 @@ imap <leader>jj <ESC>
 nnoremap j gj
 nnoremap k gk
 
+noremap <C-z> <C-a>
+
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 
