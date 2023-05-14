@@ -5,7 +5,7 @@ export EDITOR="$VISUAL"
 # Aliases
 alias ls="ls -haFG --color" # NOTE: macOS's default ls doesn't take the --color flag
 alias ct="~/dotfiles/shell/toggle_theme.sh -t"
-alias gr="git rev-parse --show-toplevel"
+alias gr='cd $(git rev-parse --show-toplevel)'
 
 # Set PATHs 
 export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
