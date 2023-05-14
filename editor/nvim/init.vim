@@ -71,7 +71,7 @@ set nofoldenable
 
 nnoremap <leader>fm :set foldmethod=marker<CR>
 nnoremap <leader>fi :set foldmethod=indent<CR>
-nnoremap <leader>fc :call CountFolds()<CR>
+nnoremap <leader>fn :call CountFolds()<CR>
 
 " }}}
 
