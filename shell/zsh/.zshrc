@@ -1,7 +1,7 @@
 source ~/.bashrc
 
 #Shell
-setopt histignorealldup
+set HIST_SAVE_NO_DUPS
 set HISTSIZE=100000
 set SAVEHIST
 
