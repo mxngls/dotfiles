@@ -66,7 +66,7 @@ function link_all() {
 
   # Rest
   ln -sfn "$(pwd)"/editor/nvim                  "${HOME}".config/
-  ln -sfn "$(pwd)"/git/.gitconfig               "${HOME}".gitconfig
+  ln -sfn "$(pwd)"/.gitconfig                   "${HOME}".gitconfig
 
   echo -e "Done!\n"
   echo "> All files linked! Ready to go!"
