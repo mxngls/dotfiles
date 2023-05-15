@@ -91,8 +91,8 @@ set wrap
 
 set smartindent
 set foldmethod=indent
-set foldcolumn=auto
-set foldlevelstart=10   
+set foldcolumn=auto:3
+set foldlevelstart=0
 set foldnestmax=10
 set nofoldenable
 
