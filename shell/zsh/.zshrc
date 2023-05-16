@@ -1,10 +1,9 @@
 source ~/.bashrc
 
 #Shell
-set HIST_SAVE_NO_DUPS
-set HISTSIZE=100000
-set SAVEHIST
-
+set HISTCONTROL=ignoreboth
+set HISTSIZE=1000
+set HISTFILESIZE=2000
 
 # Load version control information
 autoload -Uz vcs_info
