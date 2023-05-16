@@ -283,7 +283,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
-Plug 'ElPiloto/luaformatterfiveone'
 
 " NEOVIM specific plugins {{{2
 
@@ -330,7 +329,6 @@ augroup autoformat_settings
   autocmd FileType html,css,sass,scss,less AutoFormatBuffer prettier
   autocmd FileType javascript,javascriptreact,typescript,typescriptreact,vue,json AutoFormatBuffer prettier
   autocmd FileType python AutoFormatBuffer yapf
-  autocmd Filetype lua AutoFormatBuffer luaformatterfiveone
 augroup END
 
 augroup help
@@ -351,7 +349,6 @@ let g:NERDTreeShowLineNumbers=1
 autocmd BufEnter NERD_* setlocal rnu
 
 call glaive#Install()
-Glaive codefmt luaformatterfiveone_executable='/Users/Max/.luarocks/bin/luaformatterfiveone'
 Glaive codefmt prettier_options=`['--tab-width=2']`
 
 " }}}
