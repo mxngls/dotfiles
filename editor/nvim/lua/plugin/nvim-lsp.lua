@@ -1,5 +1,21 @@
 -- Setup language servers.
+
 local lspconfig = require('lspconfig')
+
+local lspconfig_setup = {
+  -- ... other configs
+  settings = {
+    Lua = {
+      diagnostics = {
+        -- this is to allow vim to be consider as a globals
+        -- authorise variable
+        globals = { 'vim' }
+      }
+    }
+  }
+}
+
+lspconfig.lua_ls.setup(lspconfig_setup)
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
