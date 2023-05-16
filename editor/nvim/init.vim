@@ -341,6 +341,13 @@ augroup singify
   autocmd User SignifyHunk call s:ShowCurrentHunk()
 augroup END
 
+augroup spell_git
+  autocmd!
+  autocmd FileType gitcommit setlocal spell
+  autocmd FileType gitcommit setlocal set spelllang=en_us
+augroup END
+
+
 " }}}
 
 " Plugin Settings {{{
