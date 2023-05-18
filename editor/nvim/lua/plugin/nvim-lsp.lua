@@ -1,6 +1,7 @@
 -- Setup language servers.
 
 local lspconfig = require('lspconfig')
+local lsp_ui_windows = require('lspconfig.ui.windows')
 
 local lspconfig_setup = {
   -- ... other configs
@@ -32,6 +33,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Enable completion triggered by <c-x><c-o>
     vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
+    -- Enable borders on all relating UI elements
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
       border = "rounded",
       source = 'always',
@@ -46,6 +48,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
       virtual_text = false,
       float = { border = "rounded" },
     }
+
+    lsp_ui_windows.default_options.border = 'rounded'
+
 
     -- Buffer local mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions

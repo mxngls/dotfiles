@@ -20,7 +20,7 @@ window_padding_width 0
 dynamic_background_opacity yes
 background_opacity 1
 
-# # Keymaps
+# Keymaps
 kitty_mod ctrl+alt
 
 # Zoom

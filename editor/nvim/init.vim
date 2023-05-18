@@ -28,37 +28,6 @@ set wildmode=longest,list
 set wildmenu
 set completeopt="menuone,noinsert,noselect"
 
-" Statusline {{{2
-
-let g:currentmode={
-       \ 'n'  : 'NORMAL ',
-       \ 'v'  : 'VISUAL ',
-       \ 'V'  : 'V·Line ',
-       \ "\<C-V>" : 'V·Block ',
-       \ 'i'  : 'INSERT ',
-       \ 'R'  : 'R ',
-       \ 'Rv' : 'V·Replace ',
-       \ 'c'  : 'Command ',
-       \}
-
-set laststatus=2
-set statusline=
-set statusline+=\ \
-set statusline+=%{toupper(g:currentmode[mode()])}\
-set statusline+=%{expand('%:p:h:t')}/%t\
-set statusline+=%{&modified?'[+]\ ':''}
-set statusline+=%{&readonly?'[RO]\ ':''}
-set statusline+=\ %{FugitiveStatusline()}
-set statusline+=%h%r\ \
-set statusline+=%=
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}\ \
-set statusline+=%p%%\
-set statusline+=%12([%l:%02v/%L]%)\ \
-
-" }}}
-
-" Searching {{{2
-
 set nohlsearch"{{{}}}
 set incsearch
 set ignorecase
@@ -130,11 +99,15 @@ function! PatchColors()
   hi FoldColumn ctermbg=92 guibg=92
   hi SignColumn ctermbg=234
 
-  hi StatusLine cterm=bold ctermfg=245 ctermbg=235
-  hi StatusLineNC cterm=bold ctermfg=245 ctermbg=235
-
   hi FloatBorder  guibg=NONE ctermbg=NONE 
   hi NormalFloat guibg=NONE ctermbg=NONE
+
+  hi StatuslineNC cterm=NONE ctermbg=NONE gui=NONE guibg=Grey7
+  hi StatusLine cterm=NONE ctermbg=NONE gui=NONE guibg=Grey7
+  hi FilePath  ctermbg=NONE gui=NONE guifg=White guibg=Grey7
+  hi GitBranchMain ctermbg=NONE gui=bold guifg=Green1 guibg=Grey7
+  hi GitBranchOther ctermbg=NONE gui=bold guifg=Yellow1 guibg=Grey7
+  hi LineInd ctermbg=NONE gui=NONE guifg=White guibg=Grey7
 endfunction
 
 function! SetColors()
@@ -150,6 +123,62 @@ function! SetColors()
     call PatchColors()
   endif
 endfunction
+
+
+" Statusline {{{2
+
+let g:currentmode={
+       \ 'n'  : 'N ',
+       \ 'v'  : 'V ',
+       \ 'V'  : 'V·L ',
+       \ "\<C-V>" : 'V·B',
+       \ 'Rv' : 'V·R',
+       \ 'i'  : 'I',
+       \ 'R'  : 'R ',
+       \ 'c'  : 'Co',
+       \}
+
+" set laststatus=2
+" set statusline=
+" set statusline+=\ \ 
+" set statusline+=%{toupper(g:currentmode[mode()])}
+" set statusline+=%{expand('%:p:h:t')}/%t\
+" set statusline+=%{&modified?'[+]\ ':''}
+" set statusline+=%{&readonly?'[RO]\ ':''}
+" set statusline+=\ %{FugitiveStatusline()}
+" set statusline+=%h%r\ \
+" set statusline+=%=
+" set statusline+=\ %{&fileencoding?&fileencoding:&encoding}\ \
+" set statusline+=%p%%\
+" set statusline+=%12([%l:%02v/%L]%)\ \
+
+
+function! SetStatusLine()
+  " Left aligned
+  let fileName = expand('%:~:h:t:')
+  let stl = '  %#FilePath#' . fileName . '/%t%*'
+
+    let branch = FugitiveHead()
+    let stl .= ' ' . ((branch =~# 'master\|main') ? '%#GitBranchMain#' : '%#GitBranchOther#'). branch .'%*'
+
+  let stl .= ' %y%w%m%r'
+
+  " Right aligned
+  let stl .= '%='
+  let stl .= '%18.(B:%n'
+  let stl .= '%#LineInd# %l:%02v%*'
+  let stl .= '%#LineInd# %p%)% %* '
+  return stl
+endfunction
+
+if &filetype != 'nerdtree'
+    set statusline=%!SetStatusLine()
+endif
+
+
+" }}}
+
+" Searching {{{2
 
 " }}}
 
@@ -347,13 +376,17 @@ augroup spell_git
   autocmd FileType gitcommit setlocal set spelllang=en_us
 augroup END
 
+augroup nerd_tree
+  autocmd!
+  autocmd StdinReadPre * let s:std_in=1
+  autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+augroup END
 
 " }}}
 
 " Plugin Settings {{{
 
 let g:NERDTreeShowLineNumbers=1
-autocmd BufEnter NERD_* setlocal rnu
 
 call glaive#Install()
 Glaive codefmt prettier_options=`['--tab-width=2']`
