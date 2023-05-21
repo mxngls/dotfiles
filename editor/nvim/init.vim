@@ -34,6 +34,8 @@ set ignorecase
 set smartcase
 set gdefault
 
+set statusline=%!SetStatusLine()
+
 " }}}
 
 " Better safe than sorry {{{
@@ -125,58 +127,34 @@ function! SetColors()
 endfunction
 
 
-" Statusline {{{2
-
-let g:currentmode={
-       \ 'n'  : 'N ',
-       \ 'v'  : 'V ',
-       \ 'V'  : 'V·L ',
-       \ "\<C-V>" : 'V·B',
-       \ 'Rv' : 'V·R',
-       \ 'i'  : 'I',
-       \ 'R'  : 'R ',
-       \ 'c'  : 'Co',
-       \}
-
-" set laststatus=2
-" set statusline=
-" set statusline+=\ \ 
-" set statusline+=%{toupper(g:currentmode[mode()])}
-" set statusline+=%{expand('%:p:h:t')}/%t\
-" set statusline+=%{&modified?'[+]\ ':''}
-" set statusline+=%{&readonly?'[RO]\ ':''}
-" set statusline+=\ %{FugitiveStatusline()}
-" set statusline+=%h%r\ \
-" set statusline+=%=
-" set statusline+=\ %{&fileencoding?&fileencoding:&encoding}\ \
-" set statusline+=%p%%\
-" set statusline+=%12([%l:%02v/%L]%)\ \
-
+function! GetGitHead()
+  let b:gitbranch=''
+  if &modifiable
+    try
+      lcd %:p:h
+    catch
+      return
+    endtry
+    let l:gitrevparse=system('git rev-parse --abbrev-ref HEAD')
+    lcd -
+    if l:gitrevparse!~'fatal: not a git repository'
+      let b:gitbranch=substitute(l:gitrevparse, '\n', '', 'g')
+    endif
+  endif
+endfunction
 
 function! SetStatusLine()
   " Left aligned
-  let fileName = expand('%:~:h:t:')
-  let stl = '  %#FilePath#' . fileName . '/%t%*'
-
-    let branch = FugitiveHead()
-    let stl .= ' ' . ((branch =~# 'master\|main') ? '%#GitBranchMain#' : '%#GitBranchOther#'). branch .'%*'
-
-  let stl .= ' %y%w%m%r'
+  let l:stl = '   %t'
+  let l:stl .= '  %{b:gitbranch} '
+  let l:stl .= '%y%w%m%r'
 
   " Right aligned
-  let stl .= '%='
-  let stl .= '%18.(B:%n'
-  let stl .= '%#LineInd# %l:%02v%*'
-  let stl .= '%#LineInd# %p%)% %* '
+  let l:stl .= '%='
+  let l:stl .= '%-8.(%l:%02v%)'
+  let l:stl .= '%P  '
   return stl
 endfunction
-
-if &filetype != 'nerdtree'
-    set statusline=%!SetStatusLine()
-endif
-
-
-" }}}
 
 " Searching {{{2
 
@@ -380,6 +358,11 @@ augroup nerd_tree
   autocmd!
   autocmd StdinReadPre * let s:std_in=1
   autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+augroup END
+
+augroup get_git_head 
+  autocmd!
+  autocmd BufWinEnter * call GetGitHead()
 augroup END
 
 " }}}
