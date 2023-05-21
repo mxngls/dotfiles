@@ -1,9 +1,12 @@
 source ~/.bashrc
 
 #Shell
-set HISTCONTROL=ignoreboth
-set HISTSIZE=1000
-set HISTFILESIZE=2000
+HISTSIZE=1000
+SAVEHIST=1000
+HISTFILE=~/.history
+setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
 
 # Load version control information
 autoload -Uz vcs_info
