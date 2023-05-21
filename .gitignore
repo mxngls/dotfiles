@@ -2,3 +2,4 @@
 .DS_Store?
 ._*
 Brewfile.lock.json
+current-theme.conf
