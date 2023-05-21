@@ -38,11 +38,11 @@ set gdefault
 
 " Better safe than sorry {{{
 
-if !isdirectory($HOME."/.vim")
-    call mkdir($HOME."/.vim", "p", 0770)
+if !isdirectory($HOME.'/.vim')
+    call mkdir($HOME.'/.vim', 'p', 0770)
 endif
-if !isdirectory($HOME."/.vim/undo-dir")
-    call mkdir($HOME."/.vim/undo-dir", "p", 0700)
+if !isdirectory($HOME.'/.vim/undo-dir')
+    call mkdir($HOME.'/.vim/undo-dir', 'p', 0700)
 set undodir=~/.vim/undodir
 endi
 set undodir=~/.vim/undo-dir
@@ -80,7 +80,7 @@ function! CountFolds()
   let count = 0
   let level = 1
   let current_line = 1
-  let last_line = line("$")
+  let last_line = line('$')
   while current_line <= last_line
     if foldlevel(current_line) == level && foldclosedend(current_line) != -1
       let count += 1
@@ -89,7 +89,7 @@ function! CountFolds()
       let current_line += 1
     endif
   endwhile
-  echo "Active folds: " . count
+  echo 'Active folds: ' . count
 endfunction
 
 function! PatchColors()
@@ -242,7 +242,7 @@ map <C-p> :cp<CR>zz
 map <C-n> :lne<CR>zz
 map <C-p> :lpe<CR>zz
 
-nnoremap <leader>o :e <C-R>=expand("%:p:h") . "/"<CR>
+nnoremap <leader>o :e <C-R>=expand('%:p:h') . '/'<CR>
 nnoremap <leader>so :so $MYVIMRC<CR>
 
 "inoremap " ""<left>
@@ -352,7 +352,7 @@ call plug#end()
 
 autocmd VimEnter * so $MYVIMRC
 
-autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+autocmd BufReadPost * if expand("%:p") !~# '\m/\.git/' && line("'\'") > 1 && line("'\'") <= line('$') | exe 'normal! g"\' | endif
 
 augroup autoformat_settings
   autocmd FileType html,css,sass,scss,less AutoFormatBuffer prettier
@@ -394,5 +394,5 @@ Glaive codefmt prettier_options=`['--tab-width=2']`
 " }}}
 
 if has('nvim')
-  :lua require("init")
+  :lua require('init')
 endif
