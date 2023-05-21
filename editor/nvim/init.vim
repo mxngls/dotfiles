@@ -100,6 +100,14 @@ function! PatchColors()
   hi NormalFloat guibg=NONE ctermbg=NONE
 endfunction
 
+function! SetBackground()
+  let bg_ = system('head -n 1 ~/dotfiles/shell/kitty/current-theme.conf 2> /dev/null')
+  let bg_ = substitute(bg_, '\n', '', 'g')
+  if bg_ == '#DARK'
+    set background=dark
+  else
+    set background=light
+  endif
 endfunction
 
 function! SetColors()
@@ -152,8 +160,9 @@ endfunction
 
 " Colors {{{
 
-call PatchColors()
+call SetBackground()
 call SetColors()
+call PatchColors()
 
 nmap <leader>ct :call jobstart('$HOME/dotfiles/shell/toggle_theme.sh -t')<CR>
 
