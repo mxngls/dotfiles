@@ -23,10 +23,10 @@ set scrolloff=10
 set pumheight=10
 
 set noswapfile
-set clipboard="unnamedplus"
+set clipboard=unnamedplus
 set wildmode=longest,list
 set wildmenu
-set completeopt="menuone,noinsert,noselect"
+set completeopt=menuone,noinsert,noselect
 
 set nohlsearch"{{{}}}
 set incsearch
