@@ -95,21 +95,11 @@ function! CountFolds()
 endfunction
 
 function! PatchColors()
-  hi VertSplit ctermfg=250
-
-  hi Folded ctermbg=92 guibg=92
-  hi FoldColumn ctermbg=92 guibg=92
-  hi SignColumn ctermbg=234
-
+  hi Cursor guifg=#fdf6e3 guibg=#268bd2 gui=NONE cterm=NONE
   hi FloatBorder  guibg=NONE ctermbg=NONE 
   hi NormalFloat guibg=NONE ctermbg=NONE
+endfunction
 
-  hi StatuslineNC cterm=NONE ctermbg=NONE gui=NONE guibg=Grey7
-  hi StatusLine cterm=NONE ctermbg=NONE gui=NONE guibg=Grey7
-  hi FilePath  ctermbg=NONE gui=NONE guifg=White guibg=Grey7
-  hi GitBranchMain ctermbg=NONE gui=bold guifg=Green1 guibg=Grey7
-  hi GitBranchOther ctermbg=NONE gui=bold guifg=Yellow1 guibg=Grey7
-  hi LineInd ctermbg=NONE gui=NONE guifg=White guibg=Grey7
 endfunction
 
 function! SetColors()
