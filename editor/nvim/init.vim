@@ -28,7 +28,7 @@ set wildmode=longest,list
 set wildmenu
 set completeopt=menuone,noinsert,noselect
 
-set nohlsearch"{{{}}}
+set nohlsearch
 set incsearch
 set ignorecase
 set smartcase
