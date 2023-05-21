@@ -64,4 +64,6 @@ fi
 
 switch_theme "$mode"
 
+source ~/.zshrc
+
 exit

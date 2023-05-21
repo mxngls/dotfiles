@@ -1,4 +1,4 @@
-" Basic editor settings {{{1
+" Basic editor settings {{{2
 
 let mapleader="\<Space>" 
 set mouse=a
@@ -123,7 +123,7 @@ function! SetColors()
 endfunction
 
 function! GetGitHead()
-  let b:gitbranch=''
+  let b:gitbranch=' '
   if &modifiable
     try
       lcd %:p:h
@@ -316,9 +316,7 @@ call plug#end()
 
 " Autocommands {{{
 
-autocmd VimEnter * so $MYVIMRC
-
-autocmd BufReadPost * if expand("%:p") !~# '\m/\.git/' && line("'\'") > 1 && line("'\'") <= line('$') | exe 'normal! g"\' | endif
+autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 augroup autoformat_settings
   autocmd FileType html,css,sass,scss,less AutoFormatBuffer prettier
@@ -342,16 +340,18 @@ augroup spell_git
   autocmd FileType gitcommit setlocal spelllang=en_us
 augroup END
 
+augroup get_git_head 
+  autocmd!
+  autocmd VimEnter,WinEnter,BufEnter * call GetGitHead()
+augroup END
+
 augroup nerd_tree
   autocmd!
   autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+  autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && v:this_session == '' | NERDTree | endif
 augroup END
 
-augroup get_git_head 
-  autocmd!
-  autocmd BufWinEnter * call GetGitHead()
-augroup END
+autocmd VimEnter * so $MYVIMRC
 
 " }}}
 

@@ -19,7 +19,11 @@ autoload -Uz compinit
 compinit
 
 # Prompt
-export PROMPT='%F{244}[%T]%f%  %F{255}%m%f | %F{188}%~%f ${vcs_info_msg_0_}> ' 
+if [[ "$(head -n 1 ~/dotfiles/shell/kitty/current-theme.conf | grep -i 'DARK')" == '#DARK' ]]; then
+  export PROMPT='%F{244}[%T]%f%  %F{255}%m%f | %F{244}%~%f ${vcs_info_msg_0_}> '
+else
+  export PROMPT='%F{244}[%T]%f%  %F{0}%m%f | %F{244}%~%f ${vcs_info_msg_0_}> '
+fi
 
 # Autocomplete for Homebrew
 if type brew &>/dev/null
