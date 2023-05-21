@@ -112,18 +112,15 @@ endfunction
 
 function! SetColors()
   if has('gui_running')
-    autocmd vimenter * ++nested colorscheme solarized8
-    colorscheme solarized8
+    colorscheme solarized_custom
   elseif &t_Co < 256
     colorscheme default
     set nocursorline
   else
     set termguicolors
-    autocmd vimenter * ++nested colorscheme solarized8
-    call PatchColors()
+    colorscheme solarized_custom
   endif
 endfunction
-
 
 function! GetGitHead()
   let b:gitbranch=''
