@@ -342,7 +342,7 @@ augroup END
 augroup spell_git
   autocmd!
   autocmd FileType gitcommit setlocal spell
-  autocmd FileType gitcommit setlocal set spelllang=en_us
+  autocmd FileType gitcommit setlocal spelllang=en_us
 augroup END
 
 augroup nerd_tree
