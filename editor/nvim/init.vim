@@ -280,9 +280,7 @@ Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Git 
-" Plug 'airblade/vim-gitgutter' 
 Plug 'mhinz/vim-signify'
-Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-fugitive'
 
 " Formatting
