@@ -40,7 +40,7 @@ if type brew &>/dev/null; then
   compinit
 fi
 
-source ~/Git/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+# source ~/Git/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
