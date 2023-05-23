@@ -140,9 +140,10 @@ endfunction
 
 function! SetStatusLine()
   " Left aligned
-  let l:stl = '   %t'
-  let l:stl .= '  %{b:gitbranch} '
-  let l:stl .= '%y%w%m%r'
+  let l:stl = '   %t '
+  let l:stl .= '[' . expand('%:e') . ']' 
+  let l:stl .= '%w%m%r '
+  let l:stl .= '%{b:gitbranch}'
 
   " Right aligned
   let l:stl .= '%='
