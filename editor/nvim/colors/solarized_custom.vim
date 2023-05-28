@@ -1,5 +1,5 @@
 hi clear
-let g:colors_name = 'solarized8'
+let g:colors_name = 'solarized_custom'
 
 let s:t_Co = exists('&t_Co') && !empty(&t_Co) && &t_Co > 1 ? &t_Co : 1
 
