@@ -1,4 +1,4 @@
-" Basic editor settings {{{2
+" Basic editor settings {{{
 
 let mapleader="\<Space>" 
 set mouse=a
@@ -160,8 +160,6 @@ function! SetStatusLine()
   return stl
 endfunction
 
-" Searching {{{2
-
 " }}}
 
 " Colors {{{
@@ -171,8 +169,6 @@ call SetColors()
 call PatchColors()
 
 nmap <leader>ct :call jobstart('$HOME/dotfiles/shell/toggle_theme.sh -t')<CR>
-
-" }}}
 
 " }}}
 
