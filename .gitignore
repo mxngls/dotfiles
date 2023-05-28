@@ -3,4 +3,5 @@
 ._*
 Brewfile.lock.json
 current-theme.conf
+kitty.conf.bak
 undo-dir
