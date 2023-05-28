@@ -271,7 +271,6 @@ call plug#begin()
 
 " Colorschemes & Statusline
 Plug 'Mofiqul/vscode.nvim'
-Plug 'lifepillar/vim-solarized8'
 
 " File and folder view
 Plug 'preservim/nerdtree'
