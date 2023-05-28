@@ -41,13 +41,21 @@ set statusline=%!SetStatusLine()
 " Better safe than sorry {{{
 
 if !isdirectory($HOME.'/.vim')
-    call mkdir($HOME.'/.vim', 'p', 0770)
+  call mkdir($HOME.'/.vim', 'p', 0770)
 endif
+
 if !isdirectory($HOME.'/.vim/undo-dir')
-    call mkdir($HOME.'/.vim/undo-dir', 'p', 0700)
-set undodir=~/.vim/undodir
-endi
-set undodir=~/.vim/undo-dir
+  call mkdir($HOME.'/.vim/undo-dir', 'p', 0700)
+elseif !isdirectory($HOME.'/.config/nvim/undo-dir')
+  call mkdir($HOME.'/.config/nvim/undo-dir', 'p', 0700)
+endif
+
+if has('nvim')
+  set undodir=~/dotfiles/editor/nvim/undo-dir
+else
+  set undodir=~/.vim/undo-dir
+endif 
+
 set undofile
 
 " }}}
