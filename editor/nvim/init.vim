@@ -207,10 +207,10 @@ nmap <leader>P "+P
 vmap <leader>p "+p
 vmap <leader>P "+P
 
-nnoremap <leader>h :wincmd h <CR> 
-nnoremap <leader>j :wincmd j <CR> 
-nnoremap <leader>k :wincmd k <CR> 
-nnoremap <leader>l :wincmd l <CR> 
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j 
+nnoremap <C-k> <C-w>k 
+nnoremap <C-l> <C-w>l 
 nnoremap <leader><leader> <c-w><c-p><CR>
 
 nnoremap <M-Up> :res +5<CR>
