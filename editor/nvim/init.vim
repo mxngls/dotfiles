@@ -8,7 +8,7 @@ set backspace=indent,eol,start
 set confirm
 set showmatch
 set ttyfast
-set noshowmode
+set showmode
 set shortmess+=I
 
 set splitbelow
@@ -70,7 +70,7 @@ set wrap
 
 set smartindent
 set foldmethod=indent
-set foldcolumn=auto:3
+set foldcolumn=auto:2
 set foldlevelstart=0
 set foldnestmax=10
 set nofoldenable
@@ -106,6 +106,12 @@ function! PatchColors()
   hi Cursor guifg=#fdf6e3 guibg=#268bd2 gui=NONE cterm=NONE
   hi FloatBorder  guibg=NONE ctermbg=NONE 
   hi NormalFloat guibg=NONE ctermbg=NONE
+  hi SignColumn guibg=NONE ctermbg=NONE
+  hi FoldColumn guibg=NONE ctermbg=NONE
+
+  hi DiffAdd guibg=NONE ctermbg=NONE
+  hi DiffChange guibg=NONE ctermbg=NONE 
+  hi DiffDelete guibg=NONE ctermbg=NONE 
 endfunction
 
 function! SetBackground()
@@ -255,11 +261,8 @@ nnoremap <leader>fg :Telescope live_grep<CR>
 nnoremap <leader>fb :Telescope buffers<CR>
 nnoremap <leader>fh :Telescope help_tags<CR>
 
-nnoremap <leader>gd :SignifyHunkDiff<CR>
-nnoremap <leader>gn <plug>(signify-next-hunk)
-nnoremap <leader>gp <plug>(signify-prev-hunk)
-nnoremap <leader>gN 9999<plug>(signify-next-hunk)
-nnoremap <leader>gP 9999<plug>(signify-prev-hunk)
+nnoremap <leader>hd :SignifyHunkDiff<CR>
+nnoremap <leader>hu :SignifyHunkDiff<CR>
 
 " }}}
 
@@ -367,6 +370,12 @@ let g:NERDTreeShowLineNumbers=1
 
 call glaive#Install()
 Glaive codefmt prettier_options=`['--tab-width=2']`
+
+let g:signify_sign_add               = '┃'
+let g:signify_sign_change            = '┃'
+let g:signify_sign_change_delete     = '╋'
+let g:signify_sign_delete            = '┃'
+let g:signify_sign_delete_first_line = '▔'
 
 " }}}
 
