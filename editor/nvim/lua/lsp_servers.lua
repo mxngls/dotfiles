@@ -11,4 +11,3 @@ local lsp_servers = {
 }
 
 return lsp_servers
-

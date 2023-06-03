@@ -38,6 +38,7 @@ move_window() {
 
     # Select the moved window
     tmux select-window -t "$target"
+
   fi # end of if-else statement
 }
 
