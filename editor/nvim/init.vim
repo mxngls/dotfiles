@@ -196,6 +196,7 @@ nmap <leader>ct :call jobstart('$HOME/dotfiles/shell/toggle_theme.sh -t')<CR>
 
 nmap <leader>w :w<CR>
 nmap <leader>wq :wq<CR>
+nmap <leader>nw : noa w<CR>
 nmap <leader>q :q<CR>
 
 nmap <leader>jj <ESC>
