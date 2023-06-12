@@ -1,22 +1,6 @@
 -- Setup language servers.
-
 local lspconfig = require('lspconfig')
 local lsp_ui_windows = require('lspconfig.ui.windows')
-
-local lspconfig_setup = {
-  -- ... other configs
-  settings = {
-    Lua = {
-      diagnostics = {
-        -- this is to allow vim to be consider as a globals
-        -- authorise variable
-        globals = { 'vim' }
-      }
-    }
-  }
-}
-
-lspconfig.lua_ls.setup(lspconfig_setup)
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -38,17 +22,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
       border = "rounded",
       source = 'always',
     })
-
     vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
       vim.lsp.handlers.signature_help,
       { border = 'rounded' }
     )
-
     vim.diagnostic.config {
       virtual_text = false,
       float = { border = "rounded" },
     }
-
     lsp_ui_windows.default_options.border = 'rounded'
 
     local function on_list(options)
@@ -87,3 +68,14 @@ local lsp_servers = require("..lsp_servers")
 for _, language_server in ipairs(lsp_servers) do
   lspconfig[language_server].setup({})
 end
+
+lspconfig.lua_ls.setup {
+  settings = {
+    Lua = {
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = { 'vim' },
+      },
+    },
+  },
+}
