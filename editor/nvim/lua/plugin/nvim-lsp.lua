@@ -51,13 +51,23 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     lsp_ui_windows.default_options.border = 'rounded'
 
+    local function on_list(options)
+      -- vim.api.nvim_echo({ { vim.inspect(options) } }, true, {})
+      vim.api.nvim_echo({ { vim.inspect(vim.fn.getqflist() ) } }, true, {})
+      vim.fn.setqflist({}, ' ', options)
+      if #vim.fn.getqflist() == 1 then
+        vim.api.nvim_command('vsplit | copen | .cc | ccl')
+      end
+    end
+
+    local function goToDef()
+      vim.lsp.buf.definition({ reuse_window = true, on_list = on_list })
+    end
 
     -- Buffer local mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', '<leader>v', "<cmd>vsplit | lua vim.lsp.buf.definition()<CR>", opts)
-    vim.keymap.set('n', '<leader>h', "<cmd>split | lua vim.lsp.buf.definition()<CR>", opts)
+    vim.keymap.set('n', 'gd', goToDef, opts)
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
