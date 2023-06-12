@@ -8,8 +8,12 @@ set backspace=indent,eol,start
 set confirm
 set showmatch
 set ttyfast
+set lazyredraw
 set showmode
 set shortmess+=I
+set autoread
+set matchpairs+=(:),[:],{:},<:>
+set switchbuf=vsplit
 set laststatus=2
 
 set splitbelow
