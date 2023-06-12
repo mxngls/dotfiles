@@ -202,9 +202,7 @@ nmap <leader>wq :wq<CR>
 nmap <leader>nw : noa w<CR>
 nmap <leader>q :q<CR>
 
-nmap <leader>jj <ESC>
-vmap <leader>jj <ESC>
-imap <leader>jj <ESC>
+inoremap jj <ESC>
 
 nnoremap j gj
 nnoremap k gk
