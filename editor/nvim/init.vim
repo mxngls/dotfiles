@@ -10,6 +10,7 @@ set showmatch
 set ttyfast
 set showmode
 set shortmess+=I
+set laststatus=2
 
 set splitbelow
 set splitright
@@ -70,10 +71,21 @@ set wrap
 
 set smartindent
 set foldmethod=indent
-set foldcolumn=auto:2
 set foldlevelstart=0
 set foldnestmax=10
 set nofoldenable
+
+" }}}
+
+" {{{ Cursor
+
+if has("gui")
+  echo "GUI"
+  set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
+else
+  let &t_SI = "\e[5 q"
+  let &t_EI = "\e[2 q"
+endif
 
 " }}}
 
