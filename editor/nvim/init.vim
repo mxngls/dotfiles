@@ -332,7 +332,14 @@ call plug#end()
 
 " Autocommands {{{
 
-autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+augroup save_cursor
+  autocmd BufReadPost * ++once
+    \ if line("'\"") > 0 && line("'\"") <= line("$") | 
+    \ exe "normal g`\"" | 
+    \ let b:doopenfold = 1 | 
+    \ exe "normal zz" |
+    \ endif 
+augroup END
 
 augroup autoformat_settings
   autocmd FileType html,css,sass,scss,less AutoFormatBuffer prettier
