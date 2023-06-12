@@ -369,10 +369,11 @@ augroup get_git_head
   autocmd VimEnter,WinEnter,BufEnter * call GetGitHead()
 augroup END
 
-augroup nerd_tree
+augroup patch
   autocmd!
-  autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && v:this_session == '' | NERDTree | endif
+  autocmd OptionSet background call PatchColors()
+augroup END
+
 augroup tmux
   autocmd!
   if exists('$TMUX')
