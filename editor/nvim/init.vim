@@ -284,12 +284,8 @@ nnoremap <leader>hu :SignifyHunkUndo<CR>
 
 call plug#begin()
 
-" Colorschemes & Statusline
-Plug 'Mofiqul/vscode.nvim'
-
 " File and folder view
 Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Git 
 Plug 'mhinz/vim-signify'
