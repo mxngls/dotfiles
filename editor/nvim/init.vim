@@ -209,6 +209,12 @@ imap <leader>jj <ESC>
 nnoremap j gj
 nnoremap k gk
 
+
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
+cnoremap <C-h> <Left>
+cnoremap <C-l> <Right>
+
 noremap <C-z> <C-a>
 
 nnoremap <C-d> <C-d>zz
