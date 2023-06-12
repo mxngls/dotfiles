@@ -215,17 +215,10 @@ nnoremap <C-i> <C-i>zz
 map H ^
 map L $
 
-nmap <leader>d "_d
-vmap <leader>d "_d
-
-nmap <leader>y "+y
-nmap <leader>d "+d
-vmap <leader>y "+y
-vmap <leader>d "+d
-nmap <leader>p "+p
-nmap <leader>P "+P
-vmap <leader>p "+p
-vmap <leader>P "+P
+nnoremap <leader>d "_d
+nnoremap <leader>d "_d
+vnoremap <leader>d "_D
+vnoremap <leader>D "_D
 
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j 
