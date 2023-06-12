@@ -373,6 +373,12 @@ augroup nerd_tree
   autocmd!
   autocmd StdinReadPre * let s:std_in=1
   autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && v:this_session == '' | NERDTree | endif
+augroup tmux
+  autocmd!
+  if exists('$TMUX')
+    autocmd WinEnter,BufReadPost,FileReadPost,BufNewFile,FocusGained * call system("tmux rename-window " . expand("%:t"))
+    autocmd VimLeave * call system("tmux set-window-option automatic-rename")
+  endif
 augroup END
 
 autocmd VimEnter * so $MYVIMRC
