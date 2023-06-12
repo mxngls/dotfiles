@@ -37,6 +37,8 @@ set gdefault
 
 set statusline=%!SetStatusLine()
 
+filetype plugin on
+
 " }}}
 
 " Better safe than sorry {{{
@@ -343,11 +345,6 @@ augroup autoformat_settings
   autocmd FileType html,css,sass,scss,less AutoFormatBuffer prettier
   autocmd FileType javascript,javascriptreact,typescript,typescriptreact,vue,json AutoFormatBuffer prettier
   autocmd FileType python AutoFormatBuffer yapf
-augroup END
-
-augroup help
-  autocmd!
-  autocmd FileType help wincmd L
 augroup END
 
 augroup singify
