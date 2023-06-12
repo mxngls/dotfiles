@@ -269,7 +269,7 @@ nnoremap <leader>fb :Telescope buffers<CR>
 nnoremap <leader>fh :Telescope help_tags<CR>
 
 nnoremap <leader>hd :SignifyHunkDiff<CR>
-nnoremap <leader>hu :SignifyHunkDiff<CR>
+nnoremap <leader>hu :SignifyHunkUndo<CR>
 
 " }}}
 
