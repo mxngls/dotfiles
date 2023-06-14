@@ -9,8 +9,8 @@ move_window() {
 
   # Check if target argument is valid
   if [ -z "$1" ] || [ "$1" -eq "$source" ]; then
-    tmux select-window -t "$target"
-  else # proceed with moving the window
+    exit
+  else 
     # Get the direction of the move
     if [ "$source" -lt "$1" ]; then
       dir=1 # move right
@@ -33,7 +33,7 @@ move_window() {
 
     # Loop over the windows and swap them until the desired position is reached
     for ((i = source; i != target; i += dir)); do
-      tmux swap-window -s :$i -t :$((i + dir))
+      tmux swap-window -d  -t $((i + dir))
     done
 
     # Select the moved window
