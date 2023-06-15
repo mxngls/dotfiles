@@ -1,3 +1,5 @@
+# Functions
+source ~/dotfiles/shell/functions.sh
 
 # Path
 source ~/dotfiles/shell/path.sh
@@ -12,6 +14,7 @@ source ~/dotfiles/shell/zsh/plugins/plugins_before.zsh
 source ~/dotfiles/shell/zsh/settings.zsh
 
 # Prompt
+source ~/dotfiles/shell/zsh/prompt.zsh
 
 # External plugins (initialized after)
 source ~/dotfiles/shell/zsh/plugins/plugins_after.zsh
