@@ -1,4 +1,3 @@
-source ~/.bashrc
 
 # Path
 source ~/dotfiles/shell/path.sh
