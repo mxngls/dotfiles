@@ -39,5 +39,3 @@
 	rebase = true
 [branch "main"]
 	rebase = true
-[core]
-	editor = nvim
