@@ -1,5 +1,8 @@
 source ~/.bashrc
 
+# Path
+source ~/dotfiles/shell/path.sh
+
 # Alias
 source ~/dotfiles/shell/alias.sh
 
