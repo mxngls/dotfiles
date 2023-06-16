@@ -33,11 +33,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
     lsp_ui_windows.default_options.border = 'rounded'
 
     local function on_list(options)
-      -- vim.api.nvim_echo({ { vim.inspect(options) } }, true, {})
-      vim.api.nvim_echo({ { vim.inspect(vim.fn.getqflist() ) } }, true, {})
+      -- vim.api.nvim_echo({ { vim.inspect(vim.fn.getqflist() ) } }, true, {})
       vim.fn.setqflist({}, ' ', options)
       if #vim.fn.getqflist() == 1 then
-        vim.api.nvim_command('vsplit | copen | .cc | ccl')
+        vim.api.nvim_command('copen | .cc | ccl')
       end
     end
 
