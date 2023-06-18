@@ -106,13 +106,13 @@ endfunction
 
 function! CountFolds()
   let count = 0
-  let level = 1
   let current_line = 1
   let last_line = line('$')
   while current_line <= last_line
-    if foldlevel(current_line) == level && foldclosedend(current_line) != -1
+    let last_fold_line = foldclosedend(current_line)
+    if  last_fold_line != -1
       let count += 1
-      let current_line = foldclosedend(current_line) + 1
+      let current_line = last_fold_line + 1
     else
       let current_line += 1
     endif
