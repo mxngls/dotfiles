@@ -174,7 +174,9 @@ function! SetStatusLine()
   " Left aligned
   let l:stl = '   %F '
   let l:stl .= '%y%w%m%r '
-  let l:stl .= '%{b:gitbranch}'
+  if exists('b:gitbranch')
+    let l:stl .= '%{b:gitbranch}'
+  endif
 
   " Right aligned
   let l:stl .= '%='
@@ -376,7 +378,7 @@ augroup END
 
 augroup get_git_head 
   autocmd!
-  autocmd VimEnter,WinEnter,BufEnter * call GetGitHead()
+  autocmd BufAdd,BufRead * call GetGitHead()
 augroup END
 
 augroup patch
