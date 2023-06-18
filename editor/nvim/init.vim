@@ -97,7 +97,7 @@ endif
 
 " {{{ Functions
 
-function! s:ShowCurrentHunk() abort
+function! s:ShowCurrentHunk() 
   let h = sy#util#get_hunk_stats()
   if !empty(h)
     echo printf('[Hunk %d/%d]', h.current_hunk, h.total_hunks)
@@ -204,6 +204,7 @@ function ToggleExplorer()
     let @/=expand('%:t') | Explore | normal n
   endif
 endfun
+
 " }}}
 
 " Colors {{{
@@ -271,7 +272,7 @@ nnoremap <leader>fm :set foldmethod=marker<CR>
 nnoremap <leader>fi :set foldmethod=indent<CR>
 nnoremap <leader>fn :call CountFolds()<CR>
 
-nnoremap <leader>m @
+nnoremap <C-m> @
 
 nnoremap Q <nop>
 
@@ -302,6 +303,7 @@ if has('nvim')
   nnoremap <leader>fh :Telescope help_tags<CR>
 endif
 
+
 " }}}
 
 " }}}
@@ -310,7 +312,6 @@ endif
 
 call plug#begin()
 
-" File and folder view
 " Git 
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
@@ -358,6 +359,7 @@ call plug#end()
 " Autocommands {{{
 
 augroup save_cursor
+  autocmd!
   autocmd BufReadPost * ++once
     \ if line("'\"") > 0 && line("'\"") <= line("$") | 
     \ exe "normal g`\"" | 
