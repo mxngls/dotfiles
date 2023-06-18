@@ -3,7 +3,7 @@
 let mapleader="\<Space>" 
 set mouse=a
 set timeout
-set timeoutlen=400
+set timeoutlen=300
 set backspace=indent,eol,start
 set confirm
 set showmatch
