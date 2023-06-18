@@ -1,1 +1,1 @@
-autocmd BufWinEnter <buffer> wincmd L
+autocmd BufWinEnter <buffer> wincmd L | vertical resize 80
