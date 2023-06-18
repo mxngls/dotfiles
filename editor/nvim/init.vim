@@ -279,20 +279,28 @@ nnoremap Q <nop>
 
 nnoremap <leader>gg :Git<CR>
 
+" Fugitive
+nnoremap <leader>gg :vertical Git<CR>
 
+" Vim-codefmt
 nnoremap <leader>fc :FormatCode<CR>
 vnoremap <leader>fl :FormatLines<CR>
 
-nnoremap <leader>ff :Telescope find_files<CR>
-nnoremap <leader>fg :Telescope live_grep<CR>
-nnoremap <leader>fb :Telescope buffers<CR>
-nnoremap <leader>fh :Telescope help_tags<CR>
-
+" Signify
 nnoremap <leader>hd :SignifyHunkDiff<CR>
 nnoremap <leader>hu :SignifyHunkUndo<CR>
 
+" Netrw
 nnoremap <leader>l  :call ToggleExplorer()<CR>
 nnoremap <leader>L  :vnew \| :Ex<CR>
+
+if has('nvim')
+  " Telescop
+  nnoremap <leader>ff :Telescope find_files<CR>
+  nnoremap <leader>fg :Telescope live_grep<CR>
+  nnoremap <leader>fb :Telescope buffers<CR>
+  nnoremap <leader>fh :Telescope help_tags<CR>
+endif
 
 " }}}
 
@@ -405,9 +413,11 @@ augroup END
 
 " Plugin Settings {{{
 
+" Vim-codefmt
 call glaive#Install()
 Glaive codefmt prettier_options=`['--tab-width=2']`
 
+" Signify
 let g:signify_sign_add               = '┃'
 let g:signify_sign_change            = '┃'
 let g:signify_sign_change_delete     = '╋'
