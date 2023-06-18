@@ -183,6 +183,25 @@ function! SetStatusLine()
   return stl
 endfunction
 
+function ToggleExplorer()
+  if &ft == "netrw"
+    if exists("w:netrw_rexfile")
+      if w:netrw_rexfile == "" || w:netrw_rexfile == "NetrwTreeListing"
+        quit
+      else
+        exec 'e ' . w:netrw_rexfile
+      endif
+    else
+      if exists("w:netrw_rexlocal") && w:netrw_rexlocal != 1
+        Rexplore
+      else
+        quit
+      endif
+    endif
+  else
+    let @/=expand('%:t') | Explore | normal n
+  endif
+endfun
 " }}}
 
 " Colors {{{
@@ -264,9 +283,6 @@ nnoremap Q <nop>
 
 nnoremap <leader>gg :Git<CR>
 
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <leader>t :NERDTreeToggle%<CR>
-nnoremap <leader>tf :NERDTreeFind<CR>
 
 nnoremap <leader>fc :FormatCode<CR>
 vnoremap <leader>fl :FormatLines<CR>
@@ -279,6 +295,9 @@ nnoremap <leader>fh :Telescope help_tags<CR>
 nnoremap <leader>hd :SignifyHunkDiff<CR>
 nnoremap <leader>hu :SignifyHunkUndo<CR>
 
+nnoremap <leader>l  :call ToggleExplorer()<CR>
+nnoremap <leader>L  :vnew \| :Ex<CR>
+
 " }}}
 
 " }}}
@@ -288,8 +307,6 @@ nnoremap <leader>hu :SignifyHunkUndo<CR>
 call plug#begin()
 
 " File and folder view
-Plug 'preservim/nerdtree'
-
 " Git 
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
@@ -381,12 +398,15 @@ augroup tmux
 augroup END
 
 autocmd VimEnter * so $MYVIMRC
+augroup netrw
+  autocmd!
+  autocmd Filetype netrw nmap <buffer> <C-l> :wincmd l<CR>
+  autocmd Filetype netrw nmap <buffer> l <CR>
+augroup END
 
 " }}}
 
 " Plugin Settings {{{
-
-let g:NERDTreeShowLineNumbers=1
 
 call glaive#Install()
 Glaive codefmt prettier_options=`['--tab-width=2']`
@@ -396,6 +416,15 @@ let g:signify_sign_change            = '┃'
 let g:signify_sign_change_delete     = '╋'
 let g:signify_sign_delete            = '┃'
 let g:signify_sign_delete_first_line = '▔'
+
+" Netrw
+let g:netrw_banner          = 0
+let g:netrw_liststyle       = 3
+let g:eetrw_browse_split    = 4
+let g:netrw_altv            = 1
+let g:netrw_bufsettings     = 'noma nomod nu rnu nobl nowrap ro'
+let g:netrw_use_errorwindow = 2
+let g:netrw_fastbrowse		  = 2
 
 " }}}
 
