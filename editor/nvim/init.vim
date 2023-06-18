@@ -357,9 +357,10 @@ augroup save_cursor
 augroup END
 
 augroup autoformat_settings
-  autocmd FileType html,css,sass,scss,less AutoFormatBuffer prettier
-  autocmd FileType javascript,javascriptreact,typescript,typescriptreact,vue,json AutoFormatBuffer prettier
-  autocmd FileType python AutoFormatBuffer yapf
+  autocmd!
+  autocmd Filetype html,css,sass,scss,less AutoFormatBuffer prettier
+  autocmd Filetype javascript,javascriptreact,typescript,typescriptreact,vue,json AutoFormatBuffer prettier
+  autocmd Filetype python AutoFormatBuffer yapf
 augroup END
 
 augroup singify
@@ -369,8 +370,8 @@ augroup END
 
 augroup spell_git
   autocmd!
-  autocmd FileType gitcommit setlocal spell
-  autocmd FileType gitcommit setlocal spelllang=en_us
+  autocmd Filetype gitcommit setlocal spell
+  autocmd Filetype gitcommit setlocal spelllang=en_us
 augroup END
 
 augroup get_git_head 
