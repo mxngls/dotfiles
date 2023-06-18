@@ -258,18 +258,12 @@ nnoremap <M-Down> :res -5<CR>
 nnoremap <M-Left> :vertical res +5<CR>
 nnoremap <M-Right> :vertical res -5<CR>
 
-map <C-n> :cn<CR>zz
-map <C-p> :cp<CR>zz
-map <C-n> :lne<CR>zz
-map <C-p> :lpe<CR>zz
-
 nnoremap <leader>o :e <C-R>=expand('%:p:h') . '/'<CR>
 nnoremap <leader>so :so $MYVIMRC<CR>
 
 nnoremap <C-n> :cnext<CR>zz
 nnoremap <C-p> :cprevious<CR>zz
 nnoremap <leader>cc :cclose<CR>
-nnoremap <leader>co :cclose<CR>
 
 nnoremap <leader>fm :set foldmethod=marker<CR>
 nnoremap <leader>fi :set foldmethod=indent<CR>
