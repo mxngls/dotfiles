@@ -286,8 +286,6 @@ nmap <leader>wq :wq<CR>
 nmap <leader>nw : noa w<CR>
 nmap <leader>q :q<CR>
 
-inoremap jj <ESC>
-
 " Instead of visual we want line movement
 nnoremap j gj
 nnoremap k gk
@@ -363,7 +361,6 @@ nnoremap <leader>S :SortWords
 " @ is just too far
 nnoremap <C-m> @
 
-nnoremap Q <nop>
 " These as well
 map H ^
 map L $
