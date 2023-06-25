@@ -370,8 +370,6 @@ map L $
 
 " Plugin related {{{2
 
-nnoremap <leader>gg :Git<CR>
-
 " Fugitive
 nnoremap <leader>gg :vertical Git<CR>
 
