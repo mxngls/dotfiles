@@ -526,7 +526,6 @@ command! -nargs=? -range SortWords call SortWords(<q-args>)
 
 " Vim-codefmt
 call glaive#Install()
-Glaive codefmt prettier_options=`['--tab-width=2']`
 
 " Signify
 let g:signify_sign_add               = '┃'
