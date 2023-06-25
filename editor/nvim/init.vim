@@ -454,7 +454,10 @@ augroup END
 augroup tmux
   autocmd!
   if exists('$TMUX')
-    autocmd WinEnter,BufReadPost,FileReadPost,BufNewFile,FocusGained * call system("[[ \"$(tmux display-message -p '#W' | cut -c 1)\" != \"_\" ]] && tmux rename-window " . expand("%:t"))
+    autocmd WinEnter,BufReadPost,FileReadPost,BufNewFile,FocusGained * 
+          \ call system("[[ \"$(tmux display-message -p 
+          \ '#W' | \ cut -c 1)\" != \"_\" ]] && tmux rename-window " 
+          \ . expand("%:t"))
     autocmd VimLeave * call system("tmux set-window-option automatic-rename")
   endif
 augroup END
