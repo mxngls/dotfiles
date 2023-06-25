@@ -1,45 +1,57 @@
 " Basic editor settings {{{
 
-let mapleader="\<Space>" 
-set mouse=a
-set timeout
-set timeoutlen=300
-set backspace=indent,eol,start
-set confirm
-set showmatch
-set ttyfast
-set lazyredraw
-set showmode
-set shortmess+=I
-set autoread
-set matchpairs+=(:),[:],{:},<:>
-set switchbuf=vsplit
-set laststatus=2
+let mapleader="\<Space>"        " Use Space key as the map leader
+set nocompatible                " Disable compatibility with vi
+set mouse=a                     " Enable mouse support
+set timeout                     " Enable timeout for mappings
+set timeoutlen=300              " Set timeout length to 300ms
+set backspace=indent,eol,start  " Allow backspacing over everything
+set confirm                     " Confirm before overwriting a file
+set showmatch                   " Show matching brackets
+set ttyfast                     " Improve redraw speed for terminals
+set lazyredraw                  " Delay redraw in macros and scripts
+set showmode                    " Show current mode in the command line
+set autoread                    " Automatically read a file when it changes
+set matchpairs+=(:),[:],{:},<:> " Additional characters for matchpairs
+set regexpengine=2              " Use improved regular expression engine
+set switchbuf=useopen,uselast   " Reuse windows if possible
+set laststatus=2                " Always show the status line
+set path+=**                    " Recursively traverse directories
+set splitbelow                  " Open split below the current window
+set splitright                  " Open split to the right of the current window
+set scrolloff=10                " Minumum number of lines to keep above/below the cursor
+set syntax=on                   " Enable syntax highlighting
+set spelllang=en_us             " Set the spell check language to English
+set number                      " Show line numbers
+set relativenumber              " Show relative line numbers
+set pumheight=10                " Don't make the completion window too heigh
+set noswapfile                  " Disable swap files
+set clipboard=unnamedplus       " Use the system clipboard
 
-set splitbelow
-set splitright
+set wildmenu                    " Enable command-line completion menu
+set wildmode=longest:full       " Complete longest match, list other matches in wildmenu
+set wildignorecase              " Case is ignored when completing file names and directories
+set wildoptions=pum             " Show pop-up menu
+set completeopt=menuone,preview,noselect " Enable enhanced completion menu
 
-set syntax=on
-set spelllang=en_us
+set nohlsearch                  " Clear search highlighting after completing a search
+set incsearch                   " Enable incremental searching
+set ignorecase                  " Ignore case when searching
+set smartcase                   " Use case-sensitive search if the pattern contains an uppercase character
 
-set number
-set relativenumber
-set scrolloff=10
-set pumheight=10
+set expandtab                   " Use spaces instead of tabs
+set tabstop=2                   " Number of spaces for each tab
+set shiftwidth=2                " Number of spaces to use for autoindenting
+set softtabstop=2               " Number of spaces for backspace and <Tab>
+set smarttab                    " Insert tabs on indents, spaces on alignment
 
-set noswapfile
-set clipboard=unnamedplus
-set wildmode=longest,list
-set wildmenu
-set completeopt=menuone,noinsert,noselect
+set smartindent                 " Enable smart indenting
+set foldmethod=indent           " Use indent-based folding
+set foldlevelstart=0            " Set the initial folding level to 0
+set foldnestmax=10              " Limit the maximum nested folds to 10
+set nofoldenable                " Disable folding by default
 
-set nohlsearch
-set incsearch
-set ignorecase
-set smartcase
-set gdefault
-
-set statusline=%!SetStatusLine()
+set statusline=%!SetStatusLine() " Set custom status line
 
 filetype plugin on
 
@@ -66,23 +78,6 @@ endif
 set undofile
 
 " }}}
-
-" Indentiation and folding {{{
-
-set expandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set wrap
-
-set smartindent
-set foldmethod=indent
-set foldlevelstart=0
-set foldnestmax=10
-set nofoldenable
-
-" }}}
-
 " {{{ Cursor
 
 if has("gui")
