@@ -255,6 +255,17 @@ function! CFind(filename)
     vnew | copen | 0cc
   endif
 endfunction
+
+function! SortWords(delimiter)
+  let [l_start, c_start] = getpos("'<")[1:2]
+  let [l_end, c_end] = getpos("'>")[1:2]
+  let line = getline('.')
+  let words = strpart(line, c_start - 1, c_end - c_start + 1)
+  let splitted = split(words, a:delimiter)
+  let sorted = join(sort(l:splitted), a:delimiter)
+  let sortedLine = strpart(getline(l_start), 0, c_start - 1) . sorted . strpart(getline(l_start), c_end)
+  call setline(l_start, sortedLine)
+endfunction
 " }}}
 
 " Colors {{{
@@ -347,6 +358,8 @@ nnoremap <leader>fn :call CountFolds()<CR>
 " Custom functions
 nnoremap <leader>g :Grep 
 nnoremap <leader>f :CFind 
+nnoremap <leader>S :SortWords 
+
 " @ is just too far
 nnoremap <C-m> @
 
@@ -505,6 +518,10 @@ command! -nargs=* -complete=file -bar Grep silent! grep! <args>
 
 " Finding files
 command! -nargs=1 CFind call CFind(<q-args>)
+
+" Sorting over a selection
+command! -nargs=? -range SortWords call SortWords(<q-args>)
+
 " }}}
 " Plugin Settings {{{
 
