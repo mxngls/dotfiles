@@ -261,6 +261,12 @@ nnoremap <C-u> <C-u>zz
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
 
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
 
 " Delete and immediately throw away
 nnoremap <leader>d "_d
