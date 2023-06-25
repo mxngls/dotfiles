@@ -211,9 +211,14 @@ function ToggleExplorer()
       endif
     endif
   else
-    let @/=expand('%:t') | Explore | normal n
+    " If we opened Vim without specifying a buffer or directory
+    if empty(bufname('%'))
+      quit
+    else
+      let @/=expand('%:t') | Explore | normal n
+    endif
   endif
-endfun
+endfunction
 
 " }}}
 
