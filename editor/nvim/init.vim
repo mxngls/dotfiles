@@ -137,12 +137,16 @@ endfunction
 
 " Set the background to match our terminal (currently Kitty)
 function! SetBackground()
-  let bg_ = system('head -n 1 ~/dotfiles/shell/kitty/current-theme.conf 2> /dev/null')
-  let bg_ = substitute(bg_, '\n', '', 'g')
-  if bg_ == '#DARK'
-    set background=dark
+  if has('kitty')
+    let bg_ = system('head -n 1 ~/dotfiles/shell/kitty/current-theme.conf 2> /dev/null')
+    let bg_ = substitute(bg_, '\n', '', 'g')
+    if bg_ == '#DARK'
+      set background=dark
+    else
+      set background=light
+    endif
   else
-    set background=light
+    set background=dark
   endif
 endfunction
 
