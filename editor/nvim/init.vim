@@ -304,6 +304,7 @@ nnoremap <leader>cc :cclose<CR>
 " Toggle folds
 nnoremap <leader>fm :set foldmethod=marker<CR>
 nnoremap <leader>fi :set foldmethod=indent<CR>
+nnoremap <leader>fs :set foldmethod=syntax<CR>
 nnoremap <leader>fn :call CountFolds()<CR>
 
 " @ is just too far
