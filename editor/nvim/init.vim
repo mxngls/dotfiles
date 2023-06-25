@@ -267,7 +267,6 @@ function! SortWords(delimiter)
   call setline(l_start, sortedLine)
 endfunction
 " }}}
-
 " Colors {{{
 
 call SetBackground()
@@ -275,9 +274,7 @@ call SetColors()
 call PatchColors()
 
 nmap <leader>ct :call jobstart('$HOME/dotfiles/shell/toggle_theme.sh -t')<CR>
-
 " }}}
-
 " Keymaps {{{1
 
 " Make leaving and saving more more pleasent 
@@ -289,7 +286,6 @@ nmap <leader>q :q<CR>
 " Instead of visual we want line movement
 nnoremap j gj
 nnoremap k gk
-
 
 " Bring sanity to the command line
 cnoremap <C-k> <Up>
@@ -305,7 +301,6 @@ nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
-
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
@@ -382,11 +377,9 @@ nnoremap <leader>hu :SignifyHunkUndo<CR>
 nnoremap <leader>l  :call ToggleExplorer()<CR>
 nnoremap <leader>L  :vnew \| :Ex<CR>
 
-
 " }}}
 
 " }}}
-
 " Plugins {{{
 
 call plug#begin()
@@ -400,7 +393,6 @@ Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 
-" NEOVIM specific plugins {{{2
 " Neovim specific plugins {{{2
 
 if has('nvim')
@@ -430,7 +422,6 @@ endif
 call plug#end()
 
 " }}}
-
 " Autocommands {{{
 
 " Immediately go to the last curor position
