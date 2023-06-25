@@ -437,12 +437,6 @@ augroup singify
   autocmd User SignifyHunk call s:ShowCurrentHunk()
 augroup END
 
-augroup spell_git
-  autocmd!
-  autocmd Filetype gitcommit setlocal spell
-  autocmd Filetype gitcommit setlocal spelllang=en_us
-augroup END
-
 " See above
 augroup get_git_head 
   autocmd!
