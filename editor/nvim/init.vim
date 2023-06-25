@@ -56,23 +56,26 @@ set statusline=%!SetStatusLine() " Set custom status line
 filetype plugin on
 
 " }}}
-
 " Better safe than sorry {{{
 
+" Create a vim directory
 if !isdirectory($HOME.'/.vim')
   call mkdir($HOME.'/.vim', 'p', 0770)
 endif
 
-if !isdirectory($HOME.'/.vim/undo-dir')
-  call mkdir($HOME.'/.vim/undo-dir', 'p', 0700)
-elseif !isdirectory($HOME.'/.config/nvim/undo-dir')
-  call mkdir($HOME.'/.config/nvim/undo-dir', 'p', 0700)
-endif
-
+" Create a undo directory if it doesn't exist yet
+" Unfortunately the type of the undofiles for Neovim 
+" and Vim are not compatible anymore 
 if has('nvim')
-  set undodir=~/dotfiles/editor/nvim/undo-dir
+  if !isdirectory($HOME.'/.config/nvim/undo-dir')
+    call mkdir($HOME.'/.config/nvim/undo-dir', 'p', 0700)
+    set undodir=~/.config/nvim/undo-dir
+  endif
 else
-  set undodir=~/.vim/undo-dir
+  if !isdirectory($HOME.'/.vim/undo-dir')
+    call mkdir($HOME.'/.vim/undo-dir', 'p', 0700)
+    set undodir=~/.vim/undo-dir
+  endif
 endif 
 
 set undofile
