@@ -233,6 +233,28 @@ function ToggleExplorer()
   endif
 endfunction
 
+" Just used for the quickfix window
+function! AdjustWindowHeight(minheight, maxheight)
+  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
+
+" Make simplify finding and avoid heavy plugins
+function! CFind(filename)
+  if executable('fd')
+    let l:cmd  = 'fd --type f --type l "'.a:filename.'"
+          \ | xargs file | sed "s/:/:1:/"'
+    cgete system(l:cmd)
+  else
+    let l:cmd  = 'find . -type f -name "*'.a:filename.'*"
+          \ -o -type l -name "*'.a:filename.'*" 
+          \ | xargs file | sed "s/:/:1:/"'
+    cgete system(l:cmd)
+  endif
+  setlocal errorformat=%f:%l:%m
+  if len(getqflist()) > 0
+    vnew | copen | 0cc
+  endif
+endfunction
 " }}}
 
 " Colors {{{
@@ -314,6 +336,7 @@ nnoremap <C-p> :cprevious<CR>zz
 " Keep the opened buffer with cc or close
 " it with together with the quickfix window
 nnoremap <leader>cc :cclose<CR>
+nnoremap <leader>cd :bd <Bar> :cclose <CR>
 
 " Toggle folds
 nnoremap <leader>fm :set foldmethod=marker<CR>
@@ -321,6 +344,9 @@ nnoremap <leader>fi :set foldmethod=indent<CR>
 nnoremap <leader>fs :set foldmethod=syntax<CR>
 nnoremap <leader>fn :call CountFolds()<CR>
 
+" Custom functions
+nnoremap <leader>g :Grep 
+nnoremap <leader>f :CFind 
 " @ is just too far
 nnoremap <C-m> @
 
@@ -347,14 +373,6 @@ nnoremap <leader>hu :SignifyHunkUndo<CR>
 " Netrw
 nnoremap <leader>l  :call ToggleExplorer()<CR>
 nnoremap <leader>L  :vnew \| :Ex<CR>
-
-if has('nvim')
-  " Telescop
-  nnoremap <leader>ff :Telescope find_files<CR>
-  nnoremap <leader>fg :Telescope live_grep<CR>
-  nnoremap <leader>fb :Telescope buffers<CR>
-  nnoremap <leader>fh :Telescope help_tags<CR>
-endif
 
 
 " }}}
@@ -397,10 +415,6 @@ if has('nvim')
 
   Plug 'windwp/nvim-ts-autotag'
   Plug 'windwp/nvim-autopairs'
-  
-  " Search
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim'
 
 endif
 
@@ -470,10 +484,28 @@ augroup LargeFile
   autocmd WinEnter * let f=getfsize(expand("<afile>")) 
         \| if f > g:large_file || f == -2 | call LargeFile() | endif
 augroup END
+
+" Open a quickfix when viewing results of grep (if there are any)
+" and adjust the height of our quickfix window
+" When pressing CTRL_:h
+augroup quickfix
+  autocmd!
+  autocmd QuickFixCmdPost *grep* if len(getqflist()) > 0 
+        \| vnew | copen | .cc | :redraw! | endif
+  autocmd FileType qf call AdjustWindowHeight(3, 10)
+  autocmd FileType qf nnoremap <buffer> <C-v> <C-w><Enter><C-w>L
+augroup END
 augroup END
 
 " }}}
+" {{{ Customize Commands
 
+" Grepping stuff
+command! -nargs=* -complete=file -bar Grep silent! grep! <args>
+
+" Finding files
+command! -nargs=1 CFind call CFind(<q-args>)
+" }}}
 " Plugin Settings {{{
 
 " Vim-codefmt
@@ -495,6 +527,12 @@ let g:netrw_altv            = 1
 let g:netrw_bufsettings     = 'noma nomod nu rnu nobl nowrap ro'
 let g:netrw_use_errorwindow = 2
 let g:netrw_fastbrowse		  = 2
+
+" Grep
+if executable('ag')
+  set grepprg=ag\ -S\ -o\ -m\ 1\ --vimgrep\ --group\ --silent 
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
 
 " }}}
 
