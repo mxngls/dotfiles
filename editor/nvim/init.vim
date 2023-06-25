@@ -427,7 +427,6 @@ if has('nvim')
   Plug 'hrsh7th/nvim-cmp'
 
   Plug 'windwp/nvim-ts-autotag'
-  Plug 'windwp/nvim-autopairs'
 
 endif
 
