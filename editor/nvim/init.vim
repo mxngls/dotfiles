@@ -195,6 +195,15 @@ function! SetStatusLine()
   return stl
 endfunction
 
+" Stop large files from crippling Vim 
+function! LargeFile()
+  set eventignore+=Filetype
+  setlocal bufhidden=unload
+  setlocal buftype=nowrite
+  setlocal undolevels=-1
+  autocmd VimEnter *  echo "The file is larger than " . (g:large_file / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details)."
+endfunction
+
 " If we are already in Netrw and we have another buffer open 
 " we want to go back to the buffer but leave Netrw open as well
 " If we are in a buffer and we haven't opened Netrw yet we
@@ -457,11 +466,13 @@ augroup tmux
 augroup END
 
 autocmd VimEnter * so $MYVIMRC
-augroup netrw
 " Don't cripple Vim when working with large files
+let g:large_file = 5242880 " 5MB
+augroup LargeFile
   autocmd!
-  autocmd Filetype netrw nmap <buffer> <C-l> :wincmd l<CR>
-  autocmd Filetype netrw nmap <buffer> l <CR>
+  autocmd WinEnter * let f=getfsize(expand("<afile>")) 
+        \| if f > g:large_file || f == -2 | call LargeFile() | endif
+augroup END
 augroup END
 
 " }}}
