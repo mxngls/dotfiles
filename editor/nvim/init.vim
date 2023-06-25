@@ -348,6 +348,9 @@ nnoremap <leader>fi :set foldmethod=indent<CR>
 nnoremap <leader>fs :set foldmethod=syntax<CR>
 nnoremap <leader>fn :call CountFolds()<CR>
 
+" So annoying...
+nnoremap q: :q
+
 " Custom functions
 nnoremap <leader>g :Grep 
 nnoremap <leader>f :CFind 
