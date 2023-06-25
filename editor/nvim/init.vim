@@ -83,6 +83,7 @@ set undofile
 " }}}
 " {{{ Cursor
 
+" Get a consistent cursor when working with tmux
 if has("gui")
   echo "GUI"
   set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
@@ -92,9 +93,10 @@ else
 endif
 
 " }}}
-
 " {{{ Functions
 
+" Show the number of the current hunk relative to the total number
+" of hunks
 function! s:ShowCurrentHunk() 
   let h = sy#util#get_hunk_stats()
   if !empty(h)
@@ -102,6 +104,9 @@ function! s:ShowCurrentHunk()
   endif
 endfunction
 
+" Count the number of open folds, which can we useful
+" when working with large JSON arrays and we want to know
+" how many elements the array holds
 function! CountFolds()
   let count = 0
   let current_line = 1
@@ -130,6 +135,7 @@ function! PatchColors()
   hi DiffDelete guibg=NONE ctermbg=NONE 
 endfunction
 
+" Set the background to match our terminal (currently Kitty)
 function! SetBackground()
   let bg_ = system('head -n 1 ~/dotfiles/shell/kitty/current-theme.conf 2> /dev/null')
   let bg_ = substitute(bg_, '\n', '', 'g')
@@ -152,6 +158,7 @@ function! SetColors()
   endif
 endfunction
 
+" Get the current head when in a Git repository
 function! GetGitHead()
   let b:gitbranch=' '
   if &modifiable
@@ -168,6 +175,7 @@ function! GetGitHead()
   endif
 endfunction
 
+" Custom statusline
 function! SetStatusLine()
   " Left aligned
   let l:stl = '   %F '
@@ -183,6 +191,10 @@ function! SetStatusLine()
   return stl
 endfunction
 
+" If we are already in Netrw and we have another buffer open 
+" we want to go back to the buffer but leave Netrw open as well
+" If we are in a buffer and we haven't opened Netrw yet we
+" open with :Explore
 function ToggleExplorer()
   if &ft == "netrw"
     if exists("w:netrw_rexfile")
@@ -217,6 +229,7 @@ nmap <leader>ct :call jobstart('$HOME/dotfiles/shell/toggle_theme.sh -t')<CR>
 
 " Keymaps {{{1
 
+" Make leaving and saving more more pleasent 
 nmap <leader>w :w<CR>
 nmap <leader>wq :wq<CR>
 nmap <leader>nw : noa w<CR>
@@ -224,55 +237,71 @@ nmap <leader>q :q<CR>
 
 inoremap jj <ESC>
 
+" Instead of visual we want line movement
 nnoremap j gj
 nnoremap k gk
 
 
 cnoremap <C-j> <Down>
+" Bring sanity to the command line
 cnoremap <C-k> <Up>
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
 
 noremap <C-z> <C-a>
 
+" Always center
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
 
-map H ^
-map L $
 
+" Delete and immediately throw away
 nnoremap <leader>d "_d
 nnoremap <leader>d "_d
 vnoremap <leader>d "_D
 vnoremap <leader>D "_D
 
+" Easier navigate between windows 
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j 
 nnoremap <C-k> <C-w>k 
 nnoremap <C-l> <C-w>l 
 nnoremap <leader><leader> <c-w><c-p><CR>
 
+" Resizing
 nnoremap <M-Up> :res +5<CR>
 nnoremap <M-Down> :res -5<CR>
 nnoremap <M-Left> :vertical res +5<CR>
 nnoremap <M-Right> :vertical res -5<CR>
 
+" Create a new file in the current directory
 nnoremap <leader>o :e <C-R>=expand('%:p:h') . '/'<CR>
+
+" Easily source our vimrc
 nnoremap <leader>so :so $MYVIMRC<CR>
 
+" Navigate the quickfix list 
 nnoremap <C-n> :cnext<CR>zz
 nnoremap <C-p> :cprevious<CR>zz
+
+" Keep the opened buffer with cc or close
+" it with together with the quickfix window
 nnoremap <leader>cc :cclose<CR>
 
+" Toggle folds
 nnoremap <leader>fm :set foldmethod=marker<CR>
 nnoremap <leader>fi :set foldmethod=indent<CR>
 nnoremap <leader>fn :call CountFolds()<CR>
 
+" @ is just too far
 nnoremap <C-m> @
 
 nnoremap Q <nop>
+" These as well
+map H ^
+map L $
 
 " Plugin related {{{2
 
@@ -320,6 +349,7 @@ Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 
 " NEOVIM specific plugins {{{2
+" Neovim specific plugins {{{2
 
 if has('nvim')
 
@@ -356,6 +386,7 @@ call plug#end()
 
 " Autocommands {{{
 
+" Immediately go to the last curor position
 augroup save_cursor
   autocmd!
   autocmd BufReadPost * ++once
@@ -366,6 +397,7 @@ augroup save_cursor
     \ endif 
 augroup END
 
+" Autoformat the current buffer when saving it
 augroup autoformat_settings
   autocmd!
   autocmd Filetype html,css,sass,scss,less AutoFormatBuffer prettier
@@ -373,6 +405,7 @@ augroup autoformat_settings
   autocmd Filetype python AutoFormatBuffer yapf
 augroup END
 
+" See above
 augroup singify
   autocmd!
   autocmd User SignifyHunk call s:ShowCurrentHunk()
@@ -384,16 +417,20 @@ augroup spell_git
   autocmd Filetype gitcommit setlocal spelllang=en_us
 augroup END
 
+" See above
 augroup get_git_head 
   autocmd!
   autocmd BufAdd,BufRead * call GetGitHead()
 augroup END
 
+" Patch colors whenever the background changes
 augroup patch
   autocmd!
   autocmd OptionSet background call PatchColors()
 augroup END
 
+" Whenever we switch buffers or windows we want to rename the current tmux
+" window to match the filename of the current buffer
 augroup tmux
   autocmd!
   if exists('$TMUX')
@@ -404,6 +441,7 @@ augroup END
 
 autocmd VimEnter * so $MYVIMRC
 augroup netrw
+" Don't cripple Vim when working with large files
   autocmd!
   autocmd Filetype netrw nmap <buffer> <C-l> :wincmd l<CR>
   autocmd Filetype netrw nmap <buffer> l <CR>
