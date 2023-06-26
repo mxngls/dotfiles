@@ -69,13 +69,13 @@ endif
 if has('nvim')
   if !isdirectory($HOME.'/.config/nvim/undo-dir')
     call mkdir($HOME.'/.config/nvim/undo-dir', 'p', 0700)
-    set undodir=~/.config/nvim/undo-dir
   endif
+  set undodir=~/.config/nvim/undo-dir
 else
   if !isdirectory($HOME.'/.vim/undo-dir')
     call mkdir($HOME.'/.vim/undo-dir', 'p', 0700)
-    set undodir=~/.vim/undo-dir
   endif
+  set undodir=~/.vim/undo-dir
 endif 
 
 set undofile
