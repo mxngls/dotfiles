@@ -233,6 +233,16 @@ function ToggleExplorer()
   endif
 endfunction
 
+function! ExplorerSplit()
+  if &ft != "netrw"
+    let path = expand('%:p:h')
+    let @/ = escape(expand('%:t'), '\.*$^~[]/')
+    execute 'vnew' | execute 'Explore ' . path | normal n
+  else
+    quit
+  endif
+endfunction
+
 " Just used for the quickfix window
 function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
@@ -378,7 +388,7 @@ nnoremap <leader>hu :SignifyHunkUndo<CR>
 
 " Netrw
 nnoremap <leader>l  :call ToggleExplorer()<CR>
-nnoremap <leader>L  :vnew \| :Ex<CR>
+nnoremap <leader>L  :call ExplorerSplit()<CR>
 
 " }}}
 
