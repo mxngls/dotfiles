@@ -7,6 +7,9 @@ zmodload zsh/complist
 # Initialize editing command line
 autoload -U edit-command-line && zle -N edit-command-line
 
+# Enable interactive comments (# on the command line)
+setopt INTERACTIVE_COMMENTS
+
 # Editor
 export VISUAL=vim
 export EDITOR="$VISUAL"
