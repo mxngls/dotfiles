@@ -20,8 +20,8 @@ source ~/dotfiles/shell/settings.sh
 # Extended history
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
-HISTFILE=~/.history
 setopt incappendhistory
+HISTFILE=~/.zsh_history
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 
