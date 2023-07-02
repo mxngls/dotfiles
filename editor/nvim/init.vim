@@ -362,8 +362,8 @@ nnoremap <leader>fn :call CountFolds()<CR>
 nnoremap q: :q
 
 " Custom functions
-nnoremap <leader>g :Grep 
-nnoremap <leader>f :CFind 
+nnoremap <leader>gr :Grep 
+nnoremap <leader>ff :CFind 
 nnoremap <leader>S :SortWords 
 
 " @ is just too far
