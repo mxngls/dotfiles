@@ -18,7 +18,7 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 source ~/dotfiles/shell/settings.sh
 
 # Extended history
-HISTSIZE=10000
+HISTSIZE=100000
 SAVEHIST=$HISTSIZE
 HISTFILE=~/.history
 setopt incappendhistory
