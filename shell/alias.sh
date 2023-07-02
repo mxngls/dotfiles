@@ -1,6 +1,8 @@
 # Misc
 alias ep='echo $PATH | sed "s/:/\\n/g"'
-alias lsl="ls -haFG --color" # NOTE: macOS's default ls doesn't take the --color flag
+alias ls="ls        --color=always" 
+alias lsa="ls -haFG --color=always" 
+alias lsl="ls -la   --color=always"
 
 # Toggle theme
 alias ct="~/dotfiles/shell/toggle_theme.sh -t"
