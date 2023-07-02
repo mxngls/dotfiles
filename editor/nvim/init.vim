@@ -487,7 +487,6 @@ augroup tmux
   endif
 augroup END
 
-autocmd VimEnter * so $MYVIMRC
 " Don't cripple Vim when working with large files
 let g:large_file = 5242880 " 5MB
 augroup LargeFile
@@ -505,7 +504,6 @@ augroup quickfix
         \| vnew | copen | .cc | :redraw! | endif
   autocmd FileType qf call AdjustWindowHeight(3, 10)
   autocmd FileType qf nnoremap <buffer> <C-v> <C-w><Enter><C-w>L
-augroup END
 augroup END
 
 " }}}
