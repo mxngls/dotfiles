@@ -1,12 +1,12 @@
 local lsp_servers = {
-  "lua_ls",
-  "tsserver",
-  "tailwindcss",
-  "pyright",
-  "gopls",
   "bashls",
+  "gopls",
+  "lua_ls",
   "marksman",
+  "pyright",
   "sqlls",
+  "tailwindcss",
+  "tsserver",
   "vimls"
 }
 
