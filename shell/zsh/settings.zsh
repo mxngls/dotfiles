@@ -1,8 +1,28 @@
 # Initialize completion
 autoload -Uz compinit && compinit -i
-zstyle ':completion:*' menu select=4
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 zmodload zsh/complist
+
+zstyle ':completion:*:descriptions' format    '%B> %d%b%'
+zstyle ':completion:*:warnings'     format    '%B> No completions!%b'
+
+zstyle ':zle:*'        word-chars             '-_'
+zstyle ':completion:*' completer _complete _ignored:complete 
+zstyle ':completion:*' glob 1
+zstyle ':completion:*' file-sort name
+zstyle ':completion:*' group-name             ''
+zstyle ':completion:*' list-colors            ''
+
+zstyle ':completion:*' matcher-list           'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' matcher-list           '+r:|[._-/]=* r:|=**' '+l:|[._-/]=* l:|=**'
+
+zstyle ':completion:*' menu                   select=4
+zstyle ':completion:*' old-menu               false
+zstyle ':completion:*' original               true
+zstyle ':completion:*' insert-unambiguous     true 
+zstyle ':completion:*' preserve-prefix        '//[^/]##/'
+zstyle ':completion:*' special-dirs           true
+zstyle ':completion:*' squeeze-slashes        true
+zstyle ':completion:*' verbose                true
 
 # Initialize editing command line
 autoload -U edit-command-line && zle -N edit-command-line
@@ -31,6 +51,12 @@ setopt HIST_VERIFY
 setopt HIST_IGNORE_SPACE
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
+
+# Completions
+setopt EXTENDED_GLOB
+setopt GLOB_DOTS
+setopt GLOB_COMPLETE
+setopt COMPLETE_IN_WORD
 
 # Time to wait for additional characters in a sequence
 KEYTIMEOUT=1
