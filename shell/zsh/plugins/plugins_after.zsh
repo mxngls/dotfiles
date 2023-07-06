@@ -7,3 +7,8 @@ if type brew &>/dev/null; then
 fi
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+
+# Remove underline for paths
+(( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[path]=none
+ZSH_HIGHLIGHT_STYLES[path_prefix]=none
