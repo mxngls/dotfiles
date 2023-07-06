@@ -28,7 +28,7 @@ set relativenumber              " Show relative line numbers
 set signcolumn=no               " Disable the sign column
 set pumheight=10                " Don't make the completion window too heigh
 set noswapfile                  " Disable swap files
-set clipboard=unnamedplus       " Use the system clipboard
+set clipboard=unnamed           " Use the system clipboard
 
 set wildmenu                    " Enable command-line completion menu
 set wildmode=longest:full       " Complete longest match, list other matches in wildmenu
