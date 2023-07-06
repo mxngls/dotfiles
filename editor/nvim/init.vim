@@ -25,6 +25,7 @@ set syntax=on                   " Enable syntax highlighting
 set spelllang=en_us             " Set the spell check language to English
 set number                      " Show line numbers
 set relativenumber              " Show relative line numbers
+set signcolumn=no               " Disable the sign column
 set pumheight=10                " Don't make the completion window too heigh
 set noswapfile                  " Disable swap files
 set clipboard=unnamedplus       " Use the system clipboard
@@ -333,6 +334,9 @@ nnoremap <leader>fm :set foldmethod=marker<CR>
 nnoremap <leader>fi :set foldmethod=indent<CR>
 nnoremap <leader>fs :set foldmethod=syntax<CR>
 nnoremap <leader>fn :call CountFolds()<CR>
+
+" Toggle the sign column
+nnoremap <silent> <leader>sc :if &signcolumn == 'yes' <Bar> set signcolumn=no <Bar> else <Bar> set signcolumn=yes <Bar> endif<CR>
 
 " So annoying...
 nnoremap q: :q
