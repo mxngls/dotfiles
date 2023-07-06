@@ -12,8 +12,7 @@ zstyle ':completion:*' file-sort name
 zstyle ':completion:*' group-name             ''
 zstyle ':completion:*' list-colors            ''
 
-zstyle ':completion:*' matcher-list           'm:{a-zA-Z}={A-Za-z}'
-zstyle ':completion:*' matcher-list           '+r:|[._-/]=* r:|=**' '+l:|[._-/]=* l:|=**'
+zstyle ':completion:*' matcher-list           'm:{a-zA-Z}={A-Za-z}' 'r:|[._-/]=* r:|=**' 'l:|[._-/]=* l:|=**'
 
 zstyle ':completion:*' menu                   select=4
 zstyle ':completion:*' old-menu               false
