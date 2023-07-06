@@ -151,14 +151,10 @@ function! SetBackground()
 endfunction
 
 function! SetColors()
-  if has('gui_running')
-    colorscheme solarized_custom
-  elseif &t_Co < 256
-    colorscheme default
-    set nocursorline
-  else
-    set termguicolors
-    colorscheme solarized_custom
+  colorscheme peachpuff
+  " Allow color schemes to do bright colors without forcing bold.
+  if &t_Co == 8 && $TERM !~# '^Eterm'
+    set t_Co=16
   endif
 endfunction
 
