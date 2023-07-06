@@ -262,14 +262,6 @@ function! CFind(filename)
   endif
 endfunction
 
-" Colors {{{
-
-call SetBackground()
-call SetColors()
-call PatchColors()
-
-nmap <leader>ct :call jobstart('$HOME/dotfiles/shell/toggle_theme.sh -t')<CR>
-" }}}
 " Keymaps {{{1
 
 " Make leaving and saving more more pleasent 
@@ -378,7 +370,6 @@ nnoremap <leader>L  :call ExplorerSplit()<CR>
 
 " }}}
 " Plugins {{{
-
 call plug#begin()
 
 " Git 
@@ -488,6 +479,13 @@ augroup quickfix
         \| vnew | copen | .cc | :redraw! | endif
   autocmd FileType qf call AdjustWindowHeight(3, 10)
   autocmd FileType qf nnoremap <buffer> <C-v> <C-w><Enter><C-w>L
+augroup END
+
+augroup theme
+  autocmd!
+  autocmd VimEnter * call SetBackground()
+  autocmd VimEnter * call SetColors()
+  autocmd VimEnter * call PatchColors()
 augroup END
 
 " }}}
