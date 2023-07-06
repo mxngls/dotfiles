@@ -126,15 +126,33 @@ function! CountFolds()
 endfunction
 
 function! PatchColors()
-  hi Cursor guifg=#fdf6e3 guibg=#268bd2 gui=NONE cterm=NONE
-  hi FloatBorder  guibg=NONE ctermbg=NONE 
-  hi NormalFloat guibg=NONE ctermbg=NONE
-  hi SignColumn guibg=NONE ctermbg=NONE
-  hi FoldColumn guibg=NONE ctermbg=NONE
+  " Syntax
+  hi Comment ctermfg=darkgrey
+  hi Statement cterm=NONE
+  hi Identifier cterm=NONE 
+  hi htmlTag ctermfg=cyan
+  hi htmlEndTag ctermfg=cyan
 
-  hi DiffAdd guibg=NONE ctermbg=NONE
-  hi DiffChange guibg=NONE ctermbg=NONE 
-  hi DiffDelete guibg=NONE ctermbg=NONE 
+  " TUI
+  hi CursorLine ctermfg=white ctermbg=237  cterm=none gui=none
+  hi CursorLineNr ctermfg=white ctermbg=NONE cterm=NONE
+  hi Folded ctermfg=255 ctermbg=236
+  hi FloatBorder ctermbg=NONE 
+  hi NormalFloat ctermbg=NONE
+  hi Visual ctermfg=237 ctermbg=White
+
+  " Vim-Signify
+  hi DiffAdd ctermfg=green ctermbg=NONE
+  hi DiffChange ctermfg=yellow ctermbg=NONE 
+  hi DiffDelete ctermfg=red ctermbg=NONE 
+  hi SignColumn ctermbg=NONE
+  hi FoldColumn ctermbg=NONE
+  hi Pmenu ctermfg=white ctermbg=237
+
+  " Vim-fugitive
+  hi diffAdded ctermfg=green ctermbg=NONE
+  hi diffChanged ctermfg=yellow ctermbg=NONE 
+  hi diffRemoved ctermfg=red ctermbg=NONE 
 endfunction
 
 " Set the background to match our terminal (currently Kitty)
