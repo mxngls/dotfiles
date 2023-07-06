@@ -15,7 +15,8 @@ set autoread                    " Automatically read a file when it changes
 set matchpairs+=(:),[:],{:},<:> " Additional characters for matchpairs
 set regexpengine=2              " Use improved regular expression engine
 set switchbuf=useopen,uselast   " Reuse windows if possible
-set laststatus=2                " Always show the status line
+set laststatus=0                " Never show the status line
+set ruler                       " Instead we display the ruler
 set path+=**                    " Recursively traverse directories
 set splitbelow                  " Open split below the current window
 set splitright                  " Open split to the right of the current window
@@ -51,7 +52,7 @@ set foldlevelstart=0            " Set the initial folding level to 0
 set foldnestmax=10              " Limit the maximum nested folds to 10
 set nofoldenable                " Disable folding by default
 
-set statusline=%!SetStatusLine() " Set custom status line
+set rulerformat=%86(%{%SetRuler()%}%) " Set custom status line
 
 filetype plugin on
 
@@ -175,20 +176,18 @@ function! GetGitHead()
   endif
 endfunction
 
-" Custom statusline
-function! SetStatusLine()
+" Custom ruler
+function! SetRuler()
   " Left aligned
-  let l:stl = '   %F '
-  let l:stl .= '%y%w%m%r '
+  let l:rlr = '%='
+  let l:rlr .= '%F '
+  let l:rlr .= '%y%w%m%r '
   if exists('b:gitbranch')
-    let l:stl .= '%{b:gitbranch}'
+    let l:rlr .= '%{b:gitbranch} '
   endif
-
-  " Right aligned
-  let l:stl .= '%='
-  let l:stl .= '%-8.(%l:%02v%)'
-  let l:stl .= '%P  '
-  return stl
+  let l:rlr .= '%-8.(%l:%02v%)'
+  let l:rlr .= '%P'
+  return rlr
 endfunction
 
 " Stop large files from crippling Vim 
