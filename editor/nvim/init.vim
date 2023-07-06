@@ -402,6 +402,10 @@ Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 
+" Misc
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+
 " Neovim specific plugins {{{2
 
 if has('nvim')
