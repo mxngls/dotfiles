@@ -526,7 +526,10 @@ if executable('ag')
 endif
 
 " }}}
+" {{{ NVIM
 
 if has('nvim')
   :lua require('init')
 endif
+
+" }}}
