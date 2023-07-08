@@ -53,7 +53,7 @@ set foldlevelstart=0            " Set the initial folding level to 0
 set foldnestmax=10              " Limit the maximum nested folds to 10
 set nofoldenable                " Disable folding by default
 
-set rulerformat=%86(%{%SetRuler()%}%) " Set custom status line
+set rulerformat=%80(%{%SetRuler()%}%) " Set custom status ruler 
 
 filetype plugin on
 
