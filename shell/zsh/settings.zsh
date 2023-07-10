@@ -13,6 +13,7 @@ zstyle ':completion:*' group-name             ''
 zstyle ':completion:*' list-colors            ''
 
 zstyle ':completion:*' matcher-list           'm:{a-zA-Z}={A-Za-z}' 'r:|[._-/]=* r:|=**' 'l:|[._-/]=* l:|=**'
+zstyle ':completion:*' ignore-parents         'parent pwd directory' 
 
 zstyle ':completion:*' menu                   select=4
 zstyle ':completion:*' old-menu               false
@@ -22,6 +23,7 @@ zstyle ':completion:*' preserve-prefix        '//[^/]##/'
 zstyle ':completion:*' special-dirs           true
 zstyle ':completion:*' squeeze-slashes        true
 zstyle ':completion:*' verbose                true
+zstyle ':completion:*' accept-exact-dirs      true
 
 # Initialize editing command line
 autoload -U edit-command-line && zle -N edit-command-line
@@ -56,6 +58,7 @@ setopt EXTENDED_GLOB
 setopt GLOB_DOTS
 setopt GLOB_COMPLETE
 setopt COMPLETE_IN_WORD
+setopt MENU_COMPLETE
 
 # Time to wait for additional characters in a sequence
 KEYTIMEOUT=1
