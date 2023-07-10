@@ -16,7 +16,6 @@ set matchpairs+=(:),[:],{:},<:> " Additional characters for matchpairs
 set regexpengine=2              " Use improved regular expression engine
 set switchbuf=useopen,uselast   " Reuse windows if possible
 set laststatus=0                " Never show the status line
-set ruler                       " Instead we display the ruler
 set path+=**                    " Recursively traverse directories
 set splitbelow                  " Open split below the current window
 set splitright                  " Open split to the right of the current window
@@ -34,7 +33,7 @@ set wildmenu                    " Enable command-line completion menu
 set wildmode=longest:full       " Complete longest match, list other matches in wildmenu
 set wildignorecase              " Case is ignored when completing file names and directories
 set wildoptions=pum             " Show pop-up menu
-set completeopt=menuone,preview,noselect " Enable enhanced completion menu
+set completeopt=menu,popup,noselect " Enable enhanced completion menu
 
 set nohlsearch                  " Clear search highlighting after completing a search
 set incsearch                   " Enable incremental searching
@@ -53,7 +52,9 @@ set foldlevelstart=0            " Set the initial folding level to 0
 set foldnestmax=10              " Limit the maximum nested folds to 10
 set nofoldenable                " Disable folding by default
 
-set rulerformat=%80(%{%SetRuler()%}%) " Set custom status ruler 
+set noruler
+set laststatus=2
+setl statusline=%!SetStatusline() " Set custom status ruler 
 
 filetype plugin on
 
@@ -134,20 +135,25 @@ function! PatchColors()
   hi htmlEndTag ctermfg=cyan
 
   " TUI
-  hi CursorLine ctermfg=white ctermbg=237  cterm=none gui=none
-  hi CursorLineNr ctermfg=white ctermbg=NONE cterm=NONE
+  hi CursorLine cterm=NONE
   hi Folded ctermfg=255 ctermbg=236
   hi FloatBorder ctermbg=NONE 
   hi NormalFloat ctermbg=NONE
   hi Visual ctermfg=237 ctermbg=White
+  
+  " Statusline
+  hi Statusline ctermbg=235 ctermfg=White cterm=NONE 
+  hi StatuslineNC ctermbg=235 ctermfg=DarkGrey cterm=NONE 
+  hi MainBranch ctermbg=235 ctermfg=222 
+  hi OtherBranch NONE
 
-  " Vim-Signify
+  " Vm-Signify
   hi DiffAdd ctermfg=green ctermbg=NONE
   hi DiffChange ctermfg=yellow ctermbg=NONE 
-  hi DiffDelete ctermfg=red ctermbg=NONE 
+  hi DiffDelete ctermfg=red ctermbg=NONE
+  hi DiffText ctermfg=yellow ctermbg=NONE
   hi SignColumn ctermbg=NONE
   hi FoldColumn ctermbg=NONE
-  hi Pmenu ctermfg=white ctermbg=237
 
   " Vim-fugitive
   hi diffAdded ctermfg=green ctermbg=NONE
@@ -171,7 +177,7 @@ function! SetBackground()
 endfunction
 
 function! SetColors()
-  colorscheme peachpuff
+  colorscheme default
   " Allow color schemes to do bright colors without forcing bold.
   if &t_Co == 8 && $TERM !~# '^Eterm'
     set t_Co=16
@@ -180,7 +186,7 @@ endfunction
 
 " Get the current head when in a Git repository
 function! GetGitHead()
-  let b:gitbranch=' '
+  let b:gitbranch=''
   if &modifiable
     try
       lcd %:p:h
@@ -195,23 +201,66 @@ function! GetGitHead()
   endif
 endfunction
 
-" Custom ruler
-function! SetRuler()
-  " Left aligned
-  let l:rlr = '%='
-  let l:rlr .= '%F '
-  let l:rlr .= '%y%w%m%r '
-  if exists('b:gitbranch')
-    let l:rlr .= '%{b:gitbranch} '
+" Get truncated path
+function! GetTruncatedPath()
+  let b:path = ' '
+  let b:path = expand('%:p')
+  if b:path != ""
+    let b:parts = split(b:path, '/')
+    let b:last_two = ''
+
+    if len(b:parts) > 2
+      let b:last_two = join(b:parts[-2:], '/')
+      let b:path = '.../' . b:last_two 
+    else
+      let b:path = b:last_two 
+    endif
   endif
-  let l:rlr .= '%-8.(%l:%02v%)'
-  let l:rlr .= '%P'
-  return rlr
+endfunction
+
+" Custom statusline
+function! SetStatusline() abort
+	let active = g:statusline_winid == win_getid(winnr())
+  
+  let l:stl  = ''
+
+  " Current buffer number
+  let l:stl .= '[%n] '
+
+  " Truncated path
+  if exists('b:path')
+    let l:stl .= '%(%{b:path} %)'
+  endif
+
+  " File flags
+  let l:stl .= '%(%m%r%h%w %)'
+  
+  " Current Git branch
+  if exists('b:gitbranch')
+    if active
+      if b:gitbranch ==# 'main' || b:gitbranch ==# 'master'
+        let l:stl .= '%#MainBranch#%(%{b:gitbranch}%* %)'
+      else 
+        let l:stl .= '%#OtherBranch#%(%{b:gitbranch} %)%*'
+      endif
+    else
+      let l:stl .= '%{b:gitbranch}'
+    endif
+  endif
+
+  " Right aligned
+  let l:stl .= '%='
+
+  " Current cursor position
+  let l:stl .= '%(%l:%02v %)'
+  let l:stl .= '%P'
+  
+  return stl
 endfunction
 
 " Stop large files from crippling Vim 
 function! LargeFile()
-  set eventignore+=Filetype
+  setlocal eventignore+=Filetype
   setlocal bufhidden=unload
   setlocal buftype=nowrite
   setlocal undolevels=-1
@@ -327,10 +376,10 @@ nnoremap <C-l> <C-w>l
 nnoremap <leader><leader> <c-w><c-p><CR>
 
 " Resizing
-nnoremap <M-Up> :res +5<CR>
-nnoremap <M-Down> :res -5<CR>
-nnoremap <M-Left> :vertical res +5<CR>
-nnoremap <M-Right> :vertical res -5<CR>
+nnoremap <S-Up> :res +5<CR>
+nnoremap <S-Down> :res -5<CR>
+nnoremap <S-Left> :vertical res +5<CR>
+nnoremap <S-Right> :vertical res -5<CR>
 
 " Create a new file in the current directory
 nnoremap <leader>o :e <C-R>=expand('%:p:h') . '/'<CR>
@@ -373,7 +422,7 @@ map L $
 " Plugin related {{{2
 
 " Fugitive
-nnoremap <leader>gg :vertical Git<CR>
+nnoremap <leader>gg :Git<CR>
 
 " Vim-codefmt
 nnoremap <leader>fc :FormatCode<CR>
@@ -415,10 +464,10 @@ if has('nvim')
   Plug 'williamboman/mason.nvim'
   Plug 'williamboman/mason-lspconfig.nvim'
   Plug 'neovim/nvim-lspconfig'
-  
+
   " Treesitter
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  
+
   " Autocompletion
   Plug 'hrsh7th/cmp-nvim-lua'
   Plug 'hrsh7th/cmp-buffer'
@@ -468,6 +517,12 @@ augroup get_git_head
   autocmd BufAdd,BufRead * call GetGitHead()
 augroup END
 
+" Set truncated path for the current buffer
+augroup get_truncated_path
+  autocmd!
+  autocmd BufAdd,BufRead * call GetTruncatedPath()
+augroup END
+
 " Patch colors whenever the background changes
 augroup patch
   autocmd!
@@ -491,7 +546,7 @@ augroup END
 let g:large_file = 5242880 " 5MB
 augroup LargeFile
   autocmd!
-  autocmd WinEnter * let f=getfsize(expand("<afile>")) 
+  autocmd BufReadPre * let f = getfsize(expand('%')) * 8
         \| if f > g:large_file || f == -2 | call LargeFile() | endif
 augroup END
 
@@ -501,7 +556,7 @@ augroup END
 augroup quickfix
   autocmd!
   autocmd QuickFixCmdPost *grep* if len(getqflist()) > 0 
-        \| vnew | copen | .cc | :redraw! | endif
+        \| vnew | copen | .cc | endif
   autocmd FileType qf call AdjustWindowHeight(3, 10)
   autocmd FileType qf nnoremap <buffer> <C-v> <C-w><Enter><C-w>L
 augroup END
@@ -517,7 +572,7 @@ augroup END
 " {{{ Customize Commands
 
 " Grepping stuff
-command! -nargs=* -complete=file -bar Grep silent! grep! <args>
+command! -nargs=+ -complete=file Grep execute 'silent grep! <args>' | redraw!
 
 " Finding files
 command! -nargs=1 CFind call CFind(<q-args>)
@@ -546,7 +601,7 @@ let g:netrw_fastbrowse		  = 2
 
 " Grep
 if executable('ag')
-  set grepprg=ag\ -S\ -o\ -m\ 1\ --vimgrep\ --group\ --silent 
+  set grepprg=ag\ -S\ -o\ -m\ 1\ --vimgrep\ --group\ --silent
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
