@@ -54,7 +54,7 @@ set nofoldenable                " Disable folding by default
 
 set noruler
 set laststatus=2
-setl statusline=%!SetStatusline() " Set custom status ruler 
+set statusline=%!SetStatusline() " Set custom status ruler 
 
 filetype plugin on
 
