@@ -4,10 +4,10 @@ setopt prompt_subst
 # Load color variables to make it easier to color things
 autoload -U colors && colors
 
-# Current directory, truncated to 3 path elements (or 4 when one of them is "~")
+# Current directory, truncated to n path elements (or n+1 when one of them is "~")
 # The number of elements to keep can be specified as ${1}
 function PR_DIR() {
-    local sub=3
+    local sub=$1
     local len="$(expr ${sub} + 1)"
     local full="$(print -P "%d")"
     local relfull="$(print -P "%~")"
@@ -153,7 +153,7 @@ function git_prompt_string() {
 
 # Prompt
 function PCMD() {
-    echo "$(PR_DIR) $(PR_ERROR)$(PR_ARROW) " # space at the end
+    echo "$(PR_DIR 2) $(PR_ERROR)$(PR_ARROW) " # space at the end
 }
 
 PROMPT='$(PCMD)'  # single quotes to prevent immediate execution
