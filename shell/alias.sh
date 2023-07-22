@@ -1,8 +1,8 @@
 # Misc
 alias ep='echo $PATH | sed "s/:/\\n/g"'
 alias ls="ls        --color=always" 
-alias lsa="ls -haFG --color=always" 
-alias lsl="ls -la   --color=always"
+alias lsa="ls -aF   --color=always" 
+alias lsl="ls -lah  --color=always"
 
 # Toggle theme
 alias ct="~/dotfiles/shell/toggle_theme.sh -t"
