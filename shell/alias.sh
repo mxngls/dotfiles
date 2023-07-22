@@ -12,3 +12,6 @@ alias ct="~/dotfiles/shell/toggle_theme.sh -t"
 alias gr="cd $(git rev-parse --show-toplevel)"
 alias gnv="cd ~/dotfiles/editor/nvim"
 alias gtx="cd ~/dotfiles/shell/tmux"
+
+# Some Git stuff
+alias gs="git status -sb"
