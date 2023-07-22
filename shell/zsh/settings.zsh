@@ -59,6 +59,7 @@ setopt GLOB_DOTS
 setopt GLOB_COMPLETE
 setopt COMPLETE_IN_WORD
 setopt MENU_COMPLETE
+setopt LIST_PACKED
 
 # Time to wait for additional characters in a sequence
 KEYTIMEOUT=1
