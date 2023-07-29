@@ -1,3 +1,6 @@
+# Source user defined functions
+source ~/dotfiles/shell/functions.sh
+
 # Misc
 alias ep='echo $PATH | sed "s/:/\\n/g"'
 alias ls='ls --color=always                   ' 
@@ -16,3 +19,9 @@ alias gtx='cd ~/dotfiles/shell/tmux'
 
 # Some Git stuff
 alias gs='git status -s'
+alias gla='git log --graph --format=oneline --abbrev-commit'
+alias glu='git log --graph --format=oneline --abbrev-commit @{u}..'
+alias glam='git log --graph --format=medium  --abbrev-commit'
+alias grs='rename_stash'
+alias gls='git stash list --color=always'
+alias gdu='git diff @{u}.. --stat-count=15 --stat-width=80'
