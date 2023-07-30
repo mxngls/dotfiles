@@ -6,7 +6,7 @@ zstyle ':completion:*:descriptions' format    '%B> %d%b%'
 zstyle ':completion:*:warnings'     format    '%B> No completions!%b'
 
 zstyle ':zle:*'        word-chars             '-_'
-zstyle ':completion:*' completer _complete _ignored:complete 
+zstyle ':completion:*' completer _complete _expand _ignored:complete 
 zstyle ':completion:*' glob 1
 zstyle ':completion:*' file-sort name
 zstyle ':completion:*' group-name             ''
