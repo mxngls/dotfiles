@@ -17,20 +17,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Enable completion triggered by <c-x><c-o>
     vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-    -- Enable borders on all relating UI elements
+    -- Enable showing the source
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-      border = "rounded",
       source = 'always',
     })
     vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-      vim.lsp.handlers.signature_help,
-      { border = 'rounded' }
+      vim.lsp.handlers.signature_help
     )
+
     vim.diagnostic.config {
       virtual_text = false,
-      float = { border = "rounded" },
     }
-    lsp_ui_windows.default_options.border = 'rounded'
 
     local function on_list(options)
       -- vim.api.nvim_echo({ { vim.inspect(vim.fn.getqflist() ) } }, true, {})
