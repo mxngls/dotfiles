@@ -84,16 +84,43 @@ endif
 set undofile
 
 " }}}
-" {{{ Cursor
+" {{{ Colors
 
-" Get a consistent cursor when working with tmux
-if has("gui")
-  echo "GUI"
-  set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
-else
-  let &t_SI = "\e[5 q"
-  let &t_EI = "\e[2 q"
-endif
+function! PatchColors()
+  " Syntax
+  hi Comment ctermfg=225
+  hi htmlTag ctermfg=cyan
+  hi htmlEndTag ctermfg=cyan
+
+  " TUI
+  hi Folded cterm=NONE ctermfg=255 ctermbg=236
+  hi FloatBorder ctermbg=NONE 
+  hi NormalFloat ctermbg=NONE
+  hi Visual ctermfg=238 ctermbg=255
+  hi ErrorMsg cterm=NONE ctermbg=234 ctermfg=196
+  
+  " Statusline
+  hi Statusline ctermbg=235 ctermfg=White cterm=NONE 
+  hi StatuslineNC ctermbg=235 ctermfg=DarkGrey cterm=NONE 
+  hi MainBranch ctermbg=235 ctermfg=Red cterm=bold
+  hi OtherBranch ctermbg=235 ctermfg=Green
+  hi BufNr ctermbg=235 ctermfg=Yellow
+
+  " Vm-Signify
+  hi DiffAdd ctermfg=green ctermbg=NONE
+  hi DiffChange ctermfg=yellow ctermbg=NONE 
+  hi DiffDelete ctermfg=red ctermbg=NONE
+  hi DiffText ctermfg=yellow ctermbg=NONE
+  hi SignColumn ctermbg=NONE
+  hi FoldColumn ctermbg=NONE
+
+  " Vim-fugitive
+  hi diffAdded ctermfg=green ctermbg=NONE
+  hi diffChanged ctermfg=yellow ctermbg=NONE 
+  hi diffRemoved ctermfg=red ctermbg=NONE 
+endfunction
+
+call PatchColors()
 
 " }}}
 " {{{ Functions
@@ -126,41 +153,6 @@ function! CountFolds()
   echo 'Active folds: ' . count
 endfunction
 
-function! PatchColors()
-  " Syntax
-  hi Comment ctermfg=darkgrey
-  hi Statement cterm=NONE
-  hi Identifier cterm=NONE 
-  hi htmlTag ctermfg=cyan
-  hi htmlEndTag ctermfg=cyan
-
-  " TUI
-  hi CursorLine cterm=NONE
-  hi Folded ctermfg=255 ctermbg=236
-  hi FloatBorder ctermbg=NONE 
-  hi NormalFloat ctermbg=NONE
-  hi Visual ctermfg=237 ctermbg=White
-  
-  " Statusline
-  hi Statusline ctermbg=235 ctermfg=White cterm=NONE 
-  hi StatuslineNC ctermbg=235 ctermfg=DarkGrey cterm=NONE 
-  hi MainBranch ctermbg=235 ctermfg=222 
-  hi OtherBranch NONE
-
-  " Vm-Signify
-  hi DiffAdd ctermfg=green ctermbg=NONE
-  hi DiffChange ctermfg=yellow ctermbg=NONE 
-  hi DiffDelete ctermfg=red ctermbg=NONE
-  hi DiffText ctermfg=yellow ctermbg=NONE
-  hi SignColumn ctermbg=NONE
-  hi FoldColumn ctermbg=NONE
-
-  " Vim-fugitive
-  hi diffAdded ctermfg=green ctermbg=NONE
-  hi diffChanged ctermfg=yellow ctermbg=NONE 
-  hi diffRemoved ctermfg=red ctermbg=NONE 
-endfunction
-
 " Set the background to match our terminal (currently Kitty)
 function! SetBackground()
   if has('kitty')
@@ -177,7 +169,12 @@ function! SetBackground()
 endfunction
 
 function! SetColors()
+  if &t_Co < 256
   colorscheme default
+  else
+    let g:solarized_termcolors=256 " instead of 16 color with mapping in terminal
+    colorscheme solarized
+  endif
   " Allow color schemes to do bright colors without forcing bold.
   if &t_Co == 8 && $TERM !~# '^Eterm'
     set t_Co=16
@@ -225,7 +222,7 @@ function! SetStatusline() abort
   let l:stl  = ''
 
   " Current buffer number
-  let l:stl .= '[%n] '
+  let l:stl .= '%#BufNr#[%n]%* '
 
   " Truncated path
   if exists('b:path')
@@ -526,7 +523,7 @@ augroup END
 " Patch colors whenever the background changes
 augroup patch
   autocmd!
-  autocmd OptionSet background call PatchColors()
+  autocmd VimEnter * call PatchColors()
 augroup END
 
 " Whenever we switch buffers or windows we want to rename the current tmux

@@ -34,12 +34,12 @@ get_display_mode() {
 
 # Switch Kitty and Neovim's theme based on the display mode
 switch_theme() {
-  if [[ "$1" == "Dark" ]]; then
-    /opt/homebrew/bin/kitty +kitten themes --reload-in=all "Solarized Dark"
-  else
-    /opt/homebrew/bin/kitty +kitten themes --reload-in=all "Solarized Light"
-  fi
-  change_colorscheme "$1"
+  # if [[ "$1" == "Dark" ]]; then
+  #   /opt/homebrew/bin/kitty +kitten themes --reload-in=all "Solarized Dark"
+  # else
+  #   /opt/homebrew/bin/kitty +kitten themes --reload-in=all "Solarized Light"
+  # fi
+  # change_colorscheme "$1"
 }
 
 # Check the OS

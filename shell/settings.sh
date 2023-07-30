@@ -1,7 +1,22 @@
 # Colorful man pages
 if [[ "$(tput colors)" == "256" ]]; then
-  colors256=' -DE210 -DS236.211  -DB210  -DC210 -DR253  -DN253  -Du214 -Dk+253 -Dd+045 -DP253  -Ds+208 -Dk+069'
-  colors16='  -DEr   -DSb.r      -DBr    -DCr   -DRw    -DNw    -Duy   -Dk+w   -Dd+0c  -DPw    -Ds+y   -Dk+b'
+  
+  # B  Binary characters.
+  # C  Control characters.
+  # E  Errors and informational messages.
+  # M  Mark letters in the status column.
+  # N  Line numbers enabled via the -N option.
+  # P  Prompts.
+  # R  The rscroll character.
+  # S  Search results.
+  # W  The highlight enabled via the -w option.
+  # d  Bold text.
+  # k  Blinking text.
+  # s  Standout text.
+  # u  Underlined text.
+
+  colors256=' -DE064  -DS0.064  -DB064  -DC064  -DR245  -DN245 -Du033 -Dk+245 -Dd+064 -DP245  -Ds+033 -Dk+033'
+  colors16='  -DEg    -DSKY     -DBga   -DCg    -DRw    -DNw    -Dub  -Dk+w   -Dd+g   -DPw    -Ds+b   -Dk+b'
   less_options="-i -g -j5 -N --mouse --line-num-width 4 --use-color +Gg"
   export MANPAGER="less $less_options $colors256 +Gg"
 else
