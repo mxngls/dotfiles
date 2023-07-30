@@ -274,7 +274,7 @@ function ToggleExplorer()
       if w:netrw_rexfile == "" || w:netrw_rexfile == "NetrwTreeListing"
         quit
       else
-        exec 'e ' . w:netrw_rexfile
+        exec 'b ' . w:netrw_rexfile
       endif
     else
       if exists("w:netrw_rexlocal") && w:netrw_rexlocal != 1
@@ -288,7 +288,7 @@ function ToggleExplorer()
     if empty(bufname('%'))
       quit
     else
-      let @/=expand('%:t') | Explore | normal n
+      let @/=escape(expand('%:t'), '\.*$^~[]/')| Explore | normal n
     endif
   endif
 endfunction
@@ -486,7 +486,7 @@ call plug#end()
 " Immediately go to the last curor position
 augroup save_cursor
   autocmd!
-  autocmd BufReadPost * ++once
+  autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") | 
     \ exe "normal g`\"" | 
     \ let b:doopenfold = 1 | 
