@@ -10,7 +10,7 @@ zstyle ':completion:*' completer _complete _expand _ignored:complete
 zstyle ':completion:*' glob 1
 zstyle ':completion:*' file-sort name
 zstyle ':completion:*' group-name             ''
-zstyle ':completion:*' list-colors            ''
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 zstyle ':completion:*' matcher-list           'm:{a-zA-Z}={A-Za-z}' 'r:|[._-/]=* r:|=**' 'l:|[._-/]=* l:|=**'
 zstyle ':completion:*' ignore-parents         'parent pwd directory' 
@@ -37,6 +37,7 @@ export EDITOR="$VISUAL"
 
 # Color directories
 export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
+export LS_COLORS="di=36:ln=35:so=31;1;44:pi=30;1;44:ex=1;31:bd=0;1;44:cd=37;1;44:su=37;1;41:sg=30;1;43:tw=30;1;42:ow=30;1;43"
 
 # Colorful Man pages
 source ~/dotfiles/shell/settings.sh
