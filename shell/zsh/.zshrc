@@ -8,7 +8,7 @@ source ~/dotfiles/shell/path.sh
 source ~/dotfiles/shell/alias.sh
 
 # External plugins (initialized before)
-source ~/dotfiles/shell/zsh/plugins/plugins_before.zsh
+source ~/dotfiles/shell/zsh/plugins_before.zsh
 
 # Settings
 source ~/dotfiles/shell/zsh/settings.zsh
@@ -17,4 +17,4 @@ source ~/dotfiles/shell/zsh/settings.zsh
 source ~/dotfiles/shell/zsh/prompt.zsh
 
 # External plugins (initialized after)
-source ~/dotfiles/shell/zsh/plugins/plugins_after.zsh
+source ~/dotfiles/shell/zsh/plugins_after.zsh
