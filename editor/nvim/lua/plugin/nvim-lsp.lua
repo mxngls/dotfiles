@@ -25,10 +25,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.lsp.handlers.signature_help
     )
 
-    vim.diagnostic.config {
-      virtual_text = false,
-    }
-
     local function on_list(options)
       -- vim.api.nvim_echo({ { vim.inspect(vim.fn.getqflist() ) } }, true, {})
       vim.fn.setqflist({}, ' ', options)
