@@ -88,9 +88,10 @@ set undofile
 
 function! PatchColors()
   " Syntax
+  hi Normal ctermfg=246 ctermbg=NONE
   hi Comment ctermfg=225
-  hi htmlTag ctermfg=cyan
-  hi htmlEndTag ctermfg=cyan
+  hi htmlTag ctermfg=white
+  hi htmlEndTag ctermfg=white
 
   " TUI
   hi Folded cterm=NONE ctermfg=255 ctermbg=236
@@ -250,7 +251,7 @@ function! SetStatusline() abort
 
   " Current cursor position
   let l:stl .= '%(%l:%02v %)'
-  let l:stl .= '%P'
+  let l:stl .= '%P '
   
   return stl
 endfunction
