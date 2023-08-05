@@ -4,20 +4,14 @@ setopt prompt_subst
 # Load color variables to make it easier to color things
 autoload -U colors && colors
 
-source ~/dotfiles/shell/zsh/plugins/spectrum.zsh
-# change default colors
-fg[red]=$FG[160]
-fg[green]=$FG[064]
-fg[blue]=$FG[033]
-
 # An exclamation point if the previous command did not complete successfully
 function PR_ERROR() {
   echo "%(?..%(!.%{$fg[white]%}.%{$fg[red]%})%B!%b%{$reset_color%} )"
 }
 
 # The arrow in red (for root) or violet (for regular user)
-function PR_ARROW() {
-  echo "%(!.%{$fg[red]%}.%{$fg[white]%})%B>%b%{$reset_color%}"
+function PR_DOLLAR() {
+  echo "%(!.%{$fg[red]%}.%{$fg[white]%})%B$%b%{$reset_color%}"
 }
 
 # Set custom rhs prompt
@@ -139,7 +133,7 @@ function git_prompt_string() {
 
 # Prompt
 function PCMD() {
-  echo "$(PR_INFO): $(PR_DIR 2) $(PR_ERROR)$(PR_ARROW) " # space at the end
+  echo "$(PR_INFO): $(PR_DIR 2) $(PR_ERROR)$(PR_DOLLAR) " # space at the end
 }
 
 PROMPT='$(PCMD)'  # single quotes to prevent immediate execution
