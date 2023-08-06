@@ -191,7 +191,7 @@ function! GetGitHead()
     catch
       return
     endtry
-    let l:gitrevparse=system('git rev-parse --abbrev-ref HEAD')
+    let l:gitrevparse=system('echo "${$((git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null)#(refs/heads/|tags/)}"')
     lcd -
     if l:gitrevparse!~'fatal: not a git repository'
       let b:gitbranch=substitute(l:gitrevparse, '\n', '', 'g')
