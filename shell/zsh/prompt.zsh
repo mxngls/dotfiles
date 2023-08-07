@@ -76,7 +76,7 @@ DIFF_SYMBOL="-"
 GIT_PROMPT_DELIMITER=" "
 GIT_PROMPT_SUB_DELIMITER=":"
 GIT_PROMPT_AHEAD="%{$fg[green]%}%B+NUM%b%{$reset_color%}"
-GIT_PROMPT_BEHIND="%{$fg[green]%}%B-NUM%b%{$reset_color%}"
+GIT_PROMPT_BEHIND="%{$fg[red]%}%B-NUM%b%{$reset_color%}"
 GIT_PROMPT_MERGING="%{$fg[white]%}%Bx%b%{$reset_color%}"
 GIT_PROMPT_DETACHED="%{$fg[white]%}%B!%b%{$reset_color%}"
 
