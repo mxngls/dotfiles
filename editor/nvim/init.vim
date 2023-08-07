@@ -298,7 +298,12 @@ function! ExplorerSplit()
   if &ft != "netrw"
     let path = expand('%:p:h')
     let @/ = escape(expand('%:t'), '\.*$^~[]/')
-    execute 'vnew' | execute 'Explore ' . path | normal n
+    if winwidth('%') > 78
+      execute 'vnew'
+    else
+      execute 'new'
+    endif
+    execute 'Explore ' . path | normal n
   else
     quit
   endif
