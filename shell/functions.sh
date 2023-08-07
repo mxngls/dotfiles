@@ -36,3 +36,16 @@ rename_stash() {
     echo "Renamed stash@{$stash_index} as '$new_stash_name'"
     return 0
 }
+
+# Create a new note or modify its date if it already exists
+note() { 
+  new_note="$(date +%Y-%m-%d_%H).md"
+  touch "$new_note"
+  # That doesn't work if it has no lines to operate on
+  if [[ $(echo -n "$new_note" | wc -l | bc ) == 0 ]]; then 
+    echo -e '\n' > "$new_note" 
+  fi 
+  sed -i "" -e "1s/^/# $(date)\n/" "$new_note";
+  vim "$new_note"
+}
+
