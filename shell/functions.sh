@@ -37,15 +37,21 @@ rename_stash() {
     return 0
 }
 
-# Create a new note or modify its date if it already exists
-note() { 
-  new_note="$(date +%Y-%m-%d_%H).md"
-  touch "$new_note"
-  # That doesn't work if it has no lines to operate on
-  if [[ $(echo -n "$new_note" | wc -l | bc ) == 0 ]]; then 
-    echo -e '\n' > "$new_note" 
-  fi 
-  sed -i "" -e "1s/^/# $(date)\n/" "$new_note";
-  vim "$new_note"
+# Create a new entry or modify its date if it already exists
+entry() { 
+  if [[ -z $1 ]]; then
+    new_entry="$(date +%Y-%m-%d).md"
+    touch "$new_entry"
+  else
+    new_entry=$1
+  fi;
+
+  if [[ $(cat "$new_entry" | wc -l | bc ) == 0 ]]; then 
+    echo "# $(date)\n" > "$new_entry";
+  else; 
+    echo "\n# $(date)" >> "$new_entry";
+  fi;
+
+  vim "$new_entry"
 }
 
