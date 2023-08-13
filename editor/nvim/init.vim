@@ -319,40 +319,33 @@ function! CFind(filename)
   if executable('fd')
     let l:cmd = 'fd --hidden --type f --type l "'.a:filename.'"
           \ | xargs file | sed "s/:/:1:/"'
-    cgete system(l:cmd)
   else
     let l:cmd = 'find . -type f -name "*'.a:filename.'*"
           \ -o -type l -name "*'.a:filename.'*" 
           \ | xargs file | sed "s/:/:1:/"'
-    cgete system(l:cmd)
   endif
   setlocal errorformat=%f:%l:%m
-  call OpenQuicfix()
+  return system(l:cmd)
+endfunction
+
+function! CGrep(...)
+	return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
 endfunction
 
 function! OpenQuicfix()
+  set hls
   setlocal errorformat=%f:%l:%m
-  if len(getqflist()) > 0
-    if len(getqflist()) == 1 && getqflist()[0].bufnr == bufnr('%')
-        cc 
-    else 
-      if getqflist()[0].bufnr == bufnr('%')
-        if winwidth('%') >= 160 | vsplit | else | split | endif | copen | cc
-      else
-        if winwidth('%') >= 160 | vnew | else | new | endif | copen | cc
-      endif
-    endif
+  let l:qfl = len(getqflist())
+  if l:qfl > 0
+    copen | cc | execute 'e'
   endif
 endfunction
 
 " Close the quickfix list
 function! CloseQuickfixList()
-  set nohls
-  let l:current_qfl = getqflist()
-  if len(l:current_qfl) >= 1
-    let l:current_buf = l:current_qfl[getqflist({'idx':0}).idx - 1].bufnr
-    echo l:current_buf
-    execute 'bdelete ' . l:current_buf | cclose
+  if !empty(getqflist())
+    set nohls | close 2 | cclose | normal `A \| delm A
+    call setqflist([])
   endif
 endfunction
 
@@ -420,8 +413,8 @@ nnoremap <C-p> :cprevious<CR>zz
 
 " Keep the opened buffer with cc or close
 " it with together with the quickfix window
-nnoremap <leader>cc :cclose<CR>
-nnoremap <leader>cd :call CloseQuickfixList()<CR>
+nnoremap <leader>cc :cclose \| delm A<CR>
+nnoremap <leader>cq :call CloseQuickfixList()<CR>
 
 " Toggle folds
 nnoremap <leader>fm :set foldmethod=marker<CR>
@@ -445,6 +438,9 @@ nnoremap <C-m> @
 " These as well
 map H ^
 map L $
+
+" Toggle search highlighting
+nnoremap <leader>hl :if &hls && v:hlsearch <Bar> set nohls <Bar> else <Bar> set hls <Bar> endif<CR>
 
 " Plugin related {{{2
 
@@ -582,7 +578,8 @@ augroup END
 " When pressing CTRL_:h
 augroup quickfix
   autocmd!
-  autocmd QuickFixCmdPost *grep* call OpenQuicfix()
+  autocmd QuickFixCmdPre  cgetexpr :normal mA
+  autocmd QuickFixCmdPost cgetexpr call OpenQuicfix()
   autocmd FileType qf call AdjustWindowHeight(3, 10)
   autocmd FileType qf nnoremap <buffer> <C-v> <C-w><Enter><C-w>L
 augroup END
@@ -598,10 +595,10 @@ augroup END
 " {{{ Customize Commands
 
 " Grepping stuff
-command! -nargs=+ -complete=file Grep execute 'silent grep! <args>' | redraw! | let @/ = '<args>' | set hls
+command! -nargs=+ -complete=file -bar Grep cgetexpr CGrep(<f-args>)
 
 " Finding files
-command! -nargs=1 CFind call CFind(<q-args>) | set hls
+command! -nargs=1 -complete=file -bar CFind cgetexpr CFind(<f-args>)
 
 " }}}
 " Plugin Settings {{{
@@ -627,7 +624,7 @@ let g:netrw_fastbrowse		  = 2
 
 " Grep
 if executable('ag')
-  set grepprg=ag\ -S\ -o\ -m\ 1\ --vimgrep\ --group\ --silent
+  set grepprg=ag\ -S\ -o\ --vimgrep\ --group\ --silent
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
