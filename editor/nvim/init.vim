@@ -317,7 +317,7 @@ endfunction
 " Make simplify finding and avoid heavy plugins
 function! CFind(filename)
   if executable('fd')
-    let l:cmd = 'fd --type f --type l "'.a:filename.'"
+    let l:cmd = 'fd --hidden --type f --type l "'.a:filename.'"
           \ | xargs file | sed "s/:/:1:/"'
     cgete system(l:cmd)
   else
