@@ -298,7 +298,7 @@ function! ExplorerSplit()
   if &ft != "netrw"
     let path = expand('%:p:h')
     let @/ = escape(expand('%:t'), '\.*$^~[]/')
-    if winwidth('%') > 78
+    if winwidth('%') > 160
       execute 'vnew'
     else
       execute 'new'
@@ -621,6 +621,8 @@ let g:netrw_altv            = 1
 let g:netrw_bufsettings     = 'noma nomod nu rnu nobl nowrap ro'
 let g:netrw_use_errorwindow = 2
 let g:netrw_fastbrowse		  = 2
+let ghregex                 = '\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_list_hide       = ghregex .',.*\.swp$,.*\.out'
 
 " Grep
 if executable('ag')
