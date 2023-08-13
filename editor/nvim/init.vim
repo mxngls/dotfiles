@@ -33,7 +33,7 @@ set wildmenu                    " Enable command-line completion menu
 set wildmode=longest:full       " Complete longest match, list other matches in wildmenu
 set wildignorecase              " Case is ignored when completing file names and directories
 set wildoptions=pum             " Show pop-up menu
-set completeopt=menu,popup,noselect " Enable enhanced completion menu
+set completeopt=menu,noselect   " Enable enhanced completion menu
 
 set nohlsearch                  " Clear search highlighting after completing a search
 set incsearch                   " Enable incremental searching
