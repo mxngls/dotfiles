@@ -265,45 +265,33 @@ function! LargeFile()
   autocmd VimEnter *  echo "The file is larger than " . (g:large_file / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details)."
 endfunction
 
-" If we are already in Netrw and we have another buffer open 
-" we want to go back to the buffer but leave Netrw open as well
-" If we are in a buffer and we haven't opened Netrw yet we
-" open with :Explore
+" If we are already in a Dirvish buffer and we have another buffer open we
+" want to go back to the previously opened buffer 
 function ToggleExplorer()
-  if &ft == "netrw"
-    if exists("w:netrw_rexfile")
-      if w:netrw_rexfile == "" || w:netrw_rexfile == "NetrwTreeListing"
-        quit
-      else
-        exec 'b ' . w:netrw_rexfile
-      endif
+  if &ft == "dirvish"
+    if expand('#:t') != ''
+      b#
     else
-      if exists("w:netrw_rexlocal") && w:netrw_rexlocal != 1
-        Rexplore
-      else
-        quit
-      endif
+      quit
     endif
   else
-    " If we opened Vim without specifying a buffer or directory
     if empty(bufname('%'))
       quit
     else
-      let @/=escape(expand('%:t'), '\.*$^~[]/')| Explore | normal n
+      Dirvish
     endif
   endif
 endfunction
 
 function! ExplorerSplit()
-  if &ft != "netrw"
+  if &ft != "dirvish"
     let path = expand('%:p:h')
-    let @/ = escape(expand('%:t'), '\.*$^~[]/')
     if winwidth('%') > 160
       execute 'vnew'
     else
       execute 'new'
     endif
-    execute 'Explore ' . path | normal n
+    execute 'Dirvish' . path
   else
     quit
   endif
@@ -455,9 +443,10 @@ vnoremap <leader>fl :FormatLines<CR>
 nnoremap <leader>hd :SignifyHunkDiff<CR>
 nnoremap <leader>hu :SignifyHunkUndo<CR>
 
-" Netrw
+" Dirvish
 nnoremap <leader>l  :call ToggleExplorer()<CR>
 nnoremap <leader>L  :call ExplorerSplit()<CR>
+nnoremap <leader>sh :Shdo
 
 " }}}
 
@@ -477,6 +466,9 @@ Plug 'google/vim-glaive'
 " Misc
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+
+" File explorer
+Plug 'justinmk/vim-dirvish'
 
 " Neovim specific plugins {{{2
 
@@ -613,22 +605,15 @@ let g:signify_sign_change_delete     = '╋'
 let g:signify_sign_delete            = '┃'
 let g:signify_sign_delete_first_line = '▔'
 
-" Netrw
-let g:netrw_banner          = 0
-let g:netrw_liststyle       = 3
-let g:eetrw_browse_split    = 4
-let g:netrw_altv            = 1
-let g:netrw_bufsettings     = 'noma nomod nu rnu nobl nowrap ro'
-let g:netrw_use_errorwindow = 2
-let g:netrw_fastbrowse		  = 2
-let ghregex                 = '\(^\|\s\s\)\zs\.\S\+'
-let g:netrw_list_hide       = ghregex .',.*\.swp$,.*\.out'
-
 " Grep
 if executable('ag')
   set grepprg=ag\ -S\ -o\ --vimgrep\ --group\ --silent
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
+
+" Dirvish / Netrw
+let g:loaded_netrw       = 1
+let g:loaded_netrwPlugin = 1
 
 " }}}
 " {{{ NVIM
