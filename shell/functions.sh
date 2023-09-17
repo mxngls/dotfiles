@@ -55,3 +55,20 @@ entry() {
   vim "$new_entry"
 }
 
+
+# Find duplicate commits
+dups() {
+  declare -a git_log=()
+
+  while read -r commit; do
+    git_log+=($commit)
+  done < <(git log --pretty='%C(yellow)%h %C(cyan)%cd %Cblue%aN%C(auto)%d %Creset%s' --date-order --date=short --color=always | sort -b -k4 -k2,2 | uniq -f 2 -D)
+
+  if [[ "${#git_log[@]}" -ge 0 ]]; then
+    for commit in $git_log; do
+      echo $commit
+    done;
+  else
+    echo "No duplicate commits found."
+  fi
+}
