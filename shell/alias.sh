@@ -1,6 +1,3 @@
-# Source user defined functions
-source ~/dotfiles/shell/functions.sh
-
 # Misc
 alias ep='echo $PATH | sed "s/:/\\n/g"'
 alias ls='ls --color=always                   ' 

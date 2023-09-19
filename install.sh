@@ -25,7 +25,6 @@ function backup_dotfiles() {
 backup_dotfiles
 
 # }}}
-
 # {{{ Install homebrew
 function install_brew() {
   if ! command -v brew &> /dev/null; then
@@ -47,7 +46,6 @@ function install_brew() {
 install_brew
 
 # }}}
-
 # {{{ Linking
 function link_all() {
   echo "> Linking files and directories"
@@ -68,6 +66,10 @@ function link_all() {
   ln -sfn "$(pwd)"/editor/nvim                  "${HOME}".config/
   ln -sfn "$(pwd)"/.gitconfig                   "${HOME}".gitconfig
 
+  for script in "$(pwd)"/shell/bin/*; do
+    ln -sfn "$script" "/usr/local/bin/$(basename "$script")"
+  done
+
   echo -e "Done!\n"
   echo "> All files linked! Ready to go!"
 }
@@ -75,7 +77,6 @@ function link_all() {
 link_all
 
 # }}}
-
 # {{{ Set up external repos that that can't be managed via Homebrew
 function get_other() {
   cd "${HOME}"
@@ -84,7 +85,6 @@ function get_other() {
 }
 
 # }}}
-
 # {{{ Set termial/vim theme
 if [[ "$(uname -s)" == "Darwin" ]]; then
   swiftc dark-mode-notify.swift -o dark-mode-notify

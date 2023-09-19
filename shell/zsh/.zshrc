@@ -1,6 +1,3 @@
-# Functions
-source ~/dotfiles/shell/functions.sh
-
 # Path
 source ~/dotfiles/shell/path.sh
 
