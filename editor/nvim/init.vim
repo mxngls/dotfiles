@@ -259,11 +259,13 @@ function! LargeFile()
   setlocal bufhidden=unload
   setlocal buftype=nowrite
   setlocal undolevels=-1
-  autocmd VimEnter *  echo "The file is larger than " . (g:large_file / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details)."
+  autocmd VimEnter * echo "The file is larger than " 
+        \ . (g:large_file / 1024 / 1024) 
+        \ . " MB, so some options are changed (see .vimrc for details)."
 endfunction
 
-" If we are already in a Dirvish buffer and we have another buffer open we
-" want to go back to the previously opened buffer 
+" If we are already in a Dirvish buffer and we have another buffer open
+" we want to go back to the previously opened buffer 
 function ToggleExplorer()
   if &ft == "dirvish"
     if expand('#:t') != ''
@@ -408,7 +410,11 @@ nnoremap <leader>fs :set foldmethod=syntax<CR>
 nnoremap <leader>fn :call CountFolds()<CR>
 
 " Toggle the sign column
-nnoremap <silent> <leader>sc :if &signcolumn == 'yes' <Bar> set signcolumn=no <Bar> else <Bar> set signcolumn=yes <Bar> endif<CR>
+nnoremap <silent> <leader>sc :if &signcolumn == 'yes' <Bar>
+  \   set signcolumn=no <Bar> 
+  \ else <Bar> 
+  \   set signcolumn=yes <Bar> 
+  \ endif<CR>
 
 " So annoying...
 nnoremap q: :q
@@ -425,7 +431,11 @@ map H ^
 map L $
 
 " Toggle search highlighting
-nnoremap <leader>hl :if &hls && v:hlsearch <Bar> set nohls <Bar> else <Bar> set hls <Bar> endif<CR>
+nnoremap <leader>hl :if &hls && v:hlsearch <Bar> 
+  \   set nohls <Bar> 
+  \ else <Bar> 
+  \    set hls <Bar> 
+  \ endif<CR>
 
 " Plugin related {{{2
 
@@ -513,7 +523,8 @@ augroup END
 augroup autoformat_settings
   autocmd!
   autocmd Filetype html,css,sass,scss,less AutoFormatBuffer prettier
-  autocmd Filetype javascript,javascriptreact,typescript,typescriptreact,vue,json AutoFormatBuffer prettier
+  autocmd Filetype javascript,javascriptreact,typescript,typescriptreact,vue,
+        \ json AutoFormatBuffer prettier
   autocmd Filetype python AutoFormatBuffer yapf
 augroup END
 
