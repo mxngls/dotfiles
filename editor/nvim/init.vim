@@ -216,11 +216,11 @@ endfunction
 " Custom statusline
 function! SetStatusline() abort
 	let active = g:statusline_winid == win_getid(winnr())
-  
+ 
   let l:stl  = ''
 
   " Current buffer number
-  let l:stl .= '%#BufNr#[%n]%* '
+  let l:stl .= active ? '%#BufNr#[%n]%* ' : '[%n] '
 
   " Truncated path
   if exists('b:path')
