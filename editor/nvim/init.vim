@@ -88,8 +88,6 @@ set undofile
 
 function! PatchColors()
   " Syntax
-  hi Normal ctermfg=246 ctermbg=NONE
-  hi Comment ctermfg=225
   hi htmlTag ctermfg=white
   hi htmlEndTag ctermfg=white
 
@@ -103,8 +101,8 @@ function! PatchColors()
   " Statusline
   hi Statusline ctermbg=235 ctermfg=White cterm=NONE 
   hi StatuslineNC ctermbg=235 ctermfg=DarkGrey cterm=NONE 
-  hi MainBranch ctermbg=235 ctermfg=Red cterm=bold
-  hi OtherBranch ctermbg=235 ctermfg=Green
+  hi MainBranch ctermbg=235 ctermfg=White cterm=bold
+  hi OtherBranch ctermbg=235 ctermfg=White
   hi BufNr ctermbg=235 ctermfg=Yellow
 
   " Vm-Signify
@@ -120,8 +118,6 @@ function! PatchColors()
   hi diffChanged ctermfg=yellow ctermbg=NONE 
   hi diffRemoved ctermfg=red ctermbg=NONE 
 endfunction
-
-call PatchColors()
 
 " }}}
 " {{{ Functions
@@ -171,10 +167,11 @@ endfunction
 
 function! SetColors()
   if &t_Co < 256
-  colorscheme default
+    colorscheme default
   else
-    let g:solarized_termcolors=256 " instead of 16 color with mapping in terminal
-    colorscheme solarized
+    " let g:solarized_termcolors=256 " instead of 16 color with mapping in terminal
+    " colorscheme solarized
+    colorscheme zenburn
   endif
   " Allow color schemes to do bright colors without forcing bold.
   if &t_Co == 8 && $TERM !~# '^Eterm'
@@ -541,7 +538,7 @@ augroup END
 " Patch colors whenever the background changes
 augroup patch
   autocmd!
-  autocmd VimEnter * call PatchColors()
+  autocmd Colorscheme * call PatchColors()
 augroup END
 
 " Whenever we switch buffers or windows we want to rename the current tmux
@@ -621,5 +618,9 @@ let g:loaded_netrwPlugin = 1
 if has('nvim')
   :lua require('init')
 endif
+
+call SetBackground()
+call SetColors()
+call PatchColors()
 
 " }}}
