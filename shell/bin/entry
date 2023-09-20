@@ -1,21 +1,21 @@
 #!/bin/bash
 
 # Create a new journal entry or modify its date if it already exists
-entry() { 
-  set -eu
+set -eu
 
-  if [[ -z $1 ]]; then
-    new_entry="$(date +%Y-%m-%d).md"
-    touch "$new_entry"
-  else
-    new_entry=$1
-  fi;
+declare new_entry=${1:-}
 
-  if [[ $(cat "$new_entry" | wc -l | bc ) == 0 ]]; then 
-    echo "# $(date)\n" > "$new_entry";
-  else; 
-    echo "\n# $(date)" >> "$new_entry";
-  fi;
+if [[ -z "$new_entry" ]]; then
+  new_entry="$(date +%Y-%m-%d).md"
+  touch "$new_entry"
+fi
 
-  vim "$new_entry"
-}
+if [[ $(wc -l < "$new_entry" | bc) == 0 ]]; then
+  echo -e "# $(date)\n" > "$new_entry"
+elif [[ $(tail "$new_entry") != '\n' ]]; then
+  echo -e "# $(date)\n" >> "$new_entry"
+else
+  echo -e "\n# $(date)\n" >> "$new_entry"
+fi
+
+vim "$new_entry"
