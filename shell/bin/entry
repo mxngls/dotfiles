@@ -18,6 +18,6 @@ else
   echo -e "\n# $(date)\n" >> "$new_entry"
 fi
 
-vim "$new_entry"
+vim -c "normal G" "$new_entry"
 
 exit 0
