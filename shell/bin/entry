@@ -19,3 +19,5 @@ else
 fi
 
 vim "$new_entry"
+
+exit 0

@@ -25,3 +25,5 @@ if [[ "${#git_log[@]}" -ge 0 ]]; then
 else
   echo "No duplicate commits found."
 fi
+
+exit 0
