@@ -9,11 +9,6 @@
 	ui = true
 [merge]
 	tool = nvim -d
-[alias]
-	# https://stackoverflow.com/a/11688523/472927
-	ss = "!f() { git stash show stash^{/$*} -p; }; f"
-	sa = "!f() { git stash apply stash^{/$*}; }; f"
-	sl = stash list
 [pull]
   rebase = false
 	ff = only
@@ -28,6 +23,7 @@
 [diff]
 	algorithm = patience
 	compactionHeuristic = true
+	tool = nvim -d
 [protocol]
 	version = 2
 [filter "lfs"]
@@ -39,3 +35,9 @@
 	rebase = true
 [branch "main"]
 	rebase = true
+[credential]
+	helper = osxkeychain
+[core]
+	quotepath = off
+[gui]
+	encoding = utf-8
