@@ -28,6 +28,8 @@ set signcolumn=no               " Disable the sign column
 set pumheight=10                " Don't make the completion window too heigh
 set noswapfile                  " Disable swap files
 set clipboard=unnamed           " Use the system clipboard
+set colorcolumn=80              " Limit the visual available width to 80 characters
+set textwidth=80                " And do the same practically as well
 
 set wildmenu                    " Enable command-line completion menu
 set wildmode=longest:full       " Complete longest match, list other matches in wildmenu
@@ -35,10 +37,10 @@ set wildignorecase              " Case is ignored when completing file names and
 set wildoptions=pum             " Show pop-up menu
 set completeopt=menu,noselect   " Enable enhanced completion menu
 
-set nohlsearch                  " Clear search highlighting after completing a search
+set nohlsearch                  " Clear search highlighting 
 set incsearch                   " Enable incremental searching
 set ignorecase                  " Ignore case when searching
-set smartcase                   " Use case-sensitive search if the pattern contains an uppercase character
+set smartcase                   " Search case-sensetive in certain cases (lol)
 
 set expandtab                   " Use spaces instead of tabs
 set tabstop=2                   " Number of spaces for each tab
