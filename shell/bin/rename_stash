@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Function to rename a Git stash
+# see also https://stackoverflow.com/questions/25931026/how-can-i-rename-a-git-stash/65627640#65627640
 # Parameters:
 #   $1: The index of the stash to rename
 #   $2: The new name for the stash
