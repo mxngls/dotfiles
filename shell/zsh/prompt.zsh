@@ -82,7 +82,10 @@ GIT_PROMPT_DETACHED="%{$fg[white]%}%B!%b%{$reset_color%}"
 
 # Show Git branch/tag, or name-rev if on detached head
 function parse_git_branch() {
-  (git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null
+  ( \ 
+    git symbolic-ref -q HEAD || \
+    git name-rev --name-only --no-undefined --always HEAD \
+    ) 2> /dev/null
 }
 
 # Indicate if head is detached
@@ -128,7 +131,8 @@ function parse_git_state() {
 function git_prompt_string() {
   local git_where="${$(parse_git_branch)#(refs/heads/|tags/)}"
   local git_detached="$(parse_git_detached)"
-  [ -n "$git_where" ] && echo "${git_where}$git_detached$GIT_PROMPT_DELIMITER$(parse_git_state)"
+  [ -n "$git_where" ] && echo \
+    "${git_where}$git_detached$GIT_PROMPT_DELIMITER$(parse_git_state)"
 }
 
 # Prompt
@@ -155,7 +159,8 @@ function precmd() {
   typeset -g _PROMPT_ASYNC_FD
 
     # close last fd, we don't care about the result anymore
-    if [[ -n "$_PROMPT_ASYNC_FD" ]] && { true <&$_PROMPT_ASYNC_FD } 2>/dev/null; then
+    if [[ -n "$_PROMPT_ASYNC_FD" ]] && \
+      { true <&$_PROMPT_ASYNC_FD } 2>/dev/null; then
       exec {_PROMPT_ASYNC_FD}<&-
     fi
 
