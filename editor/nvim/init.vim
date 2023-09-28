@@ -537,10 +537,10 @@ augroup autoformat_settings
   autocmd!
   autocmd Filetype html,css,sass,scss,less AutoFormatBuffer prettier
   autocmd Filetype javascript,javascriptreact,
-        \ typescript,typescriptreact,
-        \ vue,
-        \ json 
-        \ AutoFormatBuffer prettier
+        \typescript,typescriptreact,
+        \vue,
+        \json 
+        \AutoFormatBuffer prettier
   autocmd Filetype python AutoFormatBuffer yapf
 augroup END
 
