@@ -125,7 +125,7 @@ endfunction
 
 " Show the number of the current hunk relative to the total number
 " of hunks
-function! s:ShowCurrentHunk() 
+function! s:ShowCurrentHunk() abort 
   let h = sy#util#get_hunk_stats()
   if !empty(h)
     echo printf('[Hunk %d/%d]', h.current_hunk, h.total_hunks)
@@ -152,7 +152,7 @@ function! CountFolds()
 endfunction
 
 " Set the background to match our terminal (currently Kitty)
-function! SetBackground()
+function! SetBackground() abort
   if has('kitty')
     let bg_ = system('head -n 1 ~/dotfiles/shell/kitty/current-theme.conf 2> /dev/null')
     let bg_ = substitute(bg_, '\n', '', 'g')
@@ -181,7 +181,7 @@ function! SetColors()
 endfunction
 
 " Get the current head when in a Git repository
-function! GetGitHead()
+function! GetGitHead() abort
   let b:gitbranch=''
   if &modifiable
     try
@@ -198,7 +198,7 @@ function! GetGitHead()
 endfunction
 
 " Get truncated path
-function! GetTruncatedPath()
+function! GetTruncatedPath() abort
   let b:path = ' '
   let b:path = expand('%:p')
   if b:path != ""
@@ -255,7 +255,7 @@ function! SetStatusline() abort
 endfunction
 
 " Stop large files from crippling Vim 
-function! LargeFile()
+function! LargeFile() abort
   setlocal eventignore+=Filetype
   setlocal bufhidden=unload
   setlocal buftype=nowrite
@@ -267,7 +267,7 @@ endfunction
 
 " If we are already in a Dirvish buffer and we have another buffer open
 " we want to go back to the previously opened buffer 
-function ToggleExplorer()
+function ToggleExplorer() abort
   if &ft == "dirvish"
     if expand('#:t') != ''
       b#
@@ -283,7 +283,7 @@ function ToggleExplorer()
   endif
 endfunction
 
-function! ExplorerSplit()
+function! ExplorerSplit() abort
   if &ft != "dirvish"
     let path = expand('%:p:h')
     if winwidth('%') > 160
@@ -298,12 +298,12 @@ function! ExplorerSplit()
 endfunction
 
 " Just used for the quickfix window
-function! AdjustWindowHeight(minheight, maxheight)
+function! AdjustWindowHeight(minheight, maxheight) abort
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
 " Make simplify finding and avoid heavy plugins
-function! CFind(filename)
+function! CFind(filename) abort
   if executable('fd')
     let l:cmd = 'fd --hidden --type f --type l "'.a:filename.'"
           \ | xargs file | sed "s/:/:1:/"'
@@ -316,7 +316,7 @@ function! CFind(filename)
   return system(l:cmd)
 endfunction
 
-function! CGrep(...)
+function! CGrep(...) abort
 	return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
 endfunction
 
