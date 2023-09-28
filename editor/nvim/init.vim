@@ -96,7 +96,6 @@ function! PatchColors()
   " TUI
   hi Folded cterm=NONE ctermfg=255 ctermbg=236
   hi FloatBorder ctermbg=NONE 
-  hi NormalFloat ctermbg=NONE
   hi Visual ctermfg=238 ctermbg=255
   hi ErrorMsg cterm=NONE ctermbg=234 ctermfg=196
   
@@ -321,7 +320,8 @@ function! CGrep(...)
 	return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
 endfunction
 
-function! OpenQuicfix()
+function! OpenQuickfix() abort
+  mark A
   set hls
   setlocal errorformat=%f:%l:%m
   let l:qfl = len(getqflist())
@@ -331,12 +331,23 @@ function! OpenQuicfix()
 endfunction
 
 " Close the quickfix list
-function! CloseQuickfixList()
+function! CloseQuickfixList(close_current = 0) abort
   if !empty(getqflist())
-    set nohls | close 2 | cclose | normal `A \| delm A
+    set nohls
+    cclose
+    if a:close_current
+      vsplit
+      wincmd h
+    else
+      bdelete
+    endif
+    normal `A zz
+    delm A
+    wincmd =
     call setqflist([])
   endif
 endfunction
+
 
 " Keymaps {{{1
 
@@ -402,8 +413,8 @@ nnoremap <C-p> :cprevious<CR>zz
 
 " Keep the opened buffer with cc or close
 " it with together with the quickfix window
-nnoremap <leader>cc :cclose \| delm A<CR>
-nnoremap <leader>cq :call CloseQuickfixList()<CR>
+nnoremap <leader>cv :call CloseQuickfixList(1)<CR>
+nnoremap <leader>cc :call CloseQuickfixList()<CR>
 
 " Toggle folds
 nnoremap <leader>fm :set foldmethod=marker<CR>
@@ -583,10 +594,8 @@ augroup END
 " When pressing CTRL_:h
 augroup quickfix
   autocmd!
-  autocmd QuickFixCmdPre  cgetexpr :normal mA
-  autocmd QuickFixCmdPost cgetexpr call OpenQuicfix()
+  autocmd QuickFixCmdPost cgetexpr call OpenQuickfix()
   autocmd FileType qf call AdjustWindowHeight(3, 10)
-  autocmd FileType qf nnoremap <buffer> <C-v> <C-w><Enter><C-w>L
 augroup END
 
 augroup theme

@@ -1,6 +1,5 @@
 -- Setup language servers.
 local lspconfig = require('lspconfig')
-local lsp_ui_windows = require('lspconfig.ui.windows')
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -26,10 +25,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     )
 
     local function on_list(options)
-      -- vim.api.nvim_echo({ { vim.inspect(vim.fn.getqflist() ) } }, true, {})
       vim.fn.setqflist({}, ' ', options)
-      if #vim.fn.getqflist() == 1 then
-        vim.api.nvim_command('copen | .cc | ccl')
+      if #vim.fn.getqflist() >= 1 then
+        vim.api.nvim_command('call OpenQuickfix()')
       end
     end
 
