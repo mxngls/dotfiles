@@ -1,8 +1,8 @@
 # Misc
 alias ep='echo $PATH | sed "s/:/\\n/g"'
 alias ls='ls --color=always                   ' 
-alias lss='ls -F -1     | sort -k 1.1,1.1 -t .' 
-alias lsa='ls -aF       | sort -k 1.1,1.1 -t .' 
+alias lss='ls -F -1     | sort -k 1.1,1.1 -t .'
+alias lsa='ls -aF       | sort -k 1.1,1.1 -t .'
 alias lsl='ls -aFlh     | sort -k 1.1,1.1 -t .'
 alias me='print -P "%n@%m"'
 

@@ -37,7 +37,7 @@ set wildignorecase              " Case is ignored when completing file names and
 set wildoptions=pum             " Show pop-up menu
 set completeopt=menu,noselect   " Enable enhanced completion menu
 
-set nohlsearch                  " Clear search highlighting 
+set nohlsearch                  " Clear search highlighting
 set incsearch                   " Enable incremental searching
 set ignorecase                  " Ignore case when searching
 set smartcase                   " Search case-sensetive in certain cases (lol)
@@ -56,7 +56,7 @@ set nofoldenable                " Disable folding by default
 
 set noruler
 set laststatus=2
-set statusline=%!SetStatusline() " Set custom status ruler 
+set statusline=%!SetStatusline() " Set custom status ruler
 
 filetype plugin on
 
@@ -69,8 +69,8 @@ if !isdirectory($HOME.'/.vim')
 endif
 
 " Create a undo directory if it doesn't exist yet
-" Unfortunately the type of the undofiles for Neovim 
-" and Vim are not compatible anymore 
+" Unfortunately the type of the undofiles for Neovim
+" and Vim are not compatible anymore
 if has('nvim')
   if !isdirectory($HOME.'/.config/nvim/undo-dir')
     call mkdir($HOME.'/.config/nvim/undo-dir', 'p', 0700)
@@ -81,7 +81,7 @@ else
     call mkdir($HOME.'/.vim/undo-dir', 'p', 0700)
   endif
   set undodir=~/.vim/undo-dir
-endif 
+endif
 
 set undofile
 
@@ -97,20 +97,20 @@ function! PatchColors()
 
   " TUI
   hi Folded cterm=NONE ctermfg=255 ctermbg=236
-  hi FloatBorder ctermbg=NONE 
+  hi FloatBorder ctermbg=NONE
   hi Visual ctermfg=238 ctermbg=255
   hi ErrorMsg cterm=NONE ctermbg=160 ctermfg=white
-  
+
   " Statusline
-  hi Statusline ctermbg=235 ctermfg=White cterm=NONE 
-  hi StatuslineNC ctermbg=235 ctermfg=DarkGrey cterm=NONE 
+  hi Statusline ctermbg=235 ctermfg=White cterm=NONE
+  hi StatuslineNC ctermbg=235 ctermfg=DarkGrey cterm=NONE
   hi MainBranch ctermbg=235 ctermfg=White cterm=BOLD
   hi OtherBranch ctermbg=235 ctermfg=White
   hi BufNr ctermbg=235 ctermfg=Yellow
 
   " Vm-Signify
   hi DiffAdd ctermfg=green ctermbg=NONE
-  hi DiffChange ctermfg=yellow ctermbg=NONE 
+  hi DiffChange ctermfg=yellow ctermbg=NONE
   hi DiffDelete ctermfg=red ctermbg=NONE
   hi DiffText ctermfg=yellow ctermbg=NONE
   hi SignColumn ctermbg=NONE
@@ -118,8 +118,8 @@ function! PatchColors()
 
   " Vim-fugitive
   hi diffAdded ctermfg=green ctermbg=NONE
-  hi diffChanged ctermfg=yellow ctermbg=NONE 
-  hi diffRemoved ctermfg=red ctermbg=NONE 
+  hi diffChanged ctermfg=yellow ctermbg=NONE
+  hi diffRemoved ctermfg=red ctermbg=NONE
 endfunction
 
 " }}}
@@ -127,7 +127,7 @@ endfunction
 
 " Show the number of the current hunk relative to the total number
 " of hunks
-function! s:ShowCurrentHunk() abort 
+function! s:ShowCurrentHunk() abort
   let h = sy#util#get_hunk_stats()
   if !empty(h)
     echo printf('[Hunk %d/%d]', h.current_hunk, h.total_hunks)
@@ -209,9 +209,9 @@ function! GetTruncatedPath() abort
 
     if len(b:parts) > 2
       let b:last_two = join(b:parts[-2:], '/')
-      let b:path = '.../' . b:last_two 
+      let b:path = '.../' . b:last_two
     else
-      let b:path = b:last_two 
+      let b:path = b:last_two
     endif
   endif
 endfunction
@@ -219,7 +219,7 @@ endfunction
 " Custom statusline
 function! SetStatusline() abort
 	let active = g:statusline_winid == win_getid(winnr())
- 
+
   let l:stl  = ''
 
   " Current buffer number
@@ -232,13 +232,13 @@ function! SetStatusline() abort
 
   " File flags
   let l:stl .= '%(%m%r%h%w %)'
-  
+
   " Current Git branch
   if exists('b:gitbranch')
     if active
       if b:gitbranch ==# 'main' || b:gitbranch ==# 'master'
         let l:stl .= '%#MainBranch#%(%{b:gitbranch}%* %)'
-      else 
+      else
         let l:stl .= '%#OtherBranch#%(%{b:gitbranch} %)%*'
       endif
     else
@@ -252,23 +252,23 @@ function! SetStatusline() abort
   " Current cursor position
   let l:stl .= '%(%l:%02v %)'
   let l:stl .= '%P '
-  
+
   return stl
 endfunction
 
-" Stop large files from crippling Vim 
+" Stop large files from crippling Vim
 function! LargeFile() abort
   setlocal eventignore+=Filetype
   setlocal bufhidden=unload
   setlocal buftype=nowrite
   setlocal undolevels=-1
-  autocmd VimEnter * echo "The file is larger than " 
-        \ . (g:large_file / 1024 / 1024) 
+  autocmd VimEnter * echo "The file is larger than "
+        \ . (g:large_file / 1024 / 1024)
         \ . " MB, so some options are changed (see .vimrc for details)."
 endfunction
 
 " If we are already in a Dirvish buffer and we have another buffer open
-" we want to go back to the previously opened buffer 
+" we want to go back to the previously opened buffer
 function ToggleExplorer() abort
   if &ft == "dirvish"
     if expand('#:t') != ''
@@ -311,7 +311,7 @@ function! CFind(filename) abort
           \ | xargs file | sed "s/:/:1:/"'
   else
     let l:cmd = 'find . -type f -name "*'.a:filename.'*"
-          \ -o -type l -name "*'.a:filename.'*" 
+          \ -o -type l -name "*'.a:filename.'*"
           \ | xargs file | sed "s/:/:1:/"'
   endif
   setlocal errorformat=%f:%l:%m
@@ -325,7 +325,7 @@ endfunction
 function! IsMarkSet(mark) abort
   let l:marks = getmarklist()
   let l:m = 0
-  let mark_set = 1 
+  let mark_set = 1
 
   while l:m < len(l:marks)
     if get(l:marks[l:m], 'mark') == '''' . a:mark
@@ -359,7 +359,7 @@ function! CloseQuickfixList(close_current = 0) abort
     set nohls
     endif
     normal `Q zz
-    delmarks Q 
+    delmarks Q
     wincmd =
     call setqflist([])
   endif
@@ -368,7 +368,7 @@ endfunction
 
 " Keymaps {{{1
 
-" Make leaving and saving more more pleasent 
+" Make leaving and saving more more pleasent
 nmap <leader>w :w<CR>
 nmap <leader>wq :wq<CR>
 nmap <leader>nw : noa w<CR>
@@ -405,11 +405,11 @@ nnoremap <leader>d "_d
 vnoremap <leader>d "_D
 vnoremap <leader>D "_D
 
-" Easier navigate between windows 
+" Easier navigate between windows
 nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j 
-nnoremap <C-k> <C-w>k 
-nnoremap <C-l> <C-w>l 
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 nnoremap <leader><leader> <c-w><c-p><CR>
 
 " Resizing
@@ -424,7 +424,7 @@ nnoremap <leader>o :e <C-R>=expand('%:p:h') . '/'<CR>
 " Easily source our vimrc
 nnoremap <leader>so :so $MYVIMRC<CR>
 
-" Navigate the quickfix list 
+" Navigate the quickfix list
 nnoremap <C-n> :cnext<CR>zz
 nnoremap <C-p> :cprevious<CR>zz
 
@@ -441,17 +441,17 @@ nnoremap <leader>fn :call CountFolds()<CR>
 
 " Toggle the sign column
 nnoremap <silent> <leader>sc :if &signcolumn == 'yes' <Bar>
-  \   set signcolumn=no <Bar> 
-  \ else <Bar> 
-  \   set signcolumn=yes <Bar> 
+  \   set signcolumn=no <Bar>
+  \ else <Bar>
+  \   set signcolumn=yes <Bar>
   \ endif<CR>
 
 " So annoying...
 nnoremap q: :q
 
 " Custom functions
-nnoremap <leader>gr :Grep 
-nnoremap <leader>ff :Find 
+nnoremap <leader>gr :Grep
+nnoremap <leader>ff :Find
 map gr :Grep <C-r><C-w><CR>
 map ff :Find <C-r><C-w><CR>
 
@@ -463,10 +463,10 @@ map H ^
 map L $
 
 " Toggle search highlighting
-nnoremap <leader>hl :if &hls && v:hlsearch <Bar> 
-  \   set nohls <Bar> 
-  \ else <Bar> 
-  \    set hls <Bar> 
+nnoremap <silent> <leader>ll :if &hls && v:hlsearch <Bar>
+  \   set nohls <Bar>
+  \ else <Bar>
+  \    set hls <Bar>
   \ endif<CR>
 
 " Plugin related {{{2
@@ -493,7 +493,7 @@ nnoremap <leader>sh :Shdo
 " Plugins {{{
 call plug#begin()
 
-" Git 
+" Git
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 
@@ -544,11 +544,11 @@ call plug#end()
 augroup save_cursor
   autocmd!
   autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") | 
-    \ exe "normal g`\"" | 
-    \ let b:doopenfold = 1 | 
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \ exe "normal g`\"" |
+    \ let b:doopenfold = 1 |
     \ exe "normal zz" |
-    \ endif 
+    \ endif
 augroup END
 
 " Autoformat the current buffer when saving it
@@ -558,7 +558,7 @@ augroup autoformat_settings
   autocmd Filetype javascript,javascriptreact,
         \typescript,typescriptreact,
         \vue,
-        \json 
+        \json
         \AutoFormatBuffer prettier
   autocmd Filetype python AutoFormatBuffer yapf
 augroup END
@@ -570,7 +570,7 @@ augroup singify
 augroup END
 
 " See above
-augroup get_git_head 
+augroup get_git_head
   autocmd!
   autocmd BufAdd,BufRead * call GetGitHead()
 augroup END
@@ -592,9 +592,9 @@ augroup END
 augroup tmux
   autocmd!
   if exists('$TMUX')
-    autocmd WinEnter,BufReadPost,FileReadPost,BufNewFile,FocusGained * 
-          \ call system("[[ \"$(tmux display-message -p 
-          \ '#W' | \ cut -c 1)\" != \"_\" ]] && tmux rename-window " 
+    autocmd WinEnter,BufReadPost,FileReadPost,BufNewFile,FocusGained *
+          \ call system("[[ \"$(tmux display-message -p
+          \ '#W' | \ cut -c 1)\" != \"_\" ]] && tmux rename-window "
           \ . expand("%:t"))
     autocmd VimLeave * call system("tmux set-window-option automatic-rename")
   endif
@@ -628,10 +628,16 @@ augroup END
 " {{{ Customize Commands
 
 " Grepping stuff
-command! -nargs=+ -complete=file -bar Grep cgetexpr CGrep(<f-args>)
+command! -nargs=+ -complete=file -bar Grep
+      \ cgetexpr CGrep(<f-args>) |
+      \ cc |
+      \ set hls
 
 " Finding files
-command! -nargs=1 -complete=file -bar CFind cgetexpr CFind(<f-args>)
+command! -nargs=1 -complete=file -bar Find
+      \ cgetexpr CFind(<f-args>) |
+      \ cc |
+      \ set hls
 
 " }}}
 " Plugin Settings {{{
