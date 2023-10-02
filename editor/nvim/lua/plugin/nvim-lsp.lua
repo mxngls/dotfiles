@@ -27,7 +27,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local function on_list(options)
       vim.fn.setqflist({}, ' ', options)
       if #vim.fn.getqflist() >= 1 then
-        vim.api.nvim_command('call OpenQuickfix()')
+        vim.api.nvim_cmd({ cmd = 'call', args = { 'OpenQuickfix()', } }, {})
+        vim.api.nvim_cmd({ cmd = 'cc', }, {})
       end
     end
 
@@ -40,7 +41,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local opts = { buffer = ev.buf }
     vim.keymap.set('n', 'gd', goToDef, opts)
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', 'xgr', goToDef, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
 

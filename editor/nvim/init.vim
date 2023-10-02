@@ -322,29 +322,44 @@ function! CGrep(...) abort
 	return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
 endfunction
 
+function! IsMarkSet(mark) abort
+  let l:marks = getmarklist()
+  let l:m = 0
+  let mark_set = 1 
+
+  while l:m < len(l:marks)
+    if get(l:marks[l:m], 'mark') == '''' . a:mark
+      echo 'SET'
+      let l:mark_set = 0
+      break
+    endif
+    let l:m += 1
+  endwhile
+  return l:mark_set
+endfunction
+
 function! OpenQuickfix() abort
-  mark A
-  set hls
-  setlocal errorformat=%f:%l:%m
   let l:qfl = len(getqflist())
   if l:qfl > 0
-    copen | cc | execute 'e'
+    if IsMarkSet('Q') != 0
+      mark Q
+    endif
+    let @/ = expand('<cword>')
+    cwindow
+    execute 'set hls'
   endif
 endfunction
 
 " Close the quickfix list
 function! CloseQuickfixList(close_current = 0) abort
   if !empty(getqflist())
-    set nohls
     cclose
-    if a:close_current
-      vsplit
-      wincmd h
-    else
+    if a:close_current != 1
       bdelete
+    set nohls
     endif
-    normal `A zz
-    delm A
+    normal `Q zz
+    delmarks Q 
     wincmd =
     call setqflist([])
   endif
@@ -415,8 +430,8 @@ nnoremap <C-p> :cprevious<CR>zz
 
 " Keep the opened buffer with cc or close
 " it with together with the quickfix window
-nnoremap <leader>cv :call CloseQuickfixList(1)<CR>
 nnoremap <leader>cc :call CloseQuickfixList()<CR>
+nnoremap <leader>cd :call CloseQuickfixList(1)<CR>
 
 " Toggle folds
 nnoremap <leader>fm :set foldmethod=marker<CR>
@@ -436,7 +451,9 @@ nnoremap q: :q
 
 " Custom functions
 nnoremap <leader>gr :Grep 
-nnoremap <leader>ff :CFind 
+nnoremap <leader>ff :Find 
+map gr :Grep <C-r><C-w><CR>
+map ff :Find <C-r><C-w><CR>
 
 " @ is just too far
 nnoremap <C-m> @
@@ -629,9 +646,10 @@ let g:signify_sign_change_delete     = '╋'
 let g:signify_sign_delete            = '┃'
 let g:signify_sign_delete_first_line = '▔'
 
+
 " Grep
 if executable('ag')
-  set grepprg=ag\ -S\ -o\ --vimgrep\ --group\ --silent
+  set grepprg=ag\ -S\ -o\ --vimgrep\ --silent
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
