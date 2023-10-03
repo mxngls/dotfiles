@@ -17,7 +17,7 @@ function PR_DOLLAR() {
 # Set custom rhs prompt
 # User in red (for root) or violet (for regular user)
 function PR_USER() {
-  echo "%(!.%{$fg[red]%}.%{$fg[blue]%})%B%n%b%{$reset_color%}"
+  echo "%(!.%{$fg[red]%}.%F{223})%B%n%b%F{reset}"
 }
 
 # Get machine information
@@ -31,12 +31,12 @@ function machine_name() {
 
 # Show host information
 function PR_HOST() {
-  echo "%{$fg[blue]%}$(machine_name)%{$reset_color%}"
+  echo "%F{223}$(machine_name)%F{reset}"
 }
 
 # Build the rhs prompt
 function PR_INFO() {
-  echo "$(PR_USER)%{$fg[blue]%}@%{$reset_color%}$(PR_HOST)"
+  echo "$(PR_USER)%F{223}@%F{reset}$(PR_HOST)"
 }
 
 # Current directory, truncated to n path elements (or n+1 when one of them is "~")
