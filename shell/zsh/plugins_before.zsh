@@ -2,12 +2,16 @@
 
 # zsh-completions
 if type brew &>/dev/null; then
-  fpath=($(brew --prefix)/share/zsh-completions/src $fpath)
-fi
+  # Completions for homebrew itself
+  fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
 
-# completions for docker
-if type docker &>/dev/null;then
-  fpath=($(brew --prefix)/opt/docker-completion/share/zsh/site-functions/ $fpath)
+  # Completions installed via Zsh-Completions
+  fpath=($(brew --prefix)/share/zsh-completions/src $fpath)
+
+  # completions for docker
+  if type docker &>/dev/null;then
+    fpath=($(brew --prefix)/opt/docker-completion/share/zsh/site-functions/ $fpath)
+  fi
 fi
 
 # custom completion functions
