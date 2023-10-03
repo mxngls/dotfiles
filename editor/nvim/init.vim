@@ -58,7 +58,7 @@ set noruler
 set laststatus=2
 set statusline=%!SetStatusline() " Set custom status ruler
 
-filetype plugin on
+filetype plugin indent on
 
 " }}}
 " Better safe than sorry {{{
