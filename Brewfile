@@ -5,6 +5,7 @@ tap "homebrew/core"
 tap "homebrew/services"
 
 brew "colima"
+brew "coreutils"
 brew "docker"
 brew "docker-compose"
 brew "entr"
