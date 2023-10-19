@@ -576,7 +576,7 @@ augroup autoformat_settings
         \typescript,typescriptreact,
         \vue,
         \json
-        \AutoFormatBuffer prettier
+        \ AutoFormatBuffer prettier
   autocmd Filetype python AutoFormatBuffer yapf
 augroup END
 
