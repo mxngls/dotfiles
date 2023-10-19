@@ -318,10 +318,10 @@ endfunction "}}}
 " Make simplify finding and avoid heavy plugins
 function! CFind(filename) abort "{{{
   if executable('fd')
-    let l:cmd = 'fd --hidden --type f --type l "'.a:filename.'"
+    let l:cmd = 'fd --hidden --type f --type d --type l -p "'.a:filename.'"
           \ | xargs file | sed "s/:/:1:/"'
   else
-    let l:cmd = 'find . -type f -name "*'.a:filename.'*"
+    let l:cmd = 'find . -type f -type d --path -name "*'.a:filename.'*"
           \ -o -type l -name "*'.a:filename.'*"
           \ | xargs file | sed "s/:/:1:/"'
   endif
@@ -459,8 +459,8 @@ nnoremap <leader>fn :call CountFolds()<CR>
 nnoremap q: :q
 
 " Custom functions
-nnoremap <leader>gr :Grep
-nnoremap <leader>ff :Find
+nnoremap <leader>gr :Grep 
+nnoremap <leader>ff :Find 
 map gr :Grep <C-r><C-w><CR>
 map ff :Find <C-r><C-w><CR>
 
@@ -652,13 +652,13 @@ augroup END
 " {{{ Customize Commands
 
 " Grepping stuff
-command! -nargs=+ -complete=file -bar Grep
+command! -nargs=+ -complete=file_in_path -bar Grep
       \ cgetexpr CGrep(<f-args>) |
       \ cc |
       \ set hls
 
 " Finding files
-command! -nargs=1 -complete=file -bar Find
+command! -nargs=1 -complete=file_in_path -bar Find
       \ cgetexpr CFind(<f-args>) |
       \ cc |
       \ set hls
@@ -688,7 +688,6 @@ endif
 " Dirvish / Netrw
 let g:loaded_netrw       = 1
 let g:loaded_netrwPlugin = 1
-
 " }}}
 " {{{ NVIM
 
