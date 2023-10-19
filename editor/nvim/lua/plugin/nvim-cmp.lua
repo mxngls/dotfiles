@@ -2,11 +2,22 @@
 local cmp = require('cmp')
 
 cmp.setup({
+  sources = cmp.config.sources({
+    { name = "nvim_lsp" },
+    { name = "vsnip" },
+    { name = "path" },
+  }),
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
       vim.fn["vsnip#anonymous"](args.body)
     end,
+  },
+  completion = {
+    autocomplete = {
+      require('cmp.types').cmp.TriggerEvent.InsertEnter,
+      require('cmp.types').cmp.TriggerEvent.TextChanged
+    }
   },
 
   mapping = cmp.mapping.preset.insert({
@@ -14,17 +25,12 @@ cmp.setup({
     ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-u>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-c>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
     ['<C-s>'] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
       select = false }),
   }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-  }, {
-    { name = 'buffer' },
-  })
 })
 
 -- Set configuration for specific filetype.
@@ -53,4 +59,3 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
-

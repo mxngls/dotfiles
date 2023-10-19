@@ -54,10 +54,22 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
+----Enable (broadcasting) snippet capability for completion
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+-- Set up lspconfig.
+-- local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+require 'lspconfig'.html.setup {
+  capabilities = capabilities,
+}
 -- Setup the language servers
-local lsp_servers = require("..lsp_servers")
+local lsp_servers = require('mason-lspconfig').get_installed_servers()
 for _, language_server in ipairs(lsp_servers) do
-  lspconfig[language_server].setup({})
+  lspconfig[language_server].setup({
+    capabilities = capabilities,
+  })
 end
 
 lspconfig.lua_ls.setup {
