@@ -16,10 +16,11 @@ alias gnv='cd ~/dotfiles/editor/nvim'
 alias gtx='cd ~/dotfiles/shell/tmux'
 
 # Some Git stuff
-alias gs='git status -s'
+alias gs='git status -sb'
 alias gla='git log --graph --format=oneline --abbrev-commit'
 alias glu='git log --graph --format=oneline --abbrev-commit @{u}..'
 alias glam='git log --graph --format=medium  --abbrev-commit'
 alias grs='rename_stash'
 alias gls='git stash list --color=always'
-alias gdu='git diff @{u}.. --stat-count=15 --stat-width=80'
+alias gdsu='git diff @{u}.. --stat-count=15 --stat-width=80'
+alias gds='git diff --stat-count=15 --stat-width=80'
