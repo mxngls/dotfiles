@@ -17,7 +17,7 @@ zstyle ':completion:*' group-name             ''
 zstyle ':completion:*' list-colors            ${(s.:.)LS_COLORS}
 
 zstyle ':completion:*' matcher-list           'm:{a-zA-Z}={A-Za-z}' 'r:|[._-/]=* r:|=**' 'l:|[._-/]=* l:|=**'
-zstyle ':completion:*' ignore-parents         'parent pwd directory' 
+zstyle ':completion:*' ignore-parents         'parent pwd' 
 
 zstyle ':completion:*' menu                   select=4
 zstyle ':completion:*' old-menu               false
@@ -32,8 +32,15 @@ zstyle ':completion:*' accept-exact-dirs      true
 # Initialize editing command line
 autoload -U edit-command-line && zle -N edit-command-line
 
+# ZLE
+setopt COMBINING_CHARS
+
 # Enable interactive comments (# on the command line)
 setopt INTERACTIVE_COMMENTS
+
+# Language
+export LC_CTYPE="en_US.UTF-8"
+export LANG="en_US.UTF-8"
 
 # Editor
 export VISUAL=vim
@@ -71,8 +78,8 @@ bindkey -a  'gg' beginning-of-buffer-or-history
 bindkey -a  'G'  end-of-buffer-or-history
 bindkey -a  'u'  undo
 bindkey -a  '^R' redo
-bindkey -a  'H' beginning-of-line
-bindkey -a  'L' end-of-line
+bindkey -a  'H'  beginning-of-line
+bindkey -a  'L'  end-of-line
 bindkey -a  '^V' edit-command-line
 bindkey -a  '^d' backward-delete-char
 bindkey     '^k' history-beginning-search-backward
