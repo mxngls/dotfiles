@@ -44,3 +44,5 @@
 	editor = nvim
 [gui]
 	encoding = utf-8
+[gc]
+	reflogexpireunreachable = 90
