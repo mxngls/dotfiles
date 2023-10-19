@@ -14,10 +14,10 @@ done < <(
     --date=short \
     --color=always \
   | sort -b -k4 -k2,2 \
-  | uniq -f 2 -D
+  | uniq -f 1 -D
 )
 
-if [[ "${#git_log[@]}" -ge 0 ]]; then
+if [[ "${#git_log[@]}" -gt 0 ]]; then
   echo "Found the following commits with duplicate commit messages:"
   for commit in "${git_log[@]}"; do
     echo "$commit"
