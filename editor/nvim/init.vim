@@ -533,6 +533,9 @@ Plug 'mbbill/undotree'
 " File explorer
 Plug 'justinmk/vim-dirvish'
 
+" Undo list visualizier
+Plug 'mbbill/undotree'
+
 " Neovim specific plugins {{{2
 
 if has('nvim')
