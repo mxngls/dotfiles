@@ -39,5 +39,6 @@
 	helper = osxkeychain
 [core]
 	quotepath = off
+	editor = nvim
 [gui]
 	encoding = utf-8
