@@ -127,17 +127,18 @@ endfunction
 
 " Show the number of the current hunk relative to the total number
 " of hunks
-function! s:ShowCurrentHunk() abort
+function! s:ShowCurrentHunk() abort "{{{
   let h = sy#util#get_hunk_stats()
   if !empty(h)
     echo printf('[Hunk %d/%d]', h.current_hunk, h.total_hunks)
   endif
 endfunction
+" }}}
 
 " Count the number of open folds, which can we useful
 " when working with large JSON arrays and we want to know
 " how many elements the array holds
-function! CountFolds()
+function! CountFolds() "{{{
   let count = 0
   let current_line = 1
   let last_line = line('$')
@@ -152,9 +153,10 @@ function! CountFolds()
   endwhile
   echo 'Active folds: ' . count
 endfunction
+" }}}
 
 " Set the background to match our terminal (currently Kitty)
-function! SetBackground() abort
+function! SetBackground() abort "{{{
   if has('kitty')
     let bg_ = system('head -n 1 ~/dotfiles/shell/kitty/current-theme.conf 2> /dev/null')
     let bg_ = substitute(bg_, '\n', '', 'g')
@@ -167,8 +169,10 @@ function! SetBackground() abort
     set background=dark
   endif
 endfunction
+" }}}
 
-function! SetColors()
+" Set the colorscheme
+function! SetColors() "{{{
   if &t_Co < 256
     colorscheme default
   else
@@ -181,9 +185,10 @@ function! SetColors()
     set t_Co=16
   endif
 endfunction
+"}}}
 
 " Get the current head when in a Git repository
-function! GetGitHead() abort
+function! GetGitHead() abort "{{{
   let b:gitbranch=''
   if &modifiable
     try
@@ -198,9 +203,10 @@ function! GetGitHead() abort
     endif
   endif
 endfunction
+"}}}
 
 " Get truncated path
-function! GetTruncatedPath() abort
+function! GetTruncatedPath() abort "{{{
   let b:path = ' '
   let b:path = expand('%:p')
   if b:path != ""
@@ -215,9 +221,10 @@ function! GetTruncatedPath() abort
     endif
   endif
 endfunction
+"}}}
 
 " Custom statusline
-function! SetStatusline() abort
+function! SetStatusline() abort "{{{
 	let active = g:statusline_winid == win_getid(winnr())
 
   let l:stl  = ''
@@ -255,9 +262,10 @@ function! SetStatusline() abort
 
   return stl
 endfunction
+"}}}
 
 " Stop large files from crippling Vim
-function! LargeFile() abort
+function! LargeFile() abort "{{{
   setlocal eventignore+=Filetype
   setlocal bufhidden=unload
   setlocal buftype=nowrite
@@ -266,10 +274,11 @@ function! LargeFile() abort
         \ . (g:large_file / 1024 / 1024)
         \ . " MB, so some options are changed (see .vimrc for details)."
 endfunction
+"}}}
 
 " If we are already in a Dirvish buffer and we have another buffer open
 " we want to go back to the previously opened buffer
-function ToggleExplorer() abort
+function ToggleExplorer() abort "{{{
   if &ft == "dirvish"
     if expand('#:t') != ''
       b#
@@ -284,8 +293,9 @@ function ToggleExplorer() abort
     endif
   endif
 endfunction
+"}}}
 
-function! ExplorerSplit() abort
+function! ExplorerSplit() abort "{{{
   if &ft != "dirvish"
     let path = expand('%:p:h')
     if winwidth('%') > 160
@@ -298,14 +308,15 @@ function! ExplorerSplit() abort
     quit
   endif
 endfunction
+"}}}
 
 " Just used for the quickfix window
-function! AdjustWindowHeight(minheight, maxheight) abort
+function! AdjustWindowHeight(minheight, maxheight) abort "{{{
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
-endfunction
+endfunction "}}}
 
 " Make simplify finding and avoid heavy plugins
-function! CFind(filename) abort
+function! CFind(filename) abort "{{{
   if executable('fd')
     let l:cmd = 'fd --hidden --type f --type l "'.a:filename.'"
           \ | xargs file | sed "s/:/:1:/"'
@@ -317,12 +328,14 @@ function! CFind(filename) abort
   setlocal errorformat=%f:%l:%m
   return system(l:cmd)
 endfunction
+"}}}
 
-function! CGrep(...) abort
+function! CGrep(...) abort "{{{
 	return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
 endfunction
+"}}}
 
-function! IsMarkSet(mark) abort
+function! IsMarkSet(mark) abort "{{{
   let l:marks = getmarklist()
   let l:m = 0
   let mark_set = 1
@@ -337,8 +350,9 @@ function! IsMarkSet(mark) abort
   endwhile
   return l:mark_set
 endfunction
+"}}}
 
-function! OpenQuickfix() abort
+function! OpenQuickfix() abort "{{{
   let l:qfl = len(getqflist())
   if l:qfl > 0
     if IsMarkSet('Q') != 0
@@ -349,9 +363,10 @@ function! OpenQuickfix() abort
     execute 'set hls'
   endif
 endfunction
+"}}}
 
 " Close the quickfix list
-function! CloseQuickfixList(close_current = 0) abort
+function! CloseQuickfixList(close_current = 0) abort "{{{
   if !empty(getqflist())
     cclose
     if a:close_current != 1
@@ -364,6 +379,7 @@ function! CloseQuickfixList(close_current = 0) abort
     call setqflist([])
   endif
 endfunction
+"}}}
 
 
 " Keymaps {{{1
