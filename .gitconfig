@@ -15,7 +15,7 @@
 [push]
 	default = tracking
 [help]
-	autocorrect = 1
+	autocorrect = 0
 [url "git@github.com:"]
 	insteadOf = gh:
 [github]
