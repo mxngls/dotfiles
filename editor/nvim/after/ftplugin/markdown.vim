@@ -3,3 +3,4 @@ setl textwidth=72
 setl colorcolumn=72
 setl spell
 setl spelllang=en_us
+let g:markdown_folding = 1
