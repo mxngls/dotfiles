@@ -522,6 +522,9 @@ Plug 'google/vim-glaive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 
+" Undo-Tree
+Plug 'mbbill/undotree'
+
 " File explorer
 Plug 'justinmk/vim-dirvish'
 
@@ -544,9 +547,7 @@ if has('nvim')
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/nvim-cmp'
-
-  Plug 'windwp/nvim-ts-autotag'
-
+  
 endif
 
 " }}}
