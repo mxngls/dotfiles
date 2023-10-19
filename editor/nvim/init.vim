@@ -486,6 +486,10 @@ nnoremap <silent> <leader>ss :if &signcolumn == 'yes:2'<Bar>
   \ endif<Bar>
   \ execute 'SignifyToggle'<Bar>
   \ execute 'SignifyRefresh'<CR>
+
+" Ins HTML tag
+inoremap <C-t <C-odiw<<Cr>"></<C-r>">C-o>T
+
 " Plugin related {{{2
 
 " Fugitive
