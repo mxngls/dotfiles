@@ -1,22 +1,23 @@
-# Colorful man pages
-if [[ "$(tput colors)" == "256" ]]; then
-  
-  # B  Binary characters.
-  # C  Control characters.
-  # E  Errors and informational messages.
-  # M  Mark letters in the status column.
-  # N  Line numbers enabled via the -N option.
-  # P  Prompts.
-  # R  The rscroll character.
-  # S  Search results.
-  # W  The highlight enabled via the -w option.
-  # d  Bold text.
-  # k  Blinking text.
-  # s  Standout text.
-  # u  Underlined text.
+#!/bin/bash
 
-  colors256=' -DE064  -DS0.064  -DB064  -DC064  -DR245  -DN245 -Du033 -Dk+245 -Dd+064 -DP245  -Ds+033 -Dk+033'
-  colors16='  -DEg    -DSKY     -DBga   -DCg    -DRw    -DNw    -Dub  -Dk+w   -Dd+g   -DPw    -Ds+b   -Dk+b'
+# Colorful man pages
+# B  Binary characters.
+# C  Control characters.
+# E  Errors and informational messages.
+# M  Mark letters in the status column.
+# N  Line numbers enabled via the -N option.
+# P  Prompts.
+# R  The rscroll character.
+# S  Search results.
+# W  The highlight enabled via the -w option.
+# d  Bold text.
+# k  Blinking text.
+# s  Standout text.
+# u  Underlined text.
+colors256=' -DE116  -DS0.116  -DB116  -DC116  -DR245  -DN245 -Du174 -Dk+245 -Dd+116 -DP245  -Ds+174 -Dk+174'
+colors16='  -DEb    -DSKY     -DBba   -DCb    -DRw    -DNw    -Duy  -Dk+w   -Dd+g   -DPw    -Ds+y   -Dk+y'
+
+if [[ "$(tput colors)" == "256" ]]; then
   less_options="-i -g -j5 -N --mouse --line-num-width 4 --use-color +Gg"
   export MANPAGER="less $less_options $colors256 +Gg"
 else
