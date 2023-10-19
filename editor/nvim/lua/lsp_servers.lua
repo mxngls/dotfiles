@@ -7,6 +7,7 @@ local lsp_servers = {
   "sqlls",
   "tailwindcss",
   "tsserver",
+  "eslint",
   "vimls"
 }
 

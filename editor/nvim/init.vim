@@ -624,6 +624,12 @@ augroup theme
   autocmd VimEnter * call PatchColors()
 augroup END
 
+augroup eslint
+  autocmd!
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact
+        \ setl makeprg=npx\ eslint\ -f\ unix\ --quiet\ 'src/**/*.{js,ts,jsx,tsx}'
+augroup END
+
 " }}}
 " {{{ Customize Commands
 
