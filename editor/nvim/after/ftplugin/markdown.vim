@@ -1,5 +1,5 @@
 " Enable spellchecking and limit textwidth
-set textwidth=72
-set colorcolumn=72
-set spell
-set spelllang=en_us
+setl textwidth=72
+setl colorcolumn=72
+setl spell
+setl spelllang=en_us
