@@ -542,6 +542,9 @@ if has('nvim')
   Plug 'williamboman/mason-lspconfig.nvim'
   Plug 'neovim/nvim-lspconfig'
 
+  " LSP and CMP support for Vim related plugins
+  Plug 'folke/neodev.nvim'
+
   " Treesitter
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
