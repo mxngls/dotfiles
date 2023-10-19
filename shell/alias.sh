@@ -5,7 +5,7 @@ alias lss='ls -F -1     | sort -k 1.1,1.1 -t .'
 alias lsa='ls -aF       | sort -k 1.1,1.1 -t .'
 alias lsl='ls -aFlh     | sort -k 1.1,1.1 -t .'
 alias me='print -P "%n@%m"'
-alias fug='vim -c '\''if !(&runtimepath =~ "fugitive") | execute "qa" | else | execute "Git | wincmd o" | endif'\'
+alias fug='nvim -c '\''if !(&runtimepath =~ "fugitive") | execute "qa" | else | execute "Git | wincmd o" | endif'\'
 
 # Toggle theme
 alias ct='~/dotfiles/shell/toggle_theme.sh -t'
