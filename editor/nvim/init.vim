@@ -24,7 +24,7 @@ set syntax=on                   " Enable syntax highlighting
 set spelllang=en_us             " Set the spell check language to English
 set number                      " Show line numbers
 set relativenumber              " Show relative line numbers
-set signcolumn=no               " Disable the sign column
+set signcolumn=yes:1            " Disable the sign column
 set pumheight=10                " Don't make the completion window too heigh
 set noswapfile                  " Disable swap files
 set clipboard=unnamed           " Use the system clipboard
@@ -106,13 +106,13 @@ function! PatchColors()
   hi StatuslineNC ctermbg=235 ctermfg=DarkGrey cterm=NONE
   hi MainBranch ctermbg=235 ctermfg=White cterm=BOLD
   hi OtherBranch ctermbg=235 ctermfg=White
-  hi BufNr ctermbg=235 ctermfg=Yellow
+  hi BufNr ctermbg=235 ctermfg=180
 
-  " Vm-Signify
-  hi DiffAdd ctermfg=green ctermbg=NONE
-  hi DiffChange ctermfg=yellow ctermbg=NONE
-  hi DiffDelete ctermfg=red ctermbg=NONE
-  hi DiffText ctermfg=yellow ctermbg=NONE
+  " Vim-Signify
+  hi DiffAdd ctermfg=green ctermbg=NONE cterm=italic
+  hi DiffChange ctermfg=yellow ctermbg=NONE cterm=italic
+  hi DiffDelete ctermfg=red ctermbg=NONE cterm=italic
+  hi DiffText ctermfg=yellow ctermbg=NONE 
   hi SignColumn ctermbg=NONE
   hi FoldColumn ctermbg=NONE
 
@@ -455,13 +455,6 @@ nnoremap <leader>fi :set foldmethod=indent<CR>
 nnoremap <leader>fs :set foldmethod=syntax<CR>
 nnoremap <leader>fn :call CountFolds()<CR>
 
-" Toggle the sign column
-nnoremap <silent> <leader>sc :if &signcolumn == 'yes' <Bar>
-  \   set signcolumn=no <Bar>
-  \ else <Bar>
-  \   set signcolumn=yes <Bar>
-  \ endif<CR>
-
 " So annoying...
 nnoremap q: :q
 
@@ -485,6 +478,14 @@ nnoremap <silent> <leader>ll :if &hls && v:hlsearch <Bar>
   \    set hls <Bar>
   \ endif<CR>
 
+" Toggle signcolumn
+nnoremap <silent> <leader>ss :if &signcolumn == 'yes:2'<Bar>
+  \   set signcolumn=yes:1<Bar>
+  \ else <Bar>
+  \   set signcolumn=yes:2<Bar>
+  \ endif<Bar>
+  \ execute 'SignifyToggle'<Bar>
+  \ execute 'SignifyRefresh'<CR>
 " Plugin related {{{2
 
 " Fugitive
@@ -674,7 +675,9 @@ let g:signify_sign_change            = '┃'
 let g:signify_sign_change_delete     = '╋'
 let g:signify_sign_delete            = '┃'
 let g:signify_sign_delete_first_line = '▔'
-
+let g:signify_disable_by_default     = 1
+let g:signify_line_highlight         = 1
+let g:signify_priority               = 15
 
 " Grep
 if executable('ag')
