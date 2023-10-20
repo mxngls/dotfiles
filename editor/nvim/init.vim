@@ -29,6 +29,8 @@ set signcolumn=yes:1            " Disable the sign column
 set pumheight=10                " Don't make the completion window too heigh
 set noswapfile                  " Disable swap files
 set clipboard=unnamed           " Use the system clipboard
+set cursorline
+set cursorlineopt=line,number
 set colorcolumn=80              " Limit the visual available width to 80 characters
 set textwidth=80                " And do the same practically as well
 
