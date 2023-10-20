@@ -443,6 +443,8 @@ nnoremap <leader>so :so $MYVIMRC<CR>
 " Navigate the quickfix list
 nnoremap <C-n> :cnext<CR>zz
 nnoremap <C-p> :cprevious<CR>zz
+nnoremap <C-j> :lnext<CR>zz
+nnoremap <C-k> :lprevious<CR>zz
 
 " Keep the opened buffer with cc or close
 " it with together with the quickfix window
