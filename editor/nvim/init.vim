@@ -1,10 +1,11 @@
 " Basic editor settings {{{
 
-let mapleader="\<Space>"        " Use Space key as the map leader
 set nocompatible                " Disable compatibility with vi
+let mapleader="\<Space>"        " Use Space key as the map leader
 set mouse=a                     " Enable mouse support
 set timeout                     " Enable timeout for mappings
 set timeoutlen=300              " Set timeout length to 300ms
+set updatetime=300              " Trigger the CursorHold autocomommand event
 set backspace=indent,eol,start  " Allow backspacing over everything
 set confirm                     " Confirm before overwriting a file
 set showmatch                   " Show matching brackets
