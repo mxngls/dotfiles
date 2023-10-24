@@ -11,13 +11,13 @@ if [[ -z "$new_entry" ]]; then
 fi
 
 if [[ $(wc -l < "$new_entry" | bc) == 0 ]]; then
-  echo -e "# $(date)\n" > "$new_entry"
-elif [[ $(tail "$new_entry") != '\n' ]]; then
-  echo -e "# $(date)\n" >> "$new_entry"
+  echo -e "# $(date)\n\n" > "$new_entry"
+# elif [[ $(tail "$new_entry") != '\n' ]]; then
+#   echo -e "\n# $(date)\n" >> "$new_entry"
 else
-  echo -e "\n# $(date)\n" >> "$new_entry"
+  echo -e "\n# $(date)\n\n" >> "$new_entry"
 fi
 
-vim -c "normal G" "$new_entry"
+$EDITOR -c "normal G" "$new_entry"
 
 exit 0
