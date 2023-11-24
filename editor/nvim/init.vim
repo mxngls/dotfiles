@@ -713,8 +713,4 @@ if has('nvim')
   :lua require('init')
 endif
 
-call SetBackground()
-call SetColors()
-call PatchColors()
-
 " }}}
