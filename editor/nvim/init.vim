@@ -493,8 +493,8 @@ nnoremap <silent> <leader>ss :if &signcolumn == 'yes:2'<Bar>
   \ execute 'SignifyToggle'<Bar>
   \ execute 'SignifyRefresh'<CR>
 
-" Ins HTML tag
-inoremap <C-t <C-odiw<<Cr>"></<C-r>">C-o>T
+" Insert a HTML tag
+inoremap <C-k> <C-o>b<C-o>diw<<C-r>"></<C-r>"><C-o>T>
 
 " Plugin related {{{2
 
