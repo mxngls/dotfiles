@@ -14,6 +14,7 @@ set lazyredraw                  " Delay redraw in macros and scripts
 set showmode                    " Show current mode in the command line
 set autoread                    " Automatically read a file when it changes
 set matchpairs+=(:),[:],{:},<:> " Additional characters for matchpairs
+set iskeyword-=_                " Use the undersore character to split words
 set regexpengine=2              " Use improved regular expression engine
 set switchbuf=uselast           " Reuse windows if possible
 set laststatus=0                " Never show the status line
