@@ -294,7 +294,7 @@ function! AdjustWindowHeight(minheight, maxheight) abort "{{{
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction "}}}
 
-" Make simplify finding and avoid heavy plugins
+" Simplify finding and grepping and avoid heavy plugins
 function! CFind(filename) abort "{{{
   if executable('fd')
     let l:cmd = 'fd --hidden --type f --type d --type l -p "'.a:filename.'"
@@ -309,6 +309,7 @@ function! CFind(filename) abort "{{{
 endfunction
 "}}}
 
+" See above
 function! CGrep(...) abort "{{{
 	return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
 endfunction
@@ -406,12 +407,12 @@ map H ^
 map L $
 
 " Toggle signcolumn
-nnoremap <silent> <leader>ss :if &signcolumn == 'yes:2'<Bar>
-  \   set signcolumn=yes:1<Bar>
+nnoremap <silent> <leader>ss :if &signcolumn == 'yes:2' <Bar>
+  \   setl signcolumn=yes:1 <Bar>
   \ else <Bar>
-  \   set signcolumn=yes:2<Bar>
+  \   setl signcolumn=yes:2 <Bar>
   \ endif<Bar>
-  \ execute 'SignifyToggle'<Bar>
+  \ execute 'SignifyToggle' <Bar>
   \ execute 'SignifyRefresh'<CR>
 
 " Insert a HTML tag
@@ -432,7 +433,6 @@ nnoremap <leader>hu :SignifyHunkUndo<CR>
 
 " Dirvish
 nnoremap <leader>L  :call ExplorerSplit()<CR>
-nnoremap <leader>sh :Shdo
 
 " }}}
 
@@ -452,9 +452,6 @@ Plug 'google/vim-glaive'
 " Misc
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-
-" Undo-Tree
-Plug 'mbbill/undotree'
 
 " File explorer
 Plug 'justinmk/vim-dirvish'
