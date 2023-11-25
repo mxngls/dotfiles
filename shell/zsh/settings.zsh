@@ -71,6 +71,13 @@ setopt LIST_PACKED
 # Time to wait for additional characters in a sequence
 KEYTIMEOUT=1
 
+# Copy from visual selection to system clipboard
+function vi-yank-system {
+  zle vi-yank
+  echo "$CUTBUFFER" | pbcopy
+}
+zle -N vi-yank-system
+
 # Use vim style line editing in zsh
 bindkey -v
 bindkey -a  'gg' beginning-of-buffer-or-history
@@ -83,6 +90,7 @@ bindkey -a  '^V' edit-command-line
 bindkey -a  '^d' backward-delete-char
 bindkey     '^k' history-beginning-search-backward
 bindkey     '^j' history-beginning-search-forward
+bindkey -M vicmd 'y' vi-yank-system
 
 # Use vim style navigation keys in menu completion
 bindkey -M menuselect 'h' vi-backward-char
