@@ -41,7 +41,7 @@ set wildignorecase              " Case is ignored when completing file names and
 set wildoptions=pum             " Show pop-up menu
 set completeopt=menu,noselect   " Enable enhanced completion menu
 
-set nohlsearch                  " Clear search highlighting
+set hlsearch                    " Set search highlighting
 set incsearch                   " Enable incremental searching
 set ignorecase                  " Ignore case when searching
 set smartcase                   " Search case-sensetive in certain cases (lol)
@@ -477,13 +477,6 @@ nnoremap <C-m> @
 map H ^
 map L $
 
-" Toggle search highlighting
-nnoremap <silent> <leader>ll :if &hls && v:hlsearch <Bar>
-  \   set nohls <Bar>
-  \ else <Bar>
-  \    set hls <Bar>
-  \ endif<CR>
-
 " Toggle signcolumn
 nnoremap <silent> <leader>ss :if &signcolumn == 'yes:2'<Bar>
   \   set signcolumn=yes:1<Bar>
@@ -541,6 +534,9 @@ Plug 'justinmk/vim-dirvish'
 
 " Undo list visualizier
 Plug 'mbbill/undotree'
+
+" TUI
+Plug 'romainl/vim-cool'
 
 " Neovim specific plugins {{{2
 
@@ -670,16 +666,16 @@ augroup END
 " {{{ Customize Commands
 
 " Grepping stuff
-command! -nargs=+ -complete=file_in_path -bar Grep
-      \ cgetexpr CGrep(<f-args>) |
-      \ cc |
-      \ set hls
+command! -nargs=+ -complete=file -bar Grep
+      \ lgetexpr CGrep(<f-args>) |
+      \ ll |
+      \ <CR>
 
 " Finding files
-command! -nargs=1 -complete=file_in_path -bar Find
-      \ cgetexpr CFind(<f-args>) |
-      \ cc |
-      \ set hls
+command! -nargs=1 -complete=file -bar Find
+      \ lgetexpr CFind(<f-args>) |
+      \ ll |
+      \ <CR>
 
 " }}}
 " Plugin Settings {{{
