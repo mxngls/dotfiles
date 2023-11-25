@@ -58,15 +58,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
     })
 
     local function on_list(options)
-      vim.fn.setqflist({}, ' ', options)
-      if #vim.fn.getqflist() >= 1 then
-        vim.api.nvim_cmd({ cmd = 'call', args = { 'OpenQuickfix()', } }, {})
-        vim.api.nvim_cmd({ cmd = 'cc', }, {})
+      vim.fn.setloclist(0, {}, ' ', options)
+      vim.api.nvim_cmd({ cmd = 'doautocmd', args = { 'quickfix', 'QuickFixCmdPost' } }, {})
+      if #vim.fn.getloclist(0) >= 1 then
+        vim.api.nvim_cmd({ cmd = 'lopen', }, {})
+        vim.api.nvim_cmd({ cmd = 'll', }, {})
       end
     end
 
     local function goToDef()
-      vim.lsp.buf.definition({ reuse_window = true, on_list = on_list })
+      vim.lsp.buf.definition({ reuse_window = false, on_list = on_list })
     end
 
     -- Buffer local mappings.

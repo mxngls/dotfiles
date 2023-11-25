@@ -320,53 +320,6 @@ function! CGrep(...) abort "{{{
 endfunction
 "}}}
 
-function! IsMarkSet(mark) abort "{{{
-  let l:marks = getmarklist()
-  let l:m = 0
-  let mark_set = 1
-
-  while l:m < len(l:marks)
-    if get(l:marks[l:m], 'mark') == '''' . a:mark
-      echo 'SET'
-      let l:mark_set = 0
-      break
-    endif
-    let l:m += 1
-  endwhile
-  return l:mark_set
-endfunction
-"}}}
-
-function! OpenQuickfix() abort "{{{
-  let l:qfl = len(getqflist())
-  if l:qfl > 0
-    if IsMarkSet('Q') != 0
-      mark Q
-    endif
-    let @/ = expand('<cword>')
-    cwindow
-    execute 'set hls'
-  endif
-endfunction
-"}}}
-
-" Close the quickfix list
-function! CloseQuickfixList(close_current = 0) abort "{{{
-  if !empty(getqflist())
-    cclose
-    if a:close_current != 1
-      bdelete
-    set nohls
-    endif
-    normal `Q zz
-    delmarks Q
-    wincmd =
-    call setqflist([])
-  endif
-endfunction
-"}}}
-
-
 " Keymaps {{{1
 
 " Make leaving and saving more more pleasent
@@ -425,16 +378,16 @@ nnoremap <leader>o :e <C-R>=expand('%:p:h') . '/'<CR>
 " Easily source our vimrc
 nnoremap <leader>so :so $MYVIMRC<CR>
 
-" Navigate the quickfix list
+" Navigate the quickfix and location list
 nnoremap <C-n> :cnext<CR>zz
 nnoremap <C-p> :cprevious<CR>zz
-nnoremap <C-j> :lnext<CR>zz
-nnoremap <C-k> :lprevious<CR>zz
-
-" Keep the opened buffer with cc or close
-" it with together with the quickfix window
-nnoremap <leader>cc :call CloseQuickfixList()<CR>
-nnoremap <leader>cd :call CloseQuickfixList(1)<CR>
+nnoremap <M-j> :lnext<CR>zz
+nnoremap <M-k> :lprevious<CR>zz
+nnoremap <leader>r :execute "normal 'Q" <Bar> 
+      \ call setcursorcharpos(g:saved_pos[1],g:saved_pos[2]) <Bar> 
+      \ delmarks Q <Bar> 
+      \ lclose <Bar>
+      \ execute "normal zz" <CR>
 
 " Toggle folds
 nnoremap <leader>fm :set foldmethod=marker<CR>
@@ -621,13 +574,18 @@ augroup LargeFile
         \| if f > g:large_file || f == -2 | call LargeFile() | endif
 augroup END
 
-" Open a quickfix when viewing results of grep (if there are any)
-" and adjust the height of our quickfix window
-" When pressing CTRL_:h
+" Open a quickfix or location list when viewing results of command that gets
+" triggered by QuickfixCmdPost and adjust the height of said window
 augroup quickfix
   autocmd!
-  autocmd QuickFixCmdPost cgetexpr call OpenQuickfix()
   autocmd FileType qf call AdjustWindowHeight(3, 10)
+  autocmd VimEnter * delmarks Q
+  autocmd VimEnter * let g:saved_pos = [0,0,0,0,0]
+  autocmd QuickFixCmdPost * if getpos("'Q")[0] == 0
+        \|   execute "mark Q"
+        \|   let g:saved_pos = getcursorcharpos()
+        \| endif
+        \| lopen
 augroup END
 
 augroup theme
@@ -650,13 +608,11 @@ augroup END
 command! -nargs=+ -complete=file -bar Grep
       \ lgetexpr CGrep(<f-args>) |
       \ ll |
-      \ <CR>
 
 " Finding files
 command! -nargs=1 -complete=file -bar Find
       \ lgetexpr CFind(<f-args>) |
-      \ ll |
-      \ <CR>
+      \ ll
 
 " }}}
 " Plugin Settings {{{
@@ -683,6 +639,7 @@ endif
 " Dirvish / Netrw
 let g:loaded_netrw       = 1
 let g:loaded_netrwPlugin = 1
+
 " }}}
 " {{{ NVIM
 
