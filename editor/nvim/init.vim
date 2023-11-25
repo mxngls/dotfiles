@@ -280,25 +280,6 @@ function! LargeFile() abort "{{{
 endfunction
 "}}}
 
-" If we are already in a Dirvish buffer and we have another buffer open
-" we want to go back to the previously opened buffer
-function ToggleExplorer() abort "{{{
-  if &ft == "dirvish"
-    if expand('#:t') != ''
-      b#
-    else
-      quit
-    endif
-  else
-    if empty(bufname('%'))
-      quit
-    else
-      Dirvish
-    endif
-  endif
-endfunction
-"}}}
-
 function! ExplorerSplit() abort "{{{
   if &ft != "dirvish"
     let path = expand('%:p:h')
@@ -503,7 +484,6 @@ nnoremap <leader>hd :SignifyHunkDiff<CR>
 nnoremap <leader>hu :SignifyHunkUndo<CR>
 
 " Dirvish
-nnoremap <leader>l  :call ToggleExplorer()<CR>
 nnoremap <leader>L  :call ExplorerSplit()<CR>
 nnoremap <leader>sh :Shdo
 
