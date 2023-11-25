@@ -94,23 +94,17 @@ set undofile
 
 function! PatchColors()
   " Syntax
-  hi Type cterm=None
-  hi Label cterm=None
+  hi Type cterm=NONE
+  hi Label cterm=NONE
   hi htmlTag ctermfg=white
   hi htmlEndTag ctermfg=white
 
   " TUI
+  hi CursorLine cterm=NONE
   hi Folded cterm=NONE ctermfg=255 ctermbg=236
   hi FloatBorder ctermbg=NONE
   hi Visual ctermfg=238 ctermbg=255
   hi ErrorMsg cterm=NONE ctermbg=160 ctermfg=white
-
-  " Statusline
-  hi Statusline ctermbg=235 ctermfg=White cterm=NONE
-  hi StatuslineNC ctermbg=235 ctermfg=DarkGrey cterm=NONE
-  hi MainBranch ctermbg=235 ctermfg=White cterm=BOLD
-  hi OtherBranch ctermbg=235 ctermfg=White
-  hi BufNr ctermbg=235 ctermfg=180
 
   " Vim-Signify
   hi DiffAdd ctermfg=green ctermbg=NONE cterm=italic
