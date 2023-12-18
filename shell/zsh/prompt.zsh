@@ -140,16 +140,22 @@ function PCMD() {
   echo "$(PR_INFO) in $(PR_DIR 2) $(PR_ERROR)" # newline at the end
 }
 
+# Even though there is a cleaner way to implement a newline combined with a
+# right-side prompt deem it necessary at this point but will leave the link to a
+# possible implementation as a reference for future me:
+# https://gist.github.com/romkatv/2a107ef9314f0d5f76563725b42f7cab
 NEWLINE=$'\n'
-PROMPT='$(PCMD) ${NEWLINE}$(PR_ARROWS) '  # single quotes to prevent immediate execution
-RPROMPT=''        # set asynchronously and dynamically
+PROMPT='$(PCMD)%-72(l::${NEWLINE})$(PR_ARROWS) '  # single quotes to prevent immediate execution
 
 # Right-hand prompt
 function RCMD() {
   if [[ -n "$(git_prompt_string)" ]]; then
-    echo "$(git_prompt_string)${NEWLINE}"
+    echo "$(git_prompt_string)"
   fi
 }
+
+# set asynchronously and dynamically
+RPROMPT=''
 
 function zle-line-finish zle-line-init zle-keymap-select() {
   # set the cursor
