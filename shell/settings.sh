@@ -14,7 +14,7 @@
 # k  Blinking text.
 # s  Standout text.
 # u  Underlined text.
-colors256=' -DE116  -DS0.116  -DB116  -DC116  -DR245  -DN245 -Du174 -Dk+245 -Dd+116 -DP245  -Ds+174 -Dk+174'
+colors256=' -DE123  -DS0.123  -DB123  -DC123  -DR245  -DN245 -Du158 -Dk+245 -Dd+123 -DP245  -Ds+158 -Dk+158'
 colors16='  -DEb    -DSKY     -DBba   -DCb    -DRw    -DNw    -Duy  -Dk+w   -Dd+g   -DPw    -Ds+y   -Dk+y'
 
 if [[ "$(tput colors)" == "256" ]]; then

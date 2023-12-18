@@ -93,31 +93,23 @@ set undofile
 " {{{ Colors
 
 function! PatchColors()
-  " Syntax
-  hi Type cterm=NONE
-  hi Label cterm=NONE
-  hi htmlTag ctermfg=white
-  hi htmlEndTag ctermfg=white
-
   " TUI
-  hi CursorLine cterm=NONE
-  hi Folded cterm=NONE ctermfg=255 ctermbg=236
-  hi FloatBorder ctermbg=NONE
-  hi Visual ctermfg=238 ctermbg=255
-  hi ErrorMsg cterm=NONE ctermbg=160 ctermfg=white
+  hi Normal ctermbg=NONE guibg=NONE
+  hi Statusline ctermfg=green ctermbg=232 guifg=#0a0b10 guibg=#aaedb7
+  hi StatuslineNC ctermfg=239 ctermbg=232 guifg=#ebeef5 guibg=#9b9ea4
 
   " Vim-Signify
-  hi DiffAdd ctermfg=green ctermbg=NONE cterm=italic
-  hi DiffChange ctermfg=yellow ctermbg=NONE cterm=italic
-  hi DiffDelete ctermfg=red ctermbg=NONE cterm=italic
-  hi DiffText ctermfg=yellow ctermbg=NONE 
-  hi SignColumn ctermbg=NONE
-  hi FoldColumn ctermbg=NONE
+  hi DiffAdd ctermfg=green ctermbg=NONE cterm=italic guifg=#aaedb7 guibg=NONE gui=italic
+  hi DiffChange ctermfg=yellow ctermbg=NONE cterm=italic guifg=#f4d88c guibg=NONE gui=italic
+  hi DiffDelete ctermfg=red ctermbg=NONE cterm=italic guifg=#ffbcb5 guibg=NONE gui=italic
+  hi DiffText ctermfg=yellow ctermbg=NONE guibg=NONE guifg=NONE
+  hi SignColumn ctermbg=NONE ctermbg=NONE guibg=NONE guifg=NONE
+  hi FoldColumn ctermbg=NONE ctermbg=NONE guibg=NONE guifg=NONE
 
   " Vim-fugitive
-  hi diffAdded ctermfg=green ctermbg=NONE
-  hi diffChanged ctermfg=yellow ctermbg=NONE
-  hi diffRemoved ctermfg=red ctermbg=NONE
+  hi diffAdded ctermfg=green ctermbg=NONE guifg=#aaedb7 guibg=NONE
+  hi diffChanged ctermfg=yellow ctermbg=NONE guifg=#f4d88c guibg=NONE
+  hi diffRemoved ctermfg=red ctermbg=NONE guifg=#ffbcb5 guibg=NONE
 endfunction
 
 " }}}
@@ -174,9 +166,9 @@ function! SetColors() "{{{
   if &t_Co < 256
     colorscheme default
   else
-    " let g:solarized_termcolors=256 " instead of 16 color with mapping in terminal
-    " colorscheme solarized
-    colorscheme zenburn
+    " colorscheme menguless
+    " set termguicolors
+    colorscheme default
   endif
   " Allow color schemes to do bright colors without forcing bold.
   if &t_Co == 8 && $TERM !~# '^Eterm'
@@ -409,8 +401,10 @@ map L $
 " Toggle signcolumn
 nnoremap <silent> <leader>ss :if &signcolumn == 'yes:2' <Bar>
   \   setl signcolumn=yes:1 <Bar>
+  \   setl syntax=on <Bar>
   \ else <Bar>
   \   setl signcolumn=yes:2 <Bar>
+  \   setl syntax=off <Bar>
   \ endif<Bar>
   \ execute 'SignifyToggle' <Bar>
   \ execute 'SignifyRefresh'<CR>

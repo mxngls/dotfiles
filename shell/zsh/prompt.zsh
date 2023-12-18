@@ -10,14 +10,14 @@ function PR_ERROR() {
 }
 
 # The arrow in red (for root) or violet (for regular user)
-function PR_DOLLAR() {
-  echo "%(!.%{$fg[red]%}.%{$fg[white]%})%B$%b%{$reset_color%}"
+function PR_ARROWS() {
+  echo "%(!.%{$fg[red]%}.%{$fg[white]%})%B>>>%b%{$reset_color%}"
 }
 
 # Set custom rhs prompt
 # User in red (for root) or violet (for regular user)
 function PR_USER() {
-  echo "%(!.%{$fg[red]%}.%F{magenta})%n%F{reset}"
+  echo "%(!.%{$fg[red]%}.%F{green})%n%F{reset}"
 }
 
 # Get machine information
@@ -31,12 +31,12 @@ function machine_name() {
 
 # Show host information
 function PR_HOST() {
-  echo "%F{magenta}$(machine_name)%F{reset}"
+  echo "%F{green}$(machine_name)%F{reset}"
 }
 
 # Build the rhs prompt
 function PR_INFO() {
-  echo "$(PR_USER)%F{magenta}@%F{reset}$(PR_HOST)"
+  echo "$(PR_USER)%F{green}@%F{reset}$(PR_HOST)"
 }
 
 # Current directory, truncated to n path elements (or n+1 when one of them is "~")
@@ -68,7 +68,7 @@ function PR_DIR() {
       last=${last[2,-1]} # take substring
     fi
 
-    echo "%{$fg[white]%}${truncated}%B${last}%b%{$reset_color%}"
+    echo "%{$fg[cyan]%}${truncated}%B${last}%b%{$reset_color%}"
   }
 
 # Set RHS prompt for git repositories
@@ -137,16 +137,17 @@ function git_prompt_string() {
 
 # Prompt
 function PCMD() {
-  echo "$(PR_INFO): $(PR_DIR 2) $(PR_ERROR)$(PR_DOLLAR) " # space at the end
+  echo "$(PR_INFO) in $(PR_DIR 2) $(PR_ERROR)" # newline at the end
 }
 
-PROMPT='$(PCMD)'  # single quotes to prevent immediate execution
+NEWLINE=$'\n'
+PROMPT='$(PCMD) ${NEWLINE}$(PR_ARROWS) '  # single quotes to prevent immediate execution
 RPROMPT=''        # set asynchronously and dynamically
 
 # Right-hand prompt
 function RCMD() {
   if [[ -n "$(git_prompt_string)" ]]; then
-    echo "$(git_prompt_string)"
+    echo "$(git_prompt_string)${NEWLINE}"
   fi
 }
 
