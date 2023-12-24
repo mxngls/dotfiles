@@ -2,62 +2,76 @@
 
 # Function to rename a Git stash
 # see also https://stackoverflow.com/questions/25931026/how-can-i-rename-a-git-stash/65627640#65627640
-# Parameters:
-#   $1: The index of the stash to rename
-#   $2: The new name for the stash
 
-set -euf
+set -o errexit
+set -o nounset
+set -o pipefail
 
-declare stash_index=${1:-}
-declare new_stash_name=${2:-}
-declare stashes_total
-declare stash_info
-declare new_commit_hash
-declare tree
-declare parents
+main() {
 
-stashes_total=$(($(git stash list | wc -l) - 1))
+  if [[ $# -eq 1 ]] && [[ $1 == -h || $1 == --help ]]; then
+    usage
+  else
+    echo 'Error: Unknown parameter supplied.'
+    return 1
+  fi
 
-# Validate user input
-if [[ -z "$stash_index" ]] || [[ -z "$new_stash_name" ]]; then
-  echo "Invalid input: Both the stash index and a new stash name are required."
-  exit 1
-elif [[ $stash_index =~ [^0-9]+ ]]; then
-  echo "Invalid input: Specifed index is not a number."
-  exit 1
-elif [[ "$stashes_total" -le 1 ]]; then
-  echo "Invalid Input: No stashes found."
-  exit 1
-elif [[ "$stash_index" -gt "$stashes_total" ]] ||
-  [[ "$stash_index" -lt 0 ]]; then
-  echo "Invalid input: No stash with the specifed index exists."
-  exit 1
-fi
+  if [[ $# -ne 2 ]]; then
+    echo 'Error: Not enough arguments supplied. Exactly two arguments are expected.'
+    return 1
+  fi
 
-stash_info="$(
-  git show \
-    --no-patch \
-    --pretty=format:"%T %P" \
-    "stash@{$stash_index}" |
-    sed -e 's/ / -p /g'
-)"
+  declare stash=${1:-}
+  declare stash_index=${stash//[!0-9]/}
+  declare new_stash_name=${2:-}
 
-tree=$(cut -d ' ' -f 1 <<< "$stash_info")
-parents=$(cut -d ' ' -f 2- <<< "$stash_info")
+  stashes_total="$(($(git stash list | wc -l) - 1))"
 
-# Get the commit for our new stash
-# ('$parents' is intentionally not quoted to allow expansion on whitespace)
-new_commit_hash="$(git commit-tree $parents -m "$new_stash_name" "$tree")"
+  # Validate provided reference
+  if [[ ! $stash =~ stash@{[0-9]+} ]]; then
+    echo 'Error: Invalid input - Specifed stash is not in a valid format.'
+    return 1
+  elif [[ "$stashes_total" -le 1 ]]; then
+    echo 'Error: Invalid Input - No stashes found.'
+    return 1
+  elif [[ "$stash_index" -gt "$stashes_total" ]] ||
+    [[ "$stash_index" -lt 0 ]]; then
+    echo 'Error: Invalid input - No stash with the specifed index exists.'
+    return 1
+  fi
 
-# Drop the old stash
-git stash drop --quiet "stash@{$stash_index}"
+  # Get tree has and parent hash(es)
+  stash_info="$(
+    git show \
+      --no-patch \
+      --pretty=format:"%T %P" \
+      "$stash" |
+      sed -e 's/ / -p /g'
+  )"
+  tree=$(cut -d ' ' -f 1 <<< "$stash_info")
+  parents=$(cut -d ' ' -f 2- <<< "$stash_info")
 
-# Create a new one in its place
-git stash store \
-  -m "$(git show -s --format=%B "$new_commit_hash")" \
-  --quiet \
-  "$new_commit_hash"
+  # Get the commit for our new stash
+  # ('$parents' is intentionally not quoted to allow expansion on whitespace)
+  new_commit_hash="$(git commit-tree $parents -m "$new_stash_name" "$tree")"
 
-echo "Renamed stash@{$stash_index} to '$new_stash_name'"
+  # Drop the old stash
+  git stash drop --quiet "stash@{$stash_index}"
 
-exit 0
+  # Create a new one in its place
+  git stash store \
+    -m "$(git show -s --format=%B "$new_commit_hash")" \
+    --quiet "$new_commit_hash"
+
+  echo "Renamed stash@{$stash_index} to '$new_stash_name'"
+
+  return 0
+
+}
+
+usage() {
+  echo "Usage: $0 [-h | --help] | [$0 STASH_REF REF_NAME]"
+  return 1
+}
+
+main "$@"
