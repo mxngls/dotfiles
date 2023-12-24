@@ -1,29 +1,43 @@
 #!/bin/bash
 
 # Find duplicate commits
-set -eu
+set -o errexit
+set -o nounset
+set -o pipefail
 
-declare -a git_log=()
+main() {
+  if [[ $# -gt 0 ]]; then
+    echo 'Error: No arguments allowed.'
+    return 1
+  fi
 
-while read -r commit; do
-  git_log+=("$commit")
-done < <(
-  git log \
-    --pretty='%C(yellow)%h [%p] %C(blue)%aN%Creset %s' \
-    --date-order \
-    --date=short \
-    --color=always \
-  | sort -b -k4 -k2,2 \
-  | uniq -f 1 -D
-)
+  declare -a dups
 
-if [[ "${#git_log[@]}" -gt 0 ]]; then
-  echo "Found the following commits with duplicate commit messages:"
-  for commit in "${git_log[@]}"; do
-    echo "$commit"
-  done;
-else
-  echo "No duplicate commits found."
-fi
+  git_log=$(
+    # Compare the commit hash and the hash of its immediate parent
+    git log \
+      --pretty='%h [%p] %aN %s' \
+      --date-order \
+      --date=short \
+      --color=never |
+      sort -b -k4 -k2,2 |
+      uniq -f 1 -d
+  )
 
-exit 0
+  while IFS= read -r commit; do
+    [[ -n $commit ]] && dups+=("$commit")
+  done < <(echo "$git_log")
+
+  if [[ "${#dups[@]}" -gt 0 ]]; then
+    echo "Found the following commits with duplicate commit messages:"
+    for commit in "${dups[@]}"; do
+      echo "$commit"
+    done
+  else
+    echo "No duplicate commits found."
+  fi
+
+  return 0
+}
+
+main "$@"
