@@ -1,0 +1,94 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+main() {
+
+  TMP_GIT="$(git rev-parse --git-dir 2> /dev/null)"
+  local PARENT_DIR="${TMP_GIT%.git}"
+  PARENT_DIR=${PARENT_DIR:-.}
+  local ALL=0
+  local RECURSE=0
+  local LS_OPT='--exclude-standard'
+  
+  # Exit if more than two arguments are supplied
+  if [[ $# -gt 2 ]]; then
+    echo 'Error: Too many arguments. Expects at most two arguments.'
+    usage
+  fi
+  
+  # Print helpful information about the intended usage
+  if [[ $# -eq 1 ]] && [[ $1 == '-h' || $1 == '--help' ]]; then
+    usage
+  fi
+
+  # Parse command line options
+  while getopts ":ar" opt; do
+    case $opt in
+      a)
+        ALL=1
+        break
+        ;;
+      r)
+        RECURSE=1
+        break
+        ;;
+      *)
+        echo "Error: Invalid option: -$OPTARG"
+        usage
+        ;;
+    esac
+  done
+
+  # Decrements the argument pointer so it points to next argument.
+  # $1 now references the first non-option item supplied on the command-line
+  # if one exists.
+  shift $((OPTIND - 1))
+  
+  DIRECTORY="${1:-}"
+
+  if [[ -n "${DIRECTORY}" ]]; then
+    if [[ ! -d $1 ]]; then
+      echo 'Error: Invalid directory name.'
+    fi
+  else
+    DIRECTORY=''
+  fi
+
+
+  # Depending on the options provided grab the last commits for specific files
+  if [[ $ALL -eq 1 ]]; then
+    FILES="$(git ls-files "$LS_OPT" HEAD "$PARENT_DIR")"
+  elif [[ $RECURSE -eq 1 ]]; then
+    FILES="$(git ls-files "$LS_OPT" HEAD "${DIRECTORY:-.}")"
+  else
+    FILES="$(git ls-files "$LS_OPT" HEAD ":(glob)$DIRECTORY*")"
+  fi
+
+  while IFS= read -r file; do
+    tmp_file_length="${#file}"
+    ((${#file} > 35)) && truncated_file="...${file:tmp_file_length-32:tmp_file_length}" || truncated_file="$file"
+    printf "%-35s -- %s\n" "$truncated_file" "$(
+      git log \
+        --color=always \
+        -1 \
+        --oneline \
+        --pretty='%Cblue%ci%Creset %h %s' \
+        "$file"
+    )"
+  done < <(echo "$FILES")
+
+  return 0
+}
+
+usage() {
+  printf "%s\n" "Usage: $0 [-h | --help]"
+  printf "%-7s%s\n" "" "$0 [DIRECTORY]"
+  printf "%-7s%s\n" "" "$0 [-r] [DIRECTORY]"
+  printf "%-7s%s\n" "" "$0 [-a] [DIRECTORY]"
+  return 1
+}
+
+main "$@"
