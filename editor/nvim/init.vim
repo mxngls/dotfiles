@@ -254,18 +254,6 @@ function! SetStatusline() abort "{{{
 endfunction
 "}}}
 
-" Stop large files from crippling Vim
-function! LargeFile() abort "{{{
-  setlocal eventignore+=Filetype
-  setlocal bufhidden=unload
-  setlocal buftype=nowrite
-  setlocal undolevels=-1
-  autocmd VimEnter * echo "The file is larger than "
-        \ . (g:large_file / 1024 / 1024)
-        \ . " MB, so some options are changed (see .vimrc for details)."
-endfunction
-"}}}
-
 function! ExplorerSplit() abort "{{{
   if &ft != "dirvish"
     let path = expand('%:p:h')
@@ -549,14 +537,6 @@ augroup tmux
     " Cant use VimLeave here due to https://github.com/neovim/neovim/issues/21856
     autocmd UILeave * call system("tmux set-window-option automatic-rename")
   endif
-augroup END
-
-" Don't cripple Vim when working with large files
-let g:large_file = 5242880 " 5MB
-augroup LargeFile
-  autocmd!
-  autocmd BufReadPre * let f = getfsize(expand('%')) * 8
-        \| if f > g:large_file || f == -2 | call LargeFile() | endif
 augroup END
 
 " Open a quickfix or location list when viewing results of command that gets
