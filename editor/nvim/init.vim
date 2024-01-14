@@ -258,11 +258,6 @@ function! ExplorerSplit() abort "{{{
 endfunction
 "}}}
 
-" Just used for the quickfix window
-function! AdjustWindowHeight(minheight, maxheight) abort "{{{
-  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
-endfunction "}}}
-
 " Simplify finding and grepping and avoid heavy plugins
 function! CFind(filename) abort "{{{
   if executable('fd')
@@ -521,10 +516,9 @@ augroup tmux
 augroup END
 
 " Open a quickfix or location list when viewing results of command that gets
-" triggered by QuickfixCmdPost and adjust the height of said window
+" triggered by QuickfixCmdPost
 augroup quickfix
   autocmd!
-  autocmd FileType qf call AdjustWindowHeight(3, 10)
   autocmd VimEnter * delmarks Q
   autocmd VimEnter * let g:saved_pos = [0,0,0,0,0]
   autocmd QuickFixCmdPost * if getpos("'Q")[0] == 0
