@@ -342,7 +342,10 @@ nnoremap <C-n> :cnext<CR>zz
 nnoremap <C-p> :cprevious<CR>zz
 nnoremap <M-j> :lnext<CR>zz
 nnoremap <M-k> :lprevious<CR>zz
-nnoremap <leader>r :execute "normal 'Q" <Bar> 
+" Jump back to where we were
+nnoremap <leader>cc  :cclose<CR>
+nnoremap <leader>lc  :lclose<CR>
+nnoremap <leader>r   :execute "normal 'Q" <Bar> 
       \ call setcursorcharpos(g:saved_pos[1],g:saved_pos[2]) <Bar> 
       \ delmarks Q <Bar> 
       \ lclose <Bar>
@@ -520,12 +523,13 @@ augroup END
 augroup quickfix
   autocmd!
   autocmd VimEnter * delmarks Q
-  autocmd VimEnter * let g:saved_pos = [0,0,0,0,0]
+  autocmd VimEnter * let g:saved_pos = getcursorcharpos()
   autocmd QuickFixCmdPost * if getpos("'Q")[0] == 0
         \|   execute "mark Q"
         \|   let g:saved_pos = getcursorcharpos()
         \| endif
         \| lopen
+        \| wincmd k
 augroup END
 
 augroup theme
