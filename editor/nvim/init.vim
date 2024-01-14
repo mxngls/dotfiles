@@ -1,3 +1,7 @@
+" Name:     Custom
+" Author:   Maximilian Engels <maximilian.e.hoenig@gmail.com>
+" URL:      http://mxngls.github.io
+
 " Basic editor settings {{{
 
 set nocompatible                " Disable compatibility with vi
