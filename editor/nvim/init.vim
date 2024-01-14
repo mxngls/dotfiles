@@ -157,13 +157,9 @@ function! SetColors() "{{{
   if &t_Co < 256
     colorscheme default
   else
-    " colorscheme menguless
-    " set termguicolors
+    set termguicolors
+    set bg=light
     colorscheme default
-  endif
-  " Allow color schemes to do bright colors without forcing bold.
-  if &t_Co == 8 && $TERM !~# '^Eterm'
-    set t_Co=16
   endif
 endfunction
 "}}}
