@@ -545,13 +545,10 @@ augroup END
 
 " Grepping stuff
 command! -nargs=+ -complete=file -bar Grep
-      \ lgetexpr CGrep(<f-args>) |
-      \ ll |
+      \ lgetexpr CGrep(<f-args>)
 
 " Finding files
 command! -nargs=1 -complete=file -bar Find
-      \ lgetexpr CFind(<f-args>) |
-      \ ll
 
 " }}}
 " Plugin Settings {{{
