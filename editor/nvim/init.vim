@@ -382,7 +382,7 @@ map L $
 nnoremap <silent> <leader>ss :SignifyToggle<CR>
 
 " Insert a HTML tag
-inoremap <C-k> <C-o>b<C-o>diw<<C-r>"></<C-r>"><C-o>T>
+inoremap <C-t> <C-o>b<C-o>diw<<C-r>"></<C-r>"><C-o>T>
 
 " Plugin related {{{2
 
