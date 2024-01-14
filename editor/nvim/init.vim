@@ -6,38 +6,39 @@
 
 set nocompatible                " Disable compatibility with vi
 let mapleader="\<Space>"        " Use Space key as the map leader
-set mouse=a                     " Enable mouse support
+set ttyfast                     " Improve redraw speed for terminals
+set syntax=on                   " Enable syntax highlighting
 set timeout                     " Enable timeout for mappings
 set timeoutlen=300              " Set timeout length to 300ms
 set updatetime=300              " Trigger the CursorHold autocomommand event
-set backspace=indent,eol,start  " Allow backspacing over everything
+set spelllang=en_us             " Set the spell check language to English
+set noswapfile                  " Disable swap files
 set confirm                     " Confirm before overwriting a file
-set showmatch                   " Show matching brackets
-set ttyfast                     " Improve redraw speed for terminals
-set lazyredraw                  " Delay redraw in macros and scripts
-set showmode                    " Show current mode in the command line
 set autoread                    " Automatically read a file when it changes
+set regexpengine=2              " Use improved regular expression engine
+set path+=**                    " Recursively traverse directories
+set clipboard=unnamed           " Use the system clipboard
+set undofile
+
+set backspace=indent,eol,start  " Allow backspacing over everything
+set showmatch                   " Show matching brackets
 set matchpairs+=(:),[:],{:},<:> " Additional characters for matchpairs
 set iskeyword-=_                " Use the undersore character to split words
-set regexpengine=2              " Use improved regular expression engine
+
 set switchbuf=uselast           " Reuse windows if possible
-set laststatus=0                " Never show the status line
-set path+=**                    " Recursively traverse directories
 set splitbelow                  " Open split below the current window
 set splitright                  " Open split to the right of the current window
-set scrolloff=10                " Minumum number of lines to keep above/below the cursor
-set syntax=on                   " Enable syntax highlighting
-set spelllang=en_us             " Set the spell check language to English
+
+set showmode                    " Show current mode in the command line
 set number                      " Show line numbers
 set relativenumber              " Show relative line numbers
-set signcolumn=yes:1            " Disable the sign column
+set signcolumn=auto:3
+set colorcolumn=72              " Limit the visual available width to 72 characters
+set textwidth=72                " And do the same practically as well
+set nowrap                      " We don't want to wrap text
 set pumheight=10                " Don't make the completion window too heigh
-set noswapfile                  " Disable swap files
-set clipboard=unnamed           " Use the system clipboard
 set cursorline
-set cursorlineopt=line,number
-set colorcolumn=80              " Limit the visual available width to 80 characters
-set textwidth=80                " And do the same practically as well
+set cursorlineopt=screenline,number
 
 set wildmenu                    " Enable command-line completion menu
 set wildmode=longest:full       " Complete longest match, list other matches in wildmenu
@@ -55,8 +56,8 @@ set tabstop=2                   " Number of spaces for each tab
 set shiftwidth=2                " Number of spaces to use for autoindenting
 set softtabstop=2               " Number of spaces for backspace and <Tab>
 set smarttab                    " Insert tabs on indents, spaces on alignment
-
 set smartindent                 " Enable smart indenting
+
 set foldmethod=indent           " Use indent-based folding
 set foldlevelstart=0            " Set the initial folding level to 0
 set foldnestmax=10              " Limit the maximum nested folds to 10
@@ -66,7 +67,7 @@ set noruler
 set laststatus=2
 set statusline=%!SetStatusline() " Set custom status ruler
 
-filetype plugin indent on
+filetype plugin indent on       " Detect filetype and load options
 
 " }}}
 " Better safe than sorry {{{
@@ -91,7 +92,6 @@ else
   set undodir=~/.vim/undo-dir
 endif
 
-set undofile
 
 " }}}
 " {{{ Colors
