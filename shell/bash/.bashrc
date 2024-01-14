@@ -1,5 +1,5 @@
 # Functions
-source ~/dotfile/shell/functions.sh
+source ~/dotfiles/shell/functions.sh
 
 # Aliases
 source ~/dotfiles/shell/aliases.sh
