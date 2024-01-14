@@ -157,11 +157,6 @@ function RCMD() {
 # set asynchronously and dynamically
 RPROMPT=''
 
-function zle-line-finish zle-line-init zle-keymap-select() {
-  # set the cursor
-  printf "\033[2 q\033]12;white\007"
-}
-
 function precmd() {
   typeset -g _PROMPT_ASYNC_FD
 
@@ -176,11 +171,6 @@ function precmd() {
 
     # when fd is readable, call response handler
     zle -F "$_PROMPT_ASYNC_FD" async_prompt_complete
-
-    # unify cursor shape
-    zle -N zle-line-init
-    zle -N zle-line-finish
-    zle -N zle-keymap-select
 
     # do not clear RPROMPT, let it persist
   }
