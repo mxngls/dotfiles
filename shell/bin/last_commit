@@ -9,6 +9,7 @@ main() {
   TMP_GIT="$(git rev-parse --git-dir 2> /dev/null)"
   local PARENT_DIR="${TMP_GIT%.git}"
   PARENT_DIR=${PARENT_DIR:-.}
+  local FILES=()
   local ALL=0
   local RECURSE=0
   local LS_OPT='--exclude-standard'
@@ -60,24 +61,32 @@ main() {
 
   # Depending on the options provided grab the last commits for specific files
   if [[ $ALL -eq 1 ]]; then
-    FILES="$(git ls-files "$LS_OPT" HEAD "$PARENT_DIR")"
+    IFS=$'\n' read -r -d '' -a FILES < <(git ls-files \
+      "$LS_OPT" HEAD "$PARENT_DIR" && printf '\0' )
   elif [[ $RECURSE -eq 1 ]]; then
-    FILES="$(git ls-files "$LS_OPT" HEAD "${DIRECTORY:-.}")"
+    IFS=$'\n' read -r -d '' -a FILES < <( git ls-files \
+      "$LS_OPT" HEAD "${DIRECTORY:-.}" && printf '\0' )
   else
-    FILES="$(git ls-files "$LS_OPT" HEAD ":(glob)$DIRECTORY*")"
+    IFS=$'\n' read -r -d '' -a FILES < <( git ls-files \
+      "$LS_OPT" HEAD ":(glob)$DIRECTORY*" && printf '\0' )
   fi
-
-  if [[ -z $FILES ]];then 
+  
+  if [[ ${#FILES[@]} -lt 1 ]];then 
     echo 'No files tracked by Git in current directory found. Aborting.'
     return 1;
   fi
 
-  while IFS= read -r file; do
+  max_length=0
+  for file in "${FILES[@]}"; do
+    current_length=${#file}
+    [[ $current_length -gt $max_length ]] && max_length=${#file}
+  done
+
+  for file in "${FILES[@]}"; do
     # We don't care for deleted files
     [[ ! -e "$file" ]] && continue;
-    tmp_file_length="${#file}"
-    ((${#file} > 35)) && truncated_file="...${file:tmp_file_length-32:tmp_file_length}" || truncated_file="$file"
-    printf "%-35s -- %s\n" "$truncated_file" "$(
+    truncated_file="$file"
+    printf "%-${max_length}s -- %s\n" "$truncated_file" "$(
       git log \
         --color=always \
         -1 \
@@ -86,7 +95,7 @@ main() {
         --pretty='%Cblue%cd%Creset %h %s' \
         "$file"
     )"
-  done < <(echo "$FILES")
+  done
 
   return 0
 }
