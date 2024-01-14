@@ -360,6 +360,9 @@ map ff :Find <C-r><C-w><CR>
 " @ is just too far
 nnoremap <C-m> @
 
+" make
+nnoremap <leader>ma :!make <CR>
+
 " These as well
 map H ^
 map L $
