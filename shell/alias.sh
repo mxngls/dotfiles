@@ -1,5 +1,6 @@
 # Misc
 alias ep='echo $PATH | sed "s/:/\\n/g"'
+alias eh='echo $USER@$HOST'
 alias ls='ls --color=always'
 alias lss='ls -F -1'
 alias lsa='ls -aF -1'

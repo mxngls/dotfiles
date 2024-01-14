@@ -10,33 +10,8 @@ function PR_ERROR() {
 }
 
 # The arrow in red (for root) or violet (for regular user)
-function PR_ARROWS() {
-  echo "%(!.%{$fg[red]%}.%{$fg[white]%})%B>>>%b%{$reset_color%}"
-}
-
-# Set custom rhs prompt
-# User in red (for root) or violet (for regular user)
-function PR_USER() {
-  echo "%(!.%{$fg[red]%}.%F{green})%n%F{reset}"
-}
-
-# Get machine information
-function machine_name() {
-  if [[ -f $HOME/.name ]]; then
-    cat $HOME/.name
-  else
-    hostname
-  fi
-}
-
-# Show host information
-function PR_HOST() {
-  echo "%F{green}$(machine_name)%F{reset}"
-}
-
-# Build the rhs prompt
-function PR_INFO() {
-  echo "$(PR_USER)%F{green}@%F{reset}$(PR_HOST)"
+function PR_ARROW() {
+  echo "%(!.%{$fg[red]%}.%{$fg[white]%})%B>%b%{$reset_color%}"
 }
 
 # Current directory, truncated to n path elements (or n+1 when one of them is "~")
@@ -137,15 +112,14 @@ function git_prompt_string() {
 
 # Prompt
 function PCMD() {
-  echo "$(PR_INFO) in $(PR_DIR 2) $(PR_ERROR)" # newline at the end
+  echo "$(PR_DIR 2) $(PR_ERROR)" # newline at the end
 }
 
 # Even though there is a cleaner way to implement a newline combined with a
 # right-side prompt deem it necessary at this point but will leave the link to a
 # possible implementation as a reference for future me:
 # https://gist.github.com/romkatv/2a107ef9314f0d5f76563725b42f7cab
-NEWLINE=$'\n'
-PROMPT='$(PCMD)%-72(l::${NEWLINE})$(PR_ARROWS) '  # single quotes to prevent immediate execution
+PROMPT='$(PCMD)$(PR_ARROW) '  # single quotes to prevent immediate execution
 
 # Right-hand prompt
 function RCMD() {
