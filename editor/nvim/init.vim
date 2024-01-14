@@ -379,15 +379,7 @@ map H ^
 map L $
 
 " Toggle signcolumn
-nnoremap <silent> <leader>ss :if &signcolumn == 'yes:2' <Bar>
-  \   setl signcolumn=yes:1 <Bar>
-  \   setl syntax=on <Bar>
-  \ else <Bar>
-  \   setl signcolumn=yes:2 <Bar>
-  \   setl syntax=off <Bar>
-  \ endif<Bar>
-  \ execute 'SignifyToggle' <Bar>
-  \ execute 'SignifyRefresh'<CR>
+nnoremap <silent> <leader>ss :SignifyToggle<CR>
 
 " Insert a HTML tag
 inoremap <C-k> <C-o>b<C-o>diw<<C-r>"></<C-r>"><C-o>T>
@@ -578,14 +570,7 @@ command! -nargs=1 -complete=file -bar Find
 call glaive#Install()
 
 " Signify
-let g:signify_sign_add               = '┃'
-let g:signify_sign_change            = '┃'
-let g:signify_sign_change_delete     = '╋'
-let g:signify_sign_delete            = '┃'
-let g:signify_sign_delete_first_line = '▔'
 let g:signify_disable_by_default     = 1
-let g:signify_line_highlight         = 1
-let g:signify_priority               = 15
 
 " Grep
 if executable('ag')
