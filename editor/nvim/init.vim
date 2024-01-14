@@ -97,23 +97,11 @@ endif
 " {{{ Colors
 
 function! PatchColors()
-  " TUI
-  hi Normal ctermbg=NONE guibg=NONE
-  hi Statusline ctermfg=green ctermbg=232 guifg=#0a0b10 guibg=#aaedb7
-  hi StatuslineNC ctermfg=239 ctermbg=232 guifg=#ebeef5 guibg=#9b9ea4
-
   " Vim-Signify
-  hi DiffAdd ctermfg=green ctermbg=NONE cterm=italic guifg=#aaedb7 guibg=NONE gui=italic
-  hi DiffChange ctermfg=yellow ctermbg=NONE cterm=italic guifg=#f4d88c guibg=NONE gui=italic
-  hi DiffDelete ctermfg=red ctermbg=NONE cterm=italic guifg=#ffbcb5 guibg=NONE gui=italic
-  hi DiffText ctermfg=yellow ctermbg=NONE guibg=NONE guifg=NONE
-  hi SignColumn ctermbg=NONE ctermbg=NONE guibg=NONE guifg=NONE
-  hi FoldColumn ctermbg=NONE ctermbg=NONE guibg=NONE guifg=NONE
-
-  " Vim-fugitive
-  hi diffAdded ctermfg=green ctermbg=NONE guifg=#aaedb7 guibg=NONE
-  hi diffChanged ctermfg=yellow ctermbg=NONE guifg=#f4d88c guibg=NONE
-  hi diffRemoved ctermfg=red ctermbg=NONE guifg=#ffbcb5 guibg=NONE
+  hi DiffAdd ctermbg=NONE guibg=NONE
+  hi DiffChange ctermbg=NONE guibg=NONE
+  hi DiffDelete ctermbg=NONE guibg=NONE
+  hi DiffText ctermbg=NONE guibg=NONE
 endfunction
 
 " }}}
