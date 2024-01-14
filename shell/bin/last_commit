@@ -82,7 +82,8 @@ main() {
         --color=always \
         -1 \
         --oneline \
-        --pretty='%Cblue%ci%Creset %h %s' \
+        --date='format:%Y-%m-%d %H:%M' \
+        --pretty='%Cblue%cd%Creset %h %s' \
         "$file"
     )"
   done < <(echo "$FILES")
