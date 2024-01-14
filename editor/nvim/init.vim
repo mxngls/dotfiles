@@ -254,8 +254,6 @@ function! ExplorerSplit() abort "{{{
       execute 'new'
     endif
     execute 'Dirvish' . path
-  else
-    quit
   endif
 endfunction
 "}}}
