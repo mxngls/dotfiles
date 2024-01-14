@@ -67,7 +67,14 @@ main() {
     FILES="$(git ls-files "$LS_OPT" HEAD ":(glob)$DIRECTORY*")"
   fi
 
+  if [[ -z $FILES ]];then 
+    echo 'No files tracked by Git in current directory found. Aborting.'
+    return 1;
+  fi
+
   while IFS= read -r file; do
+    # We don't care for deleted files
+    [[ ! -e "$file" ]] && continue;
     tmp_file_length="${#file}"
     ((${#file} > 35)) && truncated_file="...${file:tmp_file_length-32:tmp_file_length}" || truncated_file="$file"
     printf "%-35s -- %s\n" "$truncated_file" "$(
