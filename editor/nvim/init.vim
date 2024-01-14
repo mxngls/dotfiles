@@ -206,7 +206,7 @@ endfunction
 
 " Custom statusline
 function! SetStatusline() abort "{{{
-	let active = g:statusline_winid == win_getid(winnr())
+	let l:active = g:statusline_winid == win_getid(winnr())
 
   let l:stl  = ''
 
@@ -337,11 +337,6 @@ nnoremap <leader>o :e <C-R>=expand('%:p:h') . '/'<CR>
 " Easily source our vimrc
 nnoremap <leader>so :so $MYVIMRC<CR>
 
-" Navigate the quickfix and location list
-nnoremap <C-n> :cnext<CR>zz
-nnoremap <C-p> :cprevious<CR>zz
-nnoremap <M-j> :lnext<CR>zz
-nnoremap <M-k> :lprevious<CR>zz
 " Jump back to where we were
 nnoremap <leader>cc  :cclose<CR>
 nnoremap <leader>lc  :lclose<CR>
@@ -413,6 +408,7 @@ Plug 'google/vim-glaive'
 " Misc
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 
 " File explorer
 Plug 'justinmk/vim-dirvish'
