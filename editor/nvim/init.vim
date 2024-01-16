@@ -367,6 +367,13 @@ nnoremap <leader>ma :!make <CR>
 map H ^
 map L $
 
+" Buffers
+nnoremap <leader>ls :ls<CR>:b<Space>
+nnoremap <leader>bd :ls<CR>:bd<Space>
+
+" Sessions
+nnoremap <leader>ms :execute "mks! " . trim(system('realpath $(dirname "$(git rev-parse --git-dir 2>/dev/null)")')) . '/.vim-session'<CR>
+
 " Toggle signcolumn
 nnoremap <silent> <leader>ss :SignifyToggle<CR>
 
