@@ -177,18 +177,34 @@ function! ExplorerSplit() abort "{{{
 endfunction
 "}}}
 
-" Simplify finding and grepping and avoid heavy plugins
+" Simplify finding files and avoid heavy plugins
 function! CFind(filename) abort "{{{
   if executable('fd')
-    let l:cmd = 'fd --hidden --type f --type d --type l -p "'.a:filename.'"
-          \ | xargs file | sed "s/:/:1:/"'
+    let l:cmd = 'fd -a --hidden --type f --type d --type l -p "'.a:filename.'"'
   else
     let l:cmd = 'find . -type f -type d --path -name "*'.a:filename.'*"
-          \ -o -type l -name "*'.a:filename.'*"
-          \ | xargs file | sed "s/:/:1:/"'
+          \ -o -type l -name "*'.a:filename.'*"'
   endif
-  setlocal errorformat=%f:%l:%m
-  return system(l:cmd)
+
+  let l:fp = system(l:cmd)
+  let l:bufnr = bufadd('find_results')
+  let l:winnr = bufwinnr(l:bufnr)
+
+  call bufload(l:bufnr)
+  call setbufline(l:bufnr, 1, split(l:fp, "\n"))
+
+  execute l:bufnr . 'sbuf'
+  8 wincmd _ 
+
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  setlocal nomodifiable ro
+  setlocal number
+  setlocal norelativenumber
+  setlocal colorcolumn=
+
+  " Local keymap to open in vertical split
+  nnoremap <buffer> vs :wincmd L \| execute 'normal gf'<CR>
+
 endfunction
 "}}}
 
@@ -461,6 +477,7 @@ command! -nargs=+ -complete=file -bar Grep
 
 " Finding files
 command! -nargs=1 -complete=file -bar Find
+      \ call CFind(<f-args>)
 
 " }}}
 " Plugin Settings {{{
