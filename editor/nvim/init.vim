@@ -435,7 +435,7 @@ augroup END
 augroup tmux
   autocmd!
   if exists('$TMUX')
-    autocmd FocusGained *
+    autocmd BufEnter,FocusGained,FocusLost *
           \ call system("[[ \"$(tmux display-message -p
           \ '#W' | \ cut -c 1)\" != \"_\" ]] && tmux rename-window "
           \ . expand("%:t"))
