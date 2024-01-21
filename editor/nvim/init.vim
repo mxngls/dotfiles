@@ -358,6 +358,9 @@ Plug 'tpope/vim-unimpaired'
 " File explorer
 Plug 'justinmk/vim-dirvish'
 
+" Fuzzy finding
+Plug 'ctrlpvim/ctrlp.vim'
+
 " Undo list visualizier
 Plug 'mbbill/undotree'
 
@@ -466,6 +469,11 @@ augroup eslint
   autocmd!
   autocmd FileType javascript,javascriptreact,typescript,typescriptreact
         \ setl makeprg=npx\ eslint\ -f\ unix\ --quiet\ 'src/**/*.{js,ts,jsx,tsx}'
+
+" Conflicts with Ctrl-P's default mapping
+augroup dirvish_config
+  autocmd!
+  autocmd FileType dirvish silent! unmap <buffer> <C-p>
 augroup END
 
 " }}}
@@ -473,7 +481,9 @@ augroup END
 
 " Grepping stuff
 command! -nargs=+ -complete=file -bar Grep
-      \ lgetexpr CGrep(<f-args>)
+      \ lgetexpr CGrep(<f-args>) <Bar>
+      \ lopen <Bar>
+      \ ll
 
 " Finding files
 command! -nargs=1 -complete=file -bar Find
@@ -488,10 +498,17 @@ call glaive#Install()
 " Signify
 let g:signify_disable_by_default     = 1
 
-" Grep
-if executable('ag')
-  set grepprg=ag\ -S\ -o\ --vimgrep\ --silent
+" Ctrl-P and (R-)Grep
+if executable('rg')
+  " Grep
+  set grepprg=rg\ -S\ -o\ --vimgrep
   set grepformat=%f:%l:%c:%m,%f:%l:%m
+
+  " Fuzzy file finding
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+else
+  let g:ctrlp_clear_cache_on_exit = 0
 endif
 
 " Dirvish / Netrw
