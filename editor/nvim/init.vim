@@ -63,8 +63,8 @@ set foldlevelstart=0            " Set the initial folding level to 0
 set foldnestmax=10              " Limit the maximum nested folds to 10
 set nofoldenable                " Disable folding by default
 
-set laststatus=2                 " Always show the status line
-set statusline=%!SetStatusline() " Set custom status ruler
+set  laststatus=2                 " Always show the status line
+setl statusline=%!statusline#SetStatus()
 
 filetype plugin indent on       " Detect filetype and load options
 
@@ -161,83 +161,6 @@ function! SetColors() "{{{
     set bg=light
     colorscheme default
   endif
-endfunction
-"}}}
-
-" Get the current head when in a Git repository
-function! GetGitHead() abort "{{{
-  let b:gitbranch=''
-  if &modifiable
-    try
-      lcd %:p:h
-    catch
-      return
-    endtry
-    let l:gitrevparse=system('echo "${$((git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null)#(refs/heads/|tags/)}"')
-    lcd -
-    if l:gitrevparse!~'fatal: not a git repository'
-      let b:gitbranch=substitute(l:gitrevparse, '\n', '', 'g')
-    endif
-  endif
-endfunction
-"}}}
-
-" Get truncated path
-function! GetTruncatedPath() abort "{{{
-  let b:path = ' '
-  let b:path = expand('%:p')
-  if b:path != ""
-    let b:parts = split(b:path, '/')
-    let b:last_two = ''
-
-    if len(b:parts) > 2
-      let b:last_two = join(b:parts[-2:], '/')
-      let b:path = '.../' . b:last_two
-    else
-      let b:path = b:last_two
-    endif
-  endif
-endfunction
-"}}}
-
-" Custom statusline
-function! SetStatusline() abort "{{{
-	let l:active = g:statusline_winid == win_getid(winnr())
-
-  let l:stl  = ''
-
-  " Current buffer number
-  let l:stl .= active ? '%#BufNr#[%n]%* ' : '[%n] '
-
-  " Truncated path
-  if exists('b:path')
-    let l:stl .= '%(%{b:path} %)'
-  endif
-
-  " File flags
-  let l:stl .= '%(%m%r%h%w %)'
-
-  " Current Git branch
-  if exists('b:gitbranch')
-    if active
-      if b:gitbranch ==# 'main' || b:gitbranch ==# 'master'
-        let l:stl .= '%#MainBranch#%(%{b:gitbranch}%* %)'
-      else
-        let l:stl .= '%#OtherBranch#%(%{b:gitbranch} %)%*'
-      endif
-    else
-      let l:stl .= '%{b:gitbranch}'
-    endif
-  endif
-
-  " Right aligned
-  let l:stl .= '%='
-
-  " Current cursor position
-  let l:stl .= '%(%l:%02v %)'
-  let l:stl .= '%P '
-
-  return stl
 endfunction
 "}}}
 
@@ -486,24 +409,6 @@ augroup END
 augroup singify
   autocmd!
   autocmd User SignifyHunk call s:ShowCurrentHunk()
-augroup END
-
-" See above
-augroup get_git_head
-  autocmd!
-  autocmd BufAdd,BufRead * call GetGitHead()
-augroup END
-
-" Set truncated path for the current buffer
-augroup get_truncated_path
-  autocmd!
-  autocmd BufAdd,BufRead * call GetTruncatedPath()
-augroup END
-
-" Patch colors whenever the background changes
-augroup patch
-  autocmd!
-  autocmd Colorscheme * call PatchColors()
 augroup END
 
 " Whenever we switch buffers or windows we want to rename the current tmux
