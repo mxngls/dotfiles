@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+cd "$HOME/journal/" 
+
+git bundle create "$HOME/bak/bak_entries_$(date +%Y-%m-%d).bundle" --all
