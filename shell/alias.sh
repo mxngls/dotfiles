@@ -26,3 +26,6 @@ alias grs='rename_stash'
 alias gls='git stash list --color=always'
 alias gdsu='git diff @{u}.. --stat-count=15 --stat-width=80'
 alias gds='git diff --stat-count=15 --stat-width=80'
+
+# Misc
+alias ce='git commit -m "Add entry ($(date +%Y-%m-%d))"'
