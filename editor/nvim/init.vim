@@ -405,14 +405,14 @@ call plug#end()
 " Autocommands {{{
 
 " Immediately go to the last curor position
-augroup save_cursor
+augroup restore_cursor
   autocmd!
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \ exe "normal g`\"" |
-    \ let b:doopenfold = 1 |
-    \ exe "normal zz" |
-    \ endif
+  autocmd BufRead *
+    \ let s:line = line("'\"")
+    \ | if s:line >= 1 && s:line <= line("$") && &filetype !~# 'commit'
+    \      && index(['xxd', 'gitrebase'], &filetype) == -1
+    \ |   execute "normal! g`\""
+    \ | endif
 augroup END
 
 " Autoformat the current buffer when saving it
