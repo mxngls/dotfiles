@@ -73,7 +73,7 @@ function parse_git_detached() {
 # Show different symbols as appropriate for various Git repository states
 function parse_git_state() {
   # Compose this value via multiple conditional appends.
-  local GIT_STATE="" 
+  local GIT_STATE=""
   local GIT_DIFF_ELEMENTS=()
 
   local NUM_AHEAD="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
@@ -131,6 +131,15 @@ function RCMD() {
 # set asynchronously and dynamically
 RPROMPT=''
 
+# Enable dynamic cursor based on the current input mode
+function zle-keymap-select zle-line-init zle-line-finish() {
+  if [[ $KEYMAP == "viins" || $KEYMAP == "main" ]]; then
+    print -n '\033[5 q' # beam cursor
+  else
+    print -n '\033[1 q' # block cursor
+  fi
+}
+
 function precmd() {
   typeset -g _PROMPT_ASYNC_FD
 
@@ -145,6 +154,10 @@ function precmd() {
 
     # when fd is readable, call response handler
     zle -F "$_PROMPT_ASYNC_FD" async_prompt_complete
+
+    zle -N zle-keymap-select
+    zle -N zle-line-init
+    zle -N zle-line-finish
 
     # do not clear RPROMPT, let it persist
   }
