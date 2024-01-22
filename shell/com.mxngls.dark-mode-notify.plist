@@ -14,7 +14,7 @@
     <key>ProgramArguments</key>
     <array>
        <string>/usr/local/bin/dark-mode-notify</string>
-       <string>/Users/max/dotfiles/shell/toggle_theme.sh</string>
+       <string>/usr/local/bin/toggle_theme.sh</string>
     </array>
 </dict>
 </plist>

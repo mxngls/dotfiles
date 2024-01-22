@@ -136,6 +136,13 @@ clone_all() {
   return 0
 }
 
+# Set custom env var depending if we're in light or dark mode
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  [[ ! -f dark-mode-notify ]] && swiftc dark-mode-notify.swift -o dark-mode-notify
+  ln -sfn ~/dotfiles/shell/com.mxngls.dark-mode-notify.plist ~/Library/LaunchAgents/
+  launchctl load -w ~/Library/LaunchAgents/com.mxngls.dark-mode-notify.plist
+fi
+
 # Install
 backup_dotfiles
 install_brew
