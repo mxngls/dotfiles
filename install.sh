@@ -92,7 +92,7 @@ link_all() {
   link_file "${DOTFILES_DIR}/shell/bash/.bash_logout"    "${HOME}/.bash_logout"
   link_file "${DOTFILES_DIR}/shell/bash/.bash_profile"   "${HOME}/.bash_profile"
   link_file "${DOTFILES_DIR}/shell/tmux"                 "${HOME}/.config/tmux"
-  link_file "${DOTFILES_DIR}/shell/kitty"                "${HOME}/.config/kitty"
+  link_file "${DOTFILES_DIR}/shell/alacritty"            "${HOME}/.config/alacritty"
 
   # Others
   link_file "${DOTFILES_DIR}/editor/nvim" "${HOME}/.config/nvim"

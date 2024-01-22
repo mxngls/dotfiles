@@ -1,0 +1,18 @@
+[colors]
+draw_bold_text_with_bright_colors = false
+[colors.primary]
+background = '#181818'
+
+[scrolling]
+history = 0
+
+[window]
+decorations = "none"
+option_as_alt = "OnlyRight"
+
+[cursor]
+[cursor.style]
+blinking = "Never"
+[cursor.vi_mode_style]
+shape = "Beam"
+blinking = "Never"
