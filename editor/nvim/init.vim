@@ -319,6 +319,9 @@ nnoremap <silent> <leader>ss :SignifyToggle<CR>
 " Insert a HTML tag
 inoremap <C-t> <C-o>b<C-o>diw<<C-r>"></<C-r>"><C-o>T>
 
+" Terminal mode
+tnoremap <C-w>n <C-\><C-n>
+
 " Plugin related {{{2
 
 " Fugitive
