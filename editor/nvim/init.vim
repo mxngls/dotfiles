@@ -111,7 +111,7 @@ endif
 
 " Show the number of the current hunk relative to the total number
 " of hunks
-function! s:ShowCurrentHunk() abort "{{{
+function! ShowCurrentHunk() abort "{{{
   let h = sy#util#get_hunk_stats()
   if !empty(h)
     echo printf('[Hunk %d/%d]', h.current_hunk, h.total_hunks)
@@ -123,16 +123,16 @@ endfunction
 " when working with large JSON arrays and we want to know
 " how many elements the array holds
 function! CountFolds() "{{{
-  let count = 0
-  let current_line = 1
-  let last_line = line('$')
-  while current_line <= last_line
-    let last_fold_line = foldclosedend(current_line)
-    if  last_fold_line != -1
-      let count += 1
-      let current_line = last_fold_line + 1
+  let l:count = 0
+  let l:current_line = 1
+  let l:last_line = line('$')
+  while l:current_line <= last_line
+    let l:last_fold_line = foldclosedend(current_line)
+    if  l:last_fold_line != -1
+      let l:count += 1
+      let l:current_line = last_fold_line + 1
     else
-      let current_line += 1
+      let l:current_line += 1
     endif
   endwhile
   echo 'Active folds: ' . count
