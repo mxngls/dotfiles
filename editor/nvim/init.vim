@@ -413,10 +413,10 @@ augroup autoformat_settings
   autocmd Filetype python AutoFormatBuffer yapf
 augroup END
 
-" See above
-augroup singify
+" Show the number of the current hunk
+augroup Singify
   autocmd!
-  autocmd User SignifyHunk call s:ShowCurrentHunk()
+  autocmd User SignifyHunk call ShowCurrentHunk()
 augroup END
 
 " Whenever we switch buffers or windows we want to rename the current tmux
@@ -433,8 +433,8 @@ augroup tmux
   endif
 augroup END
 
-" Open a quickfix or location list when viewing results of command that gets
-" triggered by QuickfixCmdPost
+" Open a quickfix or location list when viewing results of command that 
+" gets triggered by QuickfixCmdPost
 augroup quickfix
   autocmd!
   autocmd VimEnter * delmarks Q
@@ -483,7 +483,7 @@ command! -nargs=1 -complete=file -bar Find
 call glaive#Install()
 
 " Signify
-let g:signify_disable_by_default     = 1
+let g:signify_disable_by_default = 1
 
 " Ctrl-P and (R-)Grep
 if executable('rg')
