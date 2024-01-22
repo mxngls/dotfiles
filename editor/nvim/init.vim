@@ -150,6 +150,20 @@ function! SetColors() "{{{
 endfunction
 "}}}
 
+" Patch statusline
+function! PatchStatusline() "{{{
+  if g:colors_name == 'default'
+    if &bg == 'dark'
+      hi StatusLine ctermbg=232 guibg=#d7dae1 ctermfg=232 guifg=#0a0b10
+      hi StatusLineNC ctermbg=236 guibg=#4f5258 ctermfg=235 guifg=#0a0b10
+    else
+      hi StatusLine ctermbg=239 guibg=#4f5258 ctermfg=232 guifg=#ebeef5
+      hi StatusLineNC ctermbg=236 guibg=#236 ctermfg=239 guifg=#4f5258
+    endif
+  endif
+endfunction
+"}}}
+
 function! ExplorerSplit() abort "{{{
   if &ft != "dirvish"
     let path = expand('%:p:h')
@@ -450,6 +464,7 @@ augroup END
 augroup theme
   autocmd!
   autocmd VimEnter * call SetColors()
+  autocmd VimEnter,Colorscheme * call PatchStatusline()
 augroup END
 
 augroup eslint
