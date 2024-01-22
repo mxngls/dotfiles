@@ -2,6 +2,18 @@
 " Author:   Maximilian Engels <maximilian.e.hoenig@gmail.com>
 " URL:      http://mxngls.github.io
 
+" Set the background to match our terminal
+function! SetBackground() abort "{{{
+  let l:bg = system("defaults read -g AppleInterfaceStyle")
+  if l:bg isnot v:null && trim(l:bg) == 'Dark'
+    set background=dark
+  else
+    set background=light
+  endif
+endfunction
+" }}}
+call SetBackground()
+
 " Basic editor settings {{{
 
 set nocompatible                " Disable compatibility with vi
@@ -136,29 +148,12 @@ function! CountFolds() "{{{
 endfunction
 " }}}
 
-" Set the background to match our terminal (currently Kitty)
-function! SetBackground() abort "{{{
-  if has('kitty')
-    let bg_ = system('head -n 1 ~/dotfiles/shell/kitty/current-theme.conf 2> /dev/null')
-    let bg_ = substitute(bg_, '\n', '', 'g')
-    if bg_ == '#DARK'
-      set background=dark
-    else
-      set background=light
-    endif
-  else
-    set background=dark
-  endif
-endfunction
-" }}}
-
 " Set the colorscheme
 function! SetColors() "{{{
   if &t_Co < 256
     colorscheme default
   else
     set termguicolors
-    set bg=light
     colorscheme default
   endif
 endfunction
@@ -463,7 +458,6 @@ augroup END
 
 augroup theme
   autocmd!
-  autocmd VimEnter * call SetBackground()
   autocmd VimEnter * call SetColors()
   autocmd VimEnter * call PatchColors()
 augroup END
