@@ -107,15 +107,6 @@ endif
 " }}}
 " {{{ Colors
 
-function! PatchColors()
-  " Vim-Signify
-  hi DiffAdd ctermbg=NONE guibg=NONE
-  hi DiffChange ctermbg=NONE guibg=NONE
-  hi DiffDelete ctermbg=NONE guibg=NONE
-  hi DiffText ctermbg=NONE guibg=NONE
-endfunction
-
-" }}}
 " {{{ Functions
 
 " Show the number of the current hunk relative to the total number
@@ -459,7 +450,6 @@ augroup END
 augroup theme
   autocmd!
   autocmd VimEnter * call SetColors()
-  autocmd VimEnter * call PatchColors()
 augroup END
 
 augroup eslint
