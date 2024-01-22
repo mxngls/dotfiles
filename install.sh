@@ -9,18 +9,17 @@ find . -name ".DS_Store" -exec rm {} \;
 
 # Constants
 DOTFILES_DIR="${HOME}/dotfiles"
+BACKUPS_DIR="${HOME}/bak"
 
 # Backup current dotfiles if they exist
 backup_dotfiles() {
 
-  local backup_dir
-
   echo "Backing up current dotfiles..."
 
-  local backup_dir="${DOTFILES_DIR}_bk_$(date -u +"%Y%m%d%H%M%S")"
+  local backup="${BACKUPS_DIR}/${DOTFILES_DIR}_bk_$(date -u +"%Y%m%d%H%M%S")"
 
-  if [[ ! -p $backup_dir ]]; then
-    mkdir -p "$backup_dir"
+  if [[ ! -p $backup ]]; then
+    mkdir -p "$backup"
 
     if [[ ! -d $DOTFILES_DIR ]]; then
       echo 'No directory containing dotfiles found. Aborting backup process.'
@@ -29,7 +28,7 @@ backup_dotfiles() {
 
     for file in "${DOTFILES_DIR}"/*; do
       if [ -f "$file" ] || [ -d "$file" ]; then
-        cp -R "$file" "$backup_dir"
+        cp -R "$file" "$backup"
       fi
     done
 
