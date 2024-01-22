@@ -7,6 +7,7 @@ alias lsa='ls -aF -1'
 alias lsl='ls -aFlh'
 alias me='print -P "%n@%m"'
 alias fug='nvim -c '\''if !(&runtimepath =~ "fugitive") | execute "qa" | else | execute "Git | wincmd o" | endif'\'
+alias lc='last_commit'
 
 # Toggle theme
 alias ct='~/dotfiles/shell/toggle_theme.sh -t'
