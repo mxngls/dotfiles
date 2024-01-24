@@ -187,23 +187,27 @@ function! CFind(filename) abort "{{{
   endif
 
   let l:fp = system(l:cmd)
-  let l:bufnr = bufadd('find_results')
-  let l:winnr = bufwinnr(l:bufnr)
 
-  call bufload(l:bufnr)
-  call setbufline(l:bufnr, 1, split(l:fp, "\n"))
+  if l:fp != ''
+    let l:bufnr = bufadd('')
+    let l:winnr = bufwinnr(l:bufnr)
 
-  execute l:bufnr . 'sbuf'
-  8 wincmd _ 
+    call bufload(l:bufnr)
+    call setbufline(l:bufnr, 1, split(l:fp, "\n"))
 
-  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-  setlocal nomodifiable ro
-  setlocal number
-  setlocal norelativenumber
-  setlocal colorcolumn=
+    execute l:bufnr . 'sbuf'
+    8 wincmd _ 
 
-  " Local keymap to open in vertical split
-  nnoremap <buffer> vs :wincmd L \| execute 'normal gf'<CR>
+    setf dirvish
+    setlocal buftype=nofile nobuflisted noswapfile nowrap
+    setlocal number norelativenumber
+    setlocal colorcolumn=
+
+    " Local keymap to open in vertical split
+    nnoremap <buffer> vs :wincmd L \| execute 'normal gf'<CR>
+  else
+    echo 'No matchs found. Aborting.'
+  endif
 
 endfunction
 "}}}
