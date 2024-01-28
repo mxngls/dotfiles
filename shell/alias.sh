@@ -18,7 +18,7 @@ alias gnv='cd ~/dotfiles/editor/nvim'
 alias gtx='cd ~/dotfiles/shell/tmux'
 
 # Some Git stuff
-alias gs='git status -sb'
+alias gs='git status -sb -uall'
 alias gla='git log --graph --format=oneline --abbrev-commit'
 alias glu='git log --graph --format=oneline --abbrev-commit @{u}..'
 alias glam='git log --graph --format=medium  --abbrev-commit'
