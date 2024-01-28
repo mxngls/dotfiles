@@ -36,6 +36,7 @@ set backspace=indent,eol,start  " Allow backspacing over everything
 set showmatch                   " Show matching brackets
 set matchpairs+=(:),[:],{:},<:> " Additional characters for matchpairs
 set iskeyword-=_                " Use the undersore character to split words
+set spellsuggest=10,best        " Limit the size of spelling suggestions
 
 set switchbuf=uselast           " Reuse windows if possible
 set splitbelow                  " Open split below the current window
