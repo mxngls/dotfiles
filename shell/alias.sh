@@ -27,6 +27,16 @@ alias gls='git stash list --color=always'
 alias gdsu='git diff @{u}.. --stat-count=15 --stat-width=80'
 alias gds='git diff --stat-count=15 --stat-width=80'
 alias gdi='git diff --staged'
+alias gcr=" git log \
+  --all \
+  -10 \
+  --date=format:'%y-%m-%d %H:%M:%S' \
+  --format=format:'%h %C(Blue)%cd%Creset %<(30,trunc)%s' \
+  --color=always \
+  | sort -k 2,3 -r \
+  | sed -e 's/\.\.$/.../g';
+"
+alias gcl='last_commit'
 
 # Misc
 alias ce='git commit -m "Add entry ($(date +%Y-%m-%d))"'
