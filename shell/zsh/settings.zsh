@@ -97,3 +97,9 @@ bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
+
+# Setup help for builtins
+unalias run-help 2> /dev/null
+autoload run-help
+HELPDIR=/usr/share/zsh/"${ZSH_VERSION}"/help
+alias help="run-help"
