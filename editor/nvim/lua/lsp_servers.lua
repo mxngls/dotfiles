@@ -1,4 +1,5 @@
 local lsp_servers = {
+  "awk_ls",
   "bashls",
   "gopls",
   "lua_ls",
@@ -8,7 +9,8 @@ local lsp_servers = {
   "tailwindcss",
   "tsserver",
   "eslint",
-  "vimls"
+  "vimls",
+  "clang"
 }
 
 return lsp_servers
