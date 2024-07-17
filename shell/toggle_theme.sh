@@ -32,17 +32,6 @@ get_display_mode() {
   return 0
 }
 
-# Switch Terminal and Neovim's theme based on the display mode
-switch_terminal_theme() {
-  if [[ "$1" == "Dark" ]]; then
-    /opt/homebrew/bin/alacritty msg config \
-      --reload-in=all "Default Dark"
-  else
-    /opt/homebrew/bin/alacritty msg config  \
-      --reload-in=all "Default Light"
-  fi
-}
-
 main() {
   mode=$(get_display_mode)
   # Check the OS
@@ -50,7 +39,6 @@ main() {
     OS="Darwin"
     mode=$(get_display_mode)
 
-    switch_terminal_theme "$mode"
     change_nvim_colorscheme "$mode"
   fi
 
