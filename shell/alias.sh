@@ -19,9 +19,9 @@ alias gtx='cd ~/dotfiles/shell/tmux'
 
 # Some Git stuff
 alias gs='git status -sb -uall'
-alias gla='git log --graph --format=oneline --abbrev-commit'
-alias glu='git log --graph --format=oneline --abbrev-commit @{u}..'
-alias glam='git log --graph --format=medium  --abbrev-commit'
+alias gla='git log --graph --format=oneline --abbrev-commit -n 10'
+alias glu='git log --graph --format=oneline --abbrev-commit -n 10 @{u}..'
+alias glam='git log --graph --format=medium  --abbrev-commit -n 10'
 alias grs='rename_stash'
 alias gls='git stash list --color=always'
 alias gdsu='git diff @{u}.. --stat-count=15 --stat-width=80'
