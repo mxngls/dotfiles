@@ -13,13 +13,17 @@ cmp.setup({
       vim.fn["vsnip#anonymous"](args.body)
     end,
   },
+  window = {
+    completion = {
+      max_width = 30
+    }
+  },
   completion = {
     autocomplete = {
       require('cmp.types').cmp.TriggerEvent.InsertEnter,
       require('cmp.types').cmp.TriggerEvent.TextChanged
     }
   },
-
   mapping = cmp.mapping.preset.insert({
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-p>'] = cmp.mapping.select_prev_item(),
@@ -29,7 +33,8 @@ cmp.setup({
     ['<C-e>'] = cmp.mapping.abort(),
     ['<C-s>'] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
-      select = false }),
+      select = false
+    }),
   }),
 })
 

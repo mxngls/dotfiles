@@ -18,12 +18,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- Enable showing the source
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+      max_width = 72,
       source = 'always',
     })
     vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
       vim.lsp.handlers.signature_help
     )
     vim.diagnostic.config({
+      float = {
+        max_width = 72
+      },
       virtual_text = false, -- Turn off inline diagnostics
     })
 
