@@ -59,9 +59,9 @@ set ignorecase                  " Ignore case when searching
 set smartcase                   " Search case-sensetive in certain cases
 
 set expandtab                   " Use spaces instead of tabs
-set tabstop=2                   " Number of spaces for each tab
-set shiftwidth=2                " Number of spaces to use for autoindenting
-set softtabstop=2               " Number of spaces for backspace and <Tab>
+set tabstop=4                   " Number of spaces for each tab
+set shiftwidth=4                " Number of spaces to use for autoindenting
+set softtabstop=4               " Number of spaces for backspace and <Tab>
 set smarttab                    " Insert tabs on indents, spaces on alignment
 set smartindent                 " Enable smart indenting
 
