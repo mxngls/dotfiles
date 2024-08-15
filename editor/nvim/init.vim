@@ -151,43 +151,20 @@ nnoremap g# g#zz
 
 " Delete and immediately throw away
 nnoremap <leader>d "_d
-nnoremap <leader>d "_d
 vnoremap <leader>d "_D
-vnoremap <leader>D "_D
 
 " Easier navigate between windows
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-nnoremap <leader><leader> <c-w><c-p><CR>
-
-" Resizing
-nnoremap <S-Up> :res +5<CR>
-nnoremap <S-Down> :res -5<CR>
-nnoremap <S-Left> :vertical res +5<CR>
-nnoremap <S-Right> :vertical res -5<CR>
+nnoremap <leader><leader> <c-w><c-p>
 
 " Create a new file in the current directory
 nnoremap <leader>o :e <C-R>=expand('%:p:h') . '/'<CR>
 
 " Easily source our vimrc
 nnoremap <leader>so :so $MYVIMRC<CR>
-
-" Jump back to where we were
-nnoremap <leader>cc  :cclose<CR>
-nnoremap <leader>lc  :lclose<CR>
-nnoremap <leader>r   :execute "normal 'Q" <Bar> 
-      \ call setcursorcharpos(g:saved_pos[1],g:saved_pos[2]) <Bar> 
-      \ delmarks Q <Bar> 
-      \ lclose <Bar>
-      \ execute "normal zz" <CR>
-
-" Toggle folds
-nnoremap <leader>fm :set foldmethod=marker<CR>
-nnoremap <leader>fi :set foldmethod=indent<CR>
-nnoremap <leader>fs :set foldmethod=syntax<CR>
-nnoremap <leader>fn :call CountFolds()<CR>
 
 " So annoying...
 nnoremap q: :q
@@ -205,13 +182,6 @@ nnoremap <leader>ma :!make <CR>
 " These as well
 map H ^
 map L $
-
-" Buffers
-nnoremap <leader>ls :ls<CR>:b<Space>
-nnoremap <leader>bd :ls<CR>:bd<Space>
-
-" Sessions
-nnoremap <leader>ms :execute "mks! " . trim(system('realpath $(dirname "$(git rev-parse --git-dir 2>/dev/null)")')) . '/.vim-session'<CR>
 
 " Insert a HTML tag
 inoremap <C-t> <C-o>b<C-o>diw<<C-r>"></<C-r>"><C-o>T>
