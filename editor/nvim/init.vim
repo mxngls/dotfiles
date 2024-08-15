@@ -383,45 +383,6 @@ augroup restore_cursor
     \ | endif
 augroup END
 
-" Whenever we switch buffers or windows we want to rename the current tmux
-" window to match the filename of the current buffer
-augroup tmux
-  autocmd!
-  if exists('$TMUX')
-    autocmd BufEnter,FocusGained,FocusLost *
-          \ call system("[[ \"$(tmux display-message -p
-          \ '#W' | \ cut -c 1)\" != \"_\" ]] && tmux rename-window "
-          \ . expand("%:t"))
-    " Cant use VimLeave here due to https://github.com/neovim/neovim/issues/21856
-    autocmd UILeave * call system("tmux set-window-option automatic-rename")
-  endif
-augroup END
-
-" Open a quickfix or location list when viewing results of command that 
-" gets triggered by QuickfixCmdPost
-augroup quickfix
-  autocmd!
-  autocmd VimEnter * delmarks Q
-  autocmd VimEnter * let g:saved_pos = getcursorcharpos()
-  autocmd QuickFixCmdPost * if getpos("'Q")[0] == 0
-        \|   execute "mark Q"
-        \|   let g:saved_pos = getcursorcharpos()
-        \| endif
-        \| lopen
-        \| wincmd k
-augroup END
-
-augroup theme
-  autocmd!
-  autocmd VimEnter * call SetColors()
-  autocmd VimEnter,Colorscheme * call PatchStatusline()
-augroup END
-
-augroup eslint
-  autocmd!
-  autocmd FileType javascript,javascriptreact,typescript,typescriptreact
-        \ setl makeprg=npx\ eslint\ -f\ unix\ --quiet\ 'src/**/*.{js,ts,jsx,tsx}'
-
 " Conflicts with Ctrl-P's default mapping
 augroup dirvish_config
   autocmd!
