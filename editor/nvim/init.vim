@@ -136,11 +136,6 @@ nnoremap k gk
 " Bring sanity to the command line
 cnoremap <C-k> <Up>
 cnoremap <C-j> <Down>
-cnoremap <C-h> <Left>
-cnoremap <C-l> <Right>
-cnoremap <C-w> <S-Right>
-cnoremap <C-b> <S-Left>
-cnoremap <C-x> <Del>
 
 " Always center
 nnoremap <C-d> <C-d>zz
