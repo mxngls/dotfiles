@@ -104,16 +104,6 @@ endif
 
 " {{{ Functions
 
-" Show the number of the current hunk relative to the total number
-" of hunks
-function! ShowCurrentHunk() abort "{{{
-  let h = sy#util#get_hunk_stats()
-  if !empty(h)
-    echo printf('[Hunk %d/%d]', h.current_hunk, h.total_hunks)
-  endif
-endfunction
-" }}}
-
 " Count the number of open folds, which can we useful
 " when working with large JSON arrays and we want to know
 " how many elements the array holds
@@ -312,9 +302,6 @@ nnoremap <leader>bd :ls<CR>:bd<Space>
 " Sessions
 nnoremap <leader>ms :execute "mks! " . trim(system('realpath $(dirname "$(git rev-parse --git-dir 2>/dev/null)")')) . '/.vim-session'<CR>
 
-" Toggle signcolumn
-nnoremap <silent> <leader>ss :SignifyToggle<CR>
-
 " Insert a HTML tag
 inoremap <C-t> <C-o>b<C-o>diw<<C-r>"></<C-r>"><C-o>T>
 
@@ -330,10 +317,6 @@ nnoremap <leader>gg :Git<CR>
 nnoremap <leader>fc :FormatCode<CR>
 vnoremap <leader>fl :FormatLines<CR>
 
-" Signify
-nnoremap <leader>hd :SignifyHunkDiff<CR>
-nnoremap <leader>hu :SignifyHunkUndo<CR>
-
 " Dirvish
 nnoremap <leader>L  :call ExplorerSplit()<CR>
 
@@ -344,7 +327,6 @@ nnoremap <leader>L  :call ExplorerSplit()<CR>
 call plug#begin()
 
 " Git
-Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 
 " Formatting
@@ -422,12 +404,6 @@ augroup autoformat_settings
   autocmd Filetype python AutoFormatBuffer yapf
 augroup END
 
-" Show the number of the current hunk
-augroup Singify
-  autocmd!
-  autocmd User SignifyHunk call ShowCurrentHunk()
-augroup END
-
 " Whenever we switch buffers or windows we want to rename the current tmux
 " window to match the filename of the current buffer
 augroup tmux
@@ -491,9 +467,6 @@ command! -nargs=1 -complete=file -bar Find
 
 " Vim-codefmt
 call glaive#Install()
-
-" Signify
-let g:signify_disable_by_default = 1
 
 " Ctrl-P and (R-)Grep
 if executable('rg')
