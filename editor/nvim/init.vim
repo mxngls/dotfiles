@@ -106,12 +106,9 @@ endif
 
 " Set the colorscheme
 function! SetColors() "{{{
-  if &t_Co < 256
-    colorscheme default
-  else
-    set termguicolors
-    colorscheme default
-  endif
+  set termguicolors
+  colorscheme Tomorrow-Night
+  hi NormalFloat guibg=#444444 ctermbg=236
 endfunction
 "}}}
 
@@ -218,6 +215,7 @@ Plug 'justinmk/vim-dirvish'
 Plug 'mbbill/undotree'
 
 " TUI
+Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'romainl/vim-cool'
 
 " Neovim specific plugins {{{2
