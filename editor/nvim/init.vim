@@ -214,9 +214,6 @@ Plug 'tpope/vim-unimpaired'
 " File explorer
 Plug 'justinmk/vim-dirvish'
 
-" Fuzzy finding
-Plug 'ctrlpvim/ctrlp.vim'
-
 " Undo list visualizier
 Plug 'mbbill/undotree'
 
@@ -262,12 +259,6 @@ augroup restore_cursor
     \      && index(['xxd', 'gitrebase'], &filetype) == -1
     \ |   execute "normal! g`\""
     \ | endif
-augroup END
-
-" Conflicts with Ctrl-P's default mapping
-augroup dirvish_config
-  autocmd!
-  autocmd FileType dirvish silent! unmap <buffer> <C-p>
 augroup END
 
 " }}}
