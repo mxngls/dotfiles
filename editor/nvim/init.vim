@@ -313,10 +313,6 @@ tnoremap <C-w>n <C-\><C-n>
 " Fugitive
 nnoremap <leader>gg :Git<CR>
 
-" Vim-codefmt
-nnoremap <leader>fc :FormatCode<CR>
-vnoremap <leader>fl :FormatLines<CR>
-
 " Dirvish
 nnoremap <leader>L  :call ExplorerSplit()<CR>
 
@@ -328,11 +324,6 @@ call plug#begin()
 
 " Git
 Plug 'tpope/vim-fugitive'
-
-" Formatting
-Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt'
-Plug 'google/vim-glaive'
 
 " Misc
 Plug 'tpope/vim-commentary'
@@ -390,18 +381,6 @@ augroup restore_cursor
     \      && index(['xxd', 'gitrebase'], &filetype) == -1
     \ |   execute "normal! g`\""
     \ | endif
-augroup END
-
-" Autoformat the current buffer when saving it
-augroup autoformat_settings
-  autocmd!
-  autocmd Filetype html,css,sass,scss,less AutoFormatBuffer prettier
-  autocmd Filetype javascript,javascriptreact,
-        \typescript,typescriptreact,
-        \vue,
-        \json
-        \ AutoFormatBuffer prettier
-  autocmd Filetype python AutoFormatBuffer yapf
 augroup END
 
 " Whenever we switch buffers or windows we want to rename the current tmux
@@ -464,9 +443,6 @@ command! -nargs=1 -complete=file -bar Find
 
 " }}}
 " Plugin Settings {{{
-
-" Vim-codefmt
-call glaive#Install()
 
 " Ctrl-P and (R-)Grep
 if executable('rg')
