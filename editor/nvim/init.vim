@@ -4,15 +4,14 @@
 
 " Set the background to match our terminal
 function! SetBackground() abort "{{{
-  let l:bg = system("defaults read -g AppleInterfaceStyle")
-  if l:bg isnot v:null && trim(l:bg) == 'Dark'
-    set background=dark
-  else
-    set background=light
-  endif
+    let l:bg = system("defaults read -g AppleInterfaceStyle")
+    if l:bg isnot v:null && trim(l:bg) == 'Dark'
+        set background=dark
+    else
+        set background=light
+    endif
 endfunction
 " }}}
-call SetBackground()
 
 " Basic editor settings {{{
 
@@ -80,22 +79,22 @@ filetype plugin indent on       " Detect filetype and load options
 
 " Create a vim directory
 if !isdirectory($HOME.'/.vim')
-  call mkdir($HOME.'/.vim', 'p', 0770)
+    call mkdir($HOME.'/.vim', 'p', 0770)
 endif
 
 " Create a undo directory if it doesn't exist yet
 " Unfortunately the type of the undofiles for Neovim
 " and Vim are not compatible anymore
 if has('nvim')
-  if !isdirectory($HOME.'/.config/nvim/undo-dir')
-    call mkdir($HOME.'/.config/nvim/undo-dir', 'p', 0700)
-  endif
-  set undodir=~/.config/nvim/undo-dir
+    if !isdirectory($HOME.'/.config/nvim/undo-dir')
+        call mkdir($HOME.'/.config/nvim/undo-dir', 'p', 0700)
+    endif
+    set undodir=~/.config/nvim/undo-dir
 else
-  if !isdirectory($HOME.'/.vim/undo-dir')
-    call mkdir($HOME.'/.vim/undo-dir', 'p', 0700)
-  endif
-  set undodir=~/.vim/undo-dir
+    if !isdirectory($HOME.'/.vim/undo-dir')
+        call mkdir($HOME.'/.vim/undo-dir', 'p', 0700)
+    endif
+    set undodir=~/.vim/undo-dir
 endif
 
 
@@ -106,15 +105,15 @@ endif
 
 " Set the colorscheme
 function! SetColors() "{{{
-  set termguicolors
-  colorscheme Tomorrow-Night
-  hi NormalFloat guibg=#444444 ctermbg=236
+    set termguicolors
+    colorscheme Tomorrow-Night
+    hi NormalFloat guibg=#444444 ctermbg=236
 endfunction
 "}}}
 
 " Custom grep
 function! CGrep(...) abort "{{{
-	return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
+    return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
 endfunction
 "}}}
 
@@ -228,26 +227,26 @@ Plug 'romainl/vim-cool'
 
 if has('nvim')
 
-  " Language server protocol
-  Plug 'williamboman/mason.nvim'
-  Plug 'williamboman/mason-lspconfig.nvim'
-  Plug 'neovim/nvim-lspconfig'
+    " Language server protocol
+    Plug 'williamboman/mason.nvim'
+    Plug 'williamboman/mason-lspconfig.nvim'
+    Plug 'neovim/nvim-lspconfig'
 
-  " Telescope
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+    " Telescope
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 
-  " Treesitter
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    " Treesitter
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-  " Autocompletion
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-nvim-lua'
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-cmdline'
-  Plug 'hrsh7th/vim-vsnip'
+    " Autocompletion
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-nvim-lua'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/vim-vsnip'
 
 endif
 
@@ -260,13 +259,13 @@ call plug#end()
 
 " Immediately go to the last curor position
 augroup restore_cursor
-  autocmd!
-  autocmd BufRead *
-    \ let s:line = line("'\"")
-    \ | if s:line >= 1 && s:line <= line("$") && &filetype !~# 'commit'
-    \      && index(['xxd', 'gitrebase'], &filetype) == -1
-    \ |   execute "normal! g`\""
-    \ | endif
+    autocmd!
+    autocmd BufRead *
+                \ let s:line = line("'\"")
+                \ | if s:line >= 1 && s:line <= line("$") && &filetype !~# 'commit'
+                \      && index(['xxd', 'gitrebase'], &filetype) == -1
+                \ |   execute "normal! g`\""
+                \ | endif
 augroup END
 
 " }}}
@@ -274,9 +273,9 @@ augroup END
 
 " Grepping stuff
 command! -nargs=+ -complete=file -bar Grep
-      \ lgetexpr CGrep(<f-args>) <Bar>
-      \ lopen <Bar>
-      \ ll
+            \ lgetexpr CGrep(<f-args>) <Bar>
+            \ lopen <Bar>
+            \ ll
 
 " }}}
 " Plugin Settings {{{
@@ -285,13 +284,13 @@ command! -nargs=+ -complete=file -bar Grep
 let g:loaded_netrw       = 1
 let g:loaded_netrwPlugin = 1
 
-call SetColors()
-
 " }}}
 " {{{ NVIM
 
 if has('nvim')
-  :lua require('init')
+    :lua require('init')
 endif
 
 " }}}
+
+call SetColors()
