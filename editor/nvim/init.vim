@@ -20,32 +20,26 @@ set nocompatible                " Disable compatibility with vi
 let mapleader="\<Space>"        " Use Space key as the map leader
 set ttyfast                     " Improve redraw speed for terminals
 set syntax=on                   " Enable syntax highlighting
-set timeout                     " Enable timeout for mappings
 set timeoutlen=300              " Set timeout length to 300ms
 set updatetime=300              " Trigger the CursorHold autocomommand event
-set spelllang=en_us             " Set the spell check language to English
 set noswapfile                  " Disable swap files
 set confirm                     " Confirm before overwriting a file
 set autoread                    " Automatically read a file when it changes
-set regexpengine=2              " Use improved regular expression engine
 set path+=**                    " Recursively traverse directories
 set clipboard=unnamed           " Use the system clipboard
 set undofile
 
 set backspace=indent,eol,start  " Allow backspacing over everything
-set showmatch                   " Show matching brackets
-set matchpairs+=(:),[:],{:},<:> " Additional characters for matchpairs
-set iskeyword-=_                " Use the undersore character to split words
+set matchpairs+=<:>             " Additional characters for matchpairs
 set spellsuggest=10,best        " Limit the size of spelling suggestions
 
 set switchbuf=uselast           " Reuse windows if possible
 set splitbelow                  " Open split below the current window
 set splitright                  " Open split to the right of the current window
 
-set showmode                    " Show current mode in the command line
 set number                      " Show line numbers
 set relativenumber              " Show relative line numbers
-set signcolumn=auto:3
+set signcolumn=yes
 set colorcolumn=72              " Limit the visual available width to 72 characters
 set textwidth=72                " And do the same practically as well
 set nowrap                      " We don't want to wrap text
@@ -62,7 +56,7 @@ set completeopt=menu,noselect   " Enable enhanced completion menu
 set hlsearch                    " Set search highlighting
 set incsearch                   " Enable incremental searching
 set ignorecase                  " Ignore case when searching
-set smartcase                   " Search case-sensetive in certain cases (lol)
+set smartcase                   " Search case-sensetive in certain cases
 
 set expandtab                   " Use spaces instead of tabs
 set tabstop=2                   " Number of spaces for each tab
