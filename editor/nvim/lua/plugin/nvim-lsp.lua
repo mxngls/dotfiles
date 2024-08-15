@@ -1,107 +1,46 @@
 -- Setup language servers.
 local lspconfig = require('lspconfig')
 
--- Global mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<space>v', vim.diagnostic.setloclist)
-
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-  callback = function(ev)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-    -- Enable showing the source
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-      max_width = 72,
-      source = 'always',
-    })
-    vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-      vim.lsp.handlers.signature_help
-    )
+  callback = function(config_opts)
+    -- Global config
     vim.diagnostic.config({
+      severity_sort = true,
+      virtual_text = false,
       float = {
-        max_width = 72
-      },
-      virtual_text = false, -- Turn off inline diagnostics
+        source = true
+      }
     })
 
-    -- Function to check if a floating dialog exists and if not
-    -- then check for diagnostics under the cursor
-    function OpenDiagnosticIfNoFloat()
-      for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
-        if vim.api.nvim_win_get_config(winid).zindex then
-          return
-        end
-      end
-      -- Configuration for Nvims builtin LSP
-      vim.diagnostic.open_float(0, {
-        scope = "cursor",
-        focusable = false,
-        close_events = {
-          "CursorMoved",
-          "CursorMovedI",
-          "BufHidden",
-          "InsertCharPre",
-          "WinLeave",
-        },
-      })
-    end
-
-    -- Show diagnostics under the cursor when holding position
-    vim.api.nvim_create_augroup("lsp_diagnostics_hold", { clear = true })
-    vim.api.nvim_create_autocmd({ "CursorHold" }, {
-      pattern = "*",
-      command = "lua OpenDiagnosticIfNoFloat()",
-      group = "lsp_diagnostics_hold",
-    })
-
-    local function on_list(options)
-      vim.fn.setloclist(0, {}, ' ', options)
-      vim.api.nvim_cmd({ cmd = 'doautocmd', args = { 'quickfix', 'QuickFixCmdPost' } }, {})
-      if #vim.fn.getloclist(0) >= 1 then
-        vim.api.nvim_cmd({ cmd = 'lopen', }, {})
-        vim.api.nvim_cmd({ cmd = 'll', }, {})
-      end
-    end
-
-    local function goToDef()
-      vim.lsp.buf.definition({ reuse_window = false, on_list = on_list })
-    end
+    -- Global mappings.
+    vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+    vim.keymap.set('n', '<space>v', vim.diagnostic.setloclist)
 
     -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gd', goToDef, opts)
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'xgr', goToDef, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    local opts = { buffer = config_opts.buf }
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-
+    vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<space>fp', function()
       vim.lsp.buf.format { async = true }
     end, opts)
   end,
 })
 
-----Enable (broadcasting) snippet capability for completion
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- Set up lspconfig.
--- local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
+-- Setup completion
 require 'lspconfig'.html.setup {
   capabilities = capabilities,
 }
+
 -- Setup the language servers
 local lsp_servers = require('mason-lspconfig').get_installed_servers()
 for _, language_server in ipairs(lsp_servers) do
@@ -113,9 +52,21 @@ end
 lspconfig.lua_ls.setup {
   settings = {
     Lua = {
+      runtime = {
+        -- Neovim uses LuaJIT. See h: lua-luajit
+        version = 'LuaJIT',
+      },
       diagnostics = {
-        -- Get the language server to recognize the `vim` global
+        -- Recognize the Neovim specific 'vim' lua module
         globals = { 'vim' },
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file('*', true),
+      },
+      telemetry = {
+        -- We value our privacy
+        enable = false,
       },
     },
   },
