@@ -104,26 +104,6 @@ endif
 
 " {{{ Functions
 
-" Count the number of open folds, which can we useful
-" when working with large JSON arrays and we want to know
-" how many elements the array holds
-function! CountFolds() "{{{
-  let l:count = 0
-  let l:current_line = 1
-  let l:last_line = line('$')
-  while l:current_line <= last_line
-    let l:last_fold_line = foldclosedend(current_line)
-    if  l:last_fold_line != -1
-      let l:count += 1
-      let l:current_line = last_fold_line + 1
-    else
-      let l:current_line += 1
-    endif
-  endwhile
-  echo 'Active folds: ' . count
-endfunction
-" }}}
-
 " Set the colorscheme
 function! SetColors() "{{{
   if &t_Co < 256
@@ -135,69 +115,7 @@ function! SetColors() "{{{
 endfunction
 "}}}
 
-" Patch statusline
-function! PatchStatusline() "{{{
-  if g:colors_name == 'default'
-    if &bg == 'dark'
-      hi StatusLine ctermbg=232 guibg=#d7dae1 ctermfg=232 guifg=#0a0b10
-      hi StatusLineNC ctermbg=236 guibg=#4f5258 ctermfg=235 guifg=#0a0b10
-    else
-      hi StatusLine ctermbg=239 guibg=#4f5258 ctermfg=232 guifg=#ebeef5
-      hi StatusLineNC ctermbg=236 guibg=#236 ctermfg=239 guifg=#4f5258
-    endif
-  endif
-endfunction
-"}}}
-
-function! ExplorerSplit() abort "{{{
-  if &ft != "dirvish"
-    let path = expand('%:p:h')
-    if winwidth('%') > 160
-      execute 'vnew'
-    else
-      execute 'new'
-    endif
-    execute 'Dirvish' . path
-  endif
-endfunction
-"}}}
-
-" Simplify finding files and avoid heavy plugins
-function! CFind(filename) abort "{{{
-  if executable('fd')
-    let l:cmd = 'fd -a --hidden --type f --type d --type l -p "'.a:filename.'"'
-  else
-    let l:cmd = 'find . -type f -type d --path -name "*'.a:filename.'*"
-          \ -o -type l -name "*'.a:filename.'*"'
-  endif
-
-  let l:fp = system(l:cmd)
-
-  if l:fp != ''
-    let l:bufnr = bufadd('')
-    let l:winnr = bufwinnr(l:bufnr)
-
-    call bufload(l:bufnr)
-    call setbufline(l:bufnr, 1, split(l:fp, "\n"))
-
-    execute l:bufnr . 'sbuf'
-    8 wincmd _ 
-
-    setf dirvish
-    setlocal buftype=nofile nobuflisted noswapfile nowrap
-    setlocal number norelativenumber
-    setlocal colorcolumn=
-
-    " Local keymap to open in vertical split
-    nnoremap <buffer> vs :wincmd L \| execute 'normal gf'<CR>
-  else
-    echo 'No matchs found. Aborting.'
-  endif
-
-endfunction
-"}}}
-
-" See above
+" Custom grep
 function! CGrep(...) abort "{{{
 	return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
 endfunction
@@ -281,9 +199,7 @@ nnoremap q: :q
 
 " Custom functions
 nnoremap <leader>gr :Grep 
-nnoremap <leader>ff :Find 
 map gr :Grep <C-r><C-w><CR>
-map ff :Find <C-r><C-w><CR>
 
 " @ is just too far
 nnoremap <C-m> @
@@ -398,29 +314,14 @@ command! -nargs=+ -complete=file -bar Grep
       \ lopen <Bar>
       \ ll
 
-" Finding files
-command! -nargs=1 -complete=file -bar Find
-      \ call CFind(<f-args>)
-
 " }}}
 " Plugin Settings {{{
-
-" Ctrl-P and (R-)Grep
-if executable('rg')
-  " Grep
-  set grepprg=rg\ -S\ -o\ --vimgrep
-  set grepformat=%f:%l:%c:%m,%f:%l:%m
-
-  " Fuzzy file finding
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-  let g:ctrlp_use_caching = 0
-else
-  let g:ctrlp_clear_cache_on_exit = 0
-endif
 
 " Dirvish / Netrw
 let g:loaded_netrw       = 1
 let g:loaded_netrwPlugin = 1
+
+call SetColors()
 
 " }}}
 " {{{ NVIM
