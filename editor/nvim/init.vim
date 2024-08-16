@@ -193,14 +193,23 @@ tnoremap <C-w>n <C-\><C-n>
 " Fugitive
 nnoremap <leader>gg :Git<CR>
 
-" Dirvish
-nnoremap <leader>L  :call ExplorerSplit()<CR>
-
 " Telescope
 nnoremap <leader>ff :Telescope find_files<CR>
 nnoremap <leader>fg :Telescope live_grep<CR>
 nnoremap <leader>fb :Telescope buffers<CR>
 nnoremap <leader>fh :Telescope lsp_definitions<CR>
+nnoremap <leader>fw :Telescope lsp_workspace_symbols<CR>
+nnoremap <leader>fs :Telescope lsp_document_symbols<CR>
+
+" Dirvish
+function! OpenDirvishBuf()
+    if &filetype != 'dirvish'
+        vert new
+        execute 'Dirvish'
+    endif
+endfunction
+nnoremap <leader>L :call OpenDirvishBuf()<CR>
+
 
 " }}}
 
