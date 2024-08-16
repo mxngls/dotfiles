@@ -101,9 +101,16 @@ endif
 
 " Set the colorscheme
 function! SetColors() "{{{
-    set termguicolors
-    colorscheme Tomorrow-Night
+    if exists('$BASE16_THEME')
+          \ && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
+        let base16colorspace=256
+        colorscheme base16-$BASE16_THEME
+    endif
+
+    " Patch a few colors
     hi NormalFloat guibg=#444444 ctermbg=236
+    hi CursorLineNr guifg=#f0c674 ctermfg=02
+    hi Statusline guifg=#f0c674 ctermfg=02
 endfunction
 "}}}
 
@@ -215,8 +222,7 @@ Plug 'justinmk/vim-dirvish'
 " Undo list visualizier
 Plug 'mbbill/undotree'
 
-" TUI
-Plug 'chriskempson/vim-tomorrow-theme'
+" UI
 Plug 'romainl/vim-cool'
 
 " Neovim specific plugins {{{2
@@ -264,6 +270,11 @@ augroup restore_cursor
                 \ | endif
 augroup END
 
+augroup colors
+    autocmd!
+    autocmd VimEnter * call SetColors()
+augroup END
+
 " }}}
 " {{{ Customize Commands
 
@@ -288,5 +299,3 @@ if has('nvim')
 endif
 
 " }}}
-
-call SetColors()
