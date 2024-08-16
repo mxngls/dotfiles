@@ -186,7 +186,8 @@ map L $
 inoremap <C-t> <C-o>b<C-o>diw<<C-r>"></<C-r>"><C-o>T>
 
 " Terminal mode
-tnoremap <C-w>n <C-\><C-n>
+tnoremap <C-x> <C-\><C-n>
+nnoremap <Leader>t :vert terminal<CR>
 
 " Plugin related {{{2
 
@@ -242,6 +243,9 @@ if has('nvim')
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
     Plug 'neovim/nvim-lspconfig'
+
+    " Replace terminal multiplexers
+    Plug 'samjwill/nvim-unception'
 
     " Telescope
     Plug 'nvim-lua/plenary.nvim'
