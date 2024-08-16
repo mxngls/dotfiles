@@ -1,5 +1,5 @@
-" Set the background to match our terminal
-function! SetBackground() abort "{{{
+" Set the background to match our terminal {{{
+function! SetBackground() abort
     let l:bg = system("defaults read -g AppleInterfaceStyle")
     if l:bg isnot v:null && trim(l:bg) == 'Dark'
         set background=dark
@@ -8,7 +8,6 @@ function! SetBackground() abort "{{{
     endif
 endfunction
 " }}}
-
 " Basic editor settings {{{
 
 set nocompatible                " Disable compatibility with vi
