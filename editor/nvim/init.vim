@@ -1,7 +1,3 @@
-" Name:     Custom
-" Author:   Maximilian Engels <maximilian.e.hoenig@gmail.com>
-" URL:      http://mxngls.github.io
-
 " Set the background to match our terminal
 function! SetBackground() abort "{{{
     let l:bg = system("defaults read -g AppleInterfaceStyle")
