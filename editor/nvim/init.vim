@@ -253,6 +253,7 @@ if has('nvim')
 
     " Treesitter
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
     " Autocompletion
     Plug 'hrsh7th/nvim-cmp'
