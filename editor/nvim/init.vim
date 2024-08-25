@@ -65,7 +65,7 @@ set foldnestmax=10              " Limit the maximum nested folds to 10
 set nofoldenable                " Disable folding by default
 
 set  laststatus=2                 " Always show the status line
-setl statusline=%!statusline#SetStatus()
+set statusline=%!v:lua.require'statusline'.set_status()
 
 filetype plugin indent on       " Detect filetype and load options
 
@@ -309,7 +309,7 @@ let g:loaded_netrwPlugin = 1
 " {{{ NVIM
 
 if has('nvim')
-    :lua require('init')
+    lua require('init')
 endif
 
 " }}}
