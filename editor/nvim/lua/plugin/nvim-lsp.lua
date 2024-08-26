@@ -36,38 +36,30 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- Setup completion
-require 'lspconfig'.html.setup {
+-- Server setup --------------------------------------------------------
+
+lspconfig.bashls.setup({
+    capabilities = capabilities
+})
+
+lspconfig.clangd.setup({
+    capabilities = capabilities
+})
+
+lspconfig.lua_ls.setup({
     capabilities = capabilities,
-}
-
--- Setup the language servers
-local lsp_servers = require('mason-lspconfig').get_installed_servers()
-for _, language_server in ipairs(lsp_servers) do
-    lspconfig[language_server].setup({
-        capabilities = capabilities,
-    })
-end
-
-lspconfig.lua_ls.setup {
     settings = {
         Lua = {
-            runtime = {
-                -- Neovim uses LuaJIT. See h: lua-luajit
-                version = 'LuaJIT',
-            },
-            diagnostics = {
-                -- Recognize the Neovim specific 'vim' lua module
-                globals = { 'vim' },
-            },
+            runtime = { version = 'LuaJIT', },
+            diagnostics = { globals = { 'vim' }, },
             workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file('*', true),
-            },
-            telemetry = {
-                -- We value our privacy
-                enable = false,
+                checkThirdParty = false,
+                library = { vim.env.VIMRUNTIME }
             },
         },
     },
-}
+})
+
+lspconfig.tsserver.setup({
+    capabilities = capabilities
+})

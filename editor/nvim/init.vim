@@ -240,7 +240,6 @@ if has('nvim')
 
     " Language server protocol
     Plug 'williamboman/mason.nvim'
-    Plug 'williamboman/mason-lspconfig.nvim'
     Plug 'neovim/nvim-lspconfig'
 
     " Replace terminal multiplexers
