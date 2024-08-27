@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
         vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
         vim.keymap.set('n', '<space>fp', function()
-            vim.lsp.buf.format { async = true }
+            vim.lsp.buf.format({ async = true })
         end, opts)
     end,
 })
@@ -62,4 +62,8 @@ lspconfig.lua_ls.setup({
 
 lspconfig.tsserver.setup({
     capabilities = capabilities
+})
+
+lspconfig.eslint.setup({
+    capabilities = capabilities,
 })
