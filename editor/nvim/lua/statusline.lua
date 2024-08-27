@@ -60,7 +60,8 @@ function M.set_status()
     local winid = vim.g.statusline_winid
     local bufnr = vim.fn.winbufnr(winid)
     local bufname = vim.fn.bufname(bufnr)
-    local filepath = vim.fn.fnamemodify(bufname, ':p:h')
+    local filepath = vim.fn.fnamemodify(bufname, ':p')
+    local dirpath = vim.fn.fnamemodify(bufname, ':p:h')
     local buftype = vim.bo[bufnr].buftype
     local filetype = vim.bo[bufnr].filetype
 
@@ -76,7 +77,7 @@ function M.set_status()
         table.insert(stl, get_truncated_filepath(filepath))
 
         -- Current Git branch
-        table.insert(stl, ' ' .. get_git_head(filepath) .. ' ')
+        table.insert(stl, ' ' .. get_git_head(dirpath) .. ' ')
     end
 
     -- File flags
