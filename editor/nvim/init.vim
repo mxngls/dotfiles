@@ -197,9 +197,10 @@ nnoremap <leader>gg :Git<CR>
 nnoremap <leader>ff :Telescope find_files<CR>
 nnoremap <leader>fg :Telescope live_grep<CR>
 nnoremap <leader>fb :Telescope buffers<CR>
-nnoremap <leader>fh :Telescope lsp_definitions<CR>
 nnoremap <leader>fw :Telescope lsp_workspace_symbols<CR>
 nnoremap <leader>fs :Telescope lsp_document_symbols<CR>
+nnoremap <leader>fd :lua require'telescope.builtin'.lsp_definitions({ jump_type = "split", initial_mode = "normal" })<CR>
+
 
 " Dirvish
 function! OpenDirvishBuf()
@@ -248,6 +249,7 @@ if has('nvim')
     " Telescope
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+    Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
     " Treesitter
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -308,7 +310,11 @@ let g:loaded_netrwPlugin = 1
 " {{{ NVIM
 
 if has('nvim')
-    lua require('init')
+    lua << EOF
+require('init')
+require('telescope').setup({})
+require('telescope').load_extension('fzy_native')
+EOF
 endif
 
 " }}}
