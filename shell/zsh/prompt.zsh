@@ -2,12 +2,11 @@
 setopt PROMPT_SUBST
 
 git_info() {
-    git_head="$(git symbolic-ref -q HEAD 2>/dev/null || \
-
+    git_head="$(git show -s --oneline --pretty='format:%h %d' 2>/dev/null || \
                 git name-rev --name-only --no-undefined --always HEAD 2>/dev/null)";
 
     git_where="${git_head#(refs/heads/|tags/)}"
-    
+
     if [[ -z "${git_where}" ]]; then
         echo -n ""
     else
