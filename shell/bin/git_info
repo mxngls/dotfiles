@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# The porcelain version used (v2) is available since Git 2.11.0 
+# If the installed version is smaller than that the script silently
+# fails and returns nothing
+if [[ ! "$(command -v "git")" ]]; then
+    echo "Git not installed. Aborting."
+    exit 1
+fi
+
+git_oid=""
+git_head=""
+git_ahead=""
+git_behind=""
+
+oid_reg='# branch\.oid ([a-z0-9]+)'
+head_reg='# branch\.head (.+)'
+ahead_reg='# branch\.ab (\+[1-9]+) .*'
+behind_reg='# branch\.ab .* (\-[1-9]+)'
+
+while IFS= read -r; do
+    if [[ "$REPLY" =~ $oid_reg ]]; then
+        git_oid="${BASH_REMATCH[1]}"
+    elif [[ "$REPLY" =~ $head_reg ]]; then
+        git_head="${BASH_REMATCH[1]}"
+    elif [[ "$REPLY" =~ $ahead_reg || "$REPLY" =~ $behind_reg ]]; then
+        git_ahead="${BASH_REMATCH[1]}"
+        git_behind="${BASH_REMATCH[2]}"
+    fi
+done < <(git \
+    --no-optional-locks \
+    status \
+    --porcelain=v2 \
+    --branch 2>/dev/null)
+
+info=""
+[[ -n "$git_oid" ]] && info+="${git_oid:0:7} "
+[[ -n "$git_head" ]] && info+="$git_head"
+[[ -n "$git_ahead" ]] && info+=" $git_ahead "
+[[ -n "$git_behind" ]] && info+=" $git_behind "
+
+if [[ -n "$info" ]]; then
+    echo -n "-[" "${info% }" "]"
+fi
