@@ -2,17 +2,46 @@
 setopt PROMPT_SUBST
 
 git_info() {
-    git_head="$(git show -s --oneline --pretty='format:%h %d' 2>/dev/null || \
-                git name-rev --name-only --no-undefined --always HEAD 2>/dev/null)";
 
-    git_where="${git_head#(refs/heads/|tags/)}"
+    git_oid=""
+    git_head=""
+    git_upstream=""
+    git_ahead=""
+    git_behind=""
 
-    if [[ -z "${git_where}" ]]; then
-        echo -n ""
-    else
-        echo "- [ ${git_where} ]"
-    fi
+    oid_reg='# branch\.oid ([a-z0-9]+)'
+    head_reg='# branch\.head (.+)'
+    upstream_reg='# branch\.upstream (.+)'
+    ahead_reg='# branch\.ab (\+[1-9]+) .*'
+    behind_reg='# branch\.ab .* (\-[1-9]+)'
+
+    while read -r; do
+        if [[ "$REPLY" =~ $oid_reg ]]; then
+            git_oid="${BASH_REMATCH[1]}"
+        elif [[ "$REPLY" =~ $head_reg ]]; then
+            git_head="${BASH_REMATCH[1]}"
+        elif [[ "$REPLY" =~ $upstream_reg ]]; then
+            git_upstream="${BASH_REMATCH[1]}"
+        elif [[ "$REPLY" =~ $ahead_reg || "$REPLY" =~ $behind_reg ]]; then
+            git_ahead="${BASH_REMATCH[1]}"
+            git_behind="${BASH_REMATCH[2]}"
+        fi
+    done < <(git \
+        --no-optional-locks \
+        status \
+        --porcelain=v2 \
+        --branch)
+
+    printf "%s" "[ "
+
+    printf "%s %s" "${git_oid:0:7}" "$git_head"
+
+    [[ -n "$git_ahead" ]] && printf " %s " "$git_ahead"
+    [[ -n "$git_behind" ]] && printf " %s " "$git_behind"
+
+    printf "%s" " ]"
 }
+
 
 # Prompt segments
 user_host_segment() {

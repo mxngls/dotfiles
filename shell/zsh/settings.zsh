@@ -68,6 +68,10 @@ setopt COMPLETE_IN_WORD
 setopt MENU_COMPLETE
 setopt LIST_PACKED
 
+# Compability
+setopt BASH_REMATCH
+setopt KSH_ARRAYS
+
 # Time to wait for additional characters in a sequence
 KEYTIMEOUT=1
 
