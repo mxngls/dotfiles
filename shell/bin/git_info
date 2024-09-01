@@ -1,11 +1,85 @@
 #!/bin/bash
 
-# The porcelain version used (v2) is available since Git 2.11.0 
-# If the installed version is smaller than that the script silently
-# fails and returns nothing
-if [[ ! "$(command -v "git")" ]]; then
-    echo "Git not installed. Aborting."
+# Function to display help information
+show_help() {
+    cat <<EOF
+Usage: $(basename "$0") [OPTIONS]
+
+Display Git repository information for use in shell prompts.
+
+Options:
+  -c, --color   Enable colored output
+  -b, --bash    Include Bash zero-width escape sequences for prompt use
+  -b, --zsh     Include Zsh zero-width escape sequences for prompt use
+  -h, --help    Display this help message and exit
+
+The script outputs Git information in the format:
+-[ <short-sha> <branch-name> <ahead/behind> ]
+
+Note: The -b and -z option require the -c option to be set as well.
+
+Examples:
+  $(basename "$0")
+  $(basename "$0") --color
+  $(basename "$0") --color --bash
+EOF
+}
+
+# Function to display error messages
+error() {
+    printf "%s\n" "Error: $1" >&2
     exit 1
+}
+
+# Default to no colors and no bash escapes
+use_colors=false
+use_bash_escapes=false
+use_zsh_escapes=false
+
+# Parse command line options
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+    -c | --color) use_colors=true ;;
+    -b | --bash) use_bash_escapes=true ;;
+    -z | --zsh) use_zsh_escapes=true ;;
+    -h | --help)
+        show_help
+        exit 0
+        ;;
+    *) error "Unknown parameter passed: $1. Use -h for help." ;;
+    esac
+    shift
+done
+
+# Check if Git is installed
+if ! command -v git &>/dev/null; then
+    error "Git is not installed or not in PATH."
+fi
+
+# Set color codes based on use_colors and use_bash_escapes flags
+if $use_colors; then
+    if $use_bash_escapes; then
+        RED='\x01\e[0;31m\x02'
+        GREEN='\x01\e[0;32m\x02'
+        RESET='\x01\e[0m\x02'
+    elif $use_zsh_escapes; then
+        RED='%{\e[0;31m%}'
+        GREEN='%{\e[0;32m%}'
+        RESET='%{\e[0m%}'
+    else
+        RED='\e[0;31m'
+        GREEN='\e[0;32m'
+        RESET='\e[0m'
+    fi
+else
+    RED=''
+    GREEN=''
+    RESET=''
+fi
+
+# Check if we're in a Git repository
+if ! git rev-parse --is-inside-work-tree &>/dev/null; then
+    exit 0 # Exit silently if not in a Git repository
 fi
 
 git_oid=""
@@ -15,30 +89,25 @@ git_behind=""
 
 oid_reg='# branch\.oid ([a-z0-9]+)'
 head_reg='# branch\.head (.+)'
-ahead_reg='# branch\.ab (\+[1-9]+) .*'
-behind_reg='# branch\.ab .* (\-[1-9]+)'
+ahead_reg='# branch\.ab \+([1-9]+)'
+behind_reg='# branch\.ab .*-([1-9]+)'
 
 while IFS= read -r; do
     if [[ "$REPLY" =~ $oid_reg ]]; then
         git_oid="${BASH_REMATCH[1]}"
     elif [[ "$REPLY" =~ $head_reg ]]; then
         git_head="${BASH_REMATCH[1]}"
-    elif [[ "$REPLY" =~ $ahead_reg || "$REPLY" =~ $behind_reg ]]; then
-        git_ahead="${BASH_REMATCH[1]}"
-        git_behind="${BASH_REMATCH[2]}"
+    else
+        [[ "$REPLY" =~ $ahead_reg ]] && git_ahead="${GREEN}+${BASH_REMATCH[1]}${RESET}";
+        [[ "$REPLY" =~ $behind_reg ]] && git_behind="${RED}-${BASH_REMATCH[1]}${RESET}";
     fi
-done < <(git \
-    --no-optional-locks \
-    status \
-    --porcelain=v2 \
-    --branch 2>/dev/null)
-
+done < <(git --no-optional-locks status --porcelain=v2 --branch 2>/dev/null)
 info=""
 [[ -n "$git_oid" ]] && info+="${git_oid:0:7} "
 [[ -n "$git_head" ]] && info+="$git_head"
-[[ -n "$git_ahead" ]] && info+=" $git_ahead "
-[[ -n "$git_behind" ]] && info+=" $git_behind "
+[[ -n "$git_ahead" ]] && info+=" $git_ahead"
+[[ -n "$git_behind" ]] && info+=" $git_behind"
 
 if [[ -n "$info" ]]; then
-    echo -n "-[" "${info% }" "]"
+    printf "%b" "${info% }"
 fi

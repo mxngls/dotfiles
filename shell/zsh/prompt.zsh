@@ -45,7 +45,12 @@ function precmd() {
     fi
 
     # open new fd
-    exec {PROMPT_FD}< <(git_info)
+    info="$(git_info --color --zsh)"
+    if [[ -n "${info// }" ]]; then
+        exec {PROMPT_FD}< <(printf "%b" "-[ $info ]")
+    else
+        exec {PROMPT_FD}< <()
+    fi
 
     # set up handler
     zle -F "$PROMPT_FD" read_prompt_fd
