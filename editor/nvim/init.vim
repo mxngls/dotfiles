@@ -194,7 +194,7 @@ nnoremap <Leader>t :vert terminal<CR>
 nnoremap <leader>gg :Git<CR>
 
 " Telescope
-nnoremap <leader>ff :Telescope find_files<CR>
+nnoremap <leader>ff :Telescope find_files hidden=true<CR>
 nnoremap <leader>fg :Telescope live_grep<CR>
 nnoremap <leader>fb :Telescope buffers<CR>
 nnoremap <leader>fw :Telescope lsp_workspace_symbols<CR>
@@ -310,11 +310,7 @@ let g:loaded_netrwPlugin = 1
 " {{{ NVIM
 
 if has('nvim')
-    lua << EOF
-require('init')
-require('telescope').setup({})
-require('telescope').load_extension('fzy_native')
-EOF
+    lua require('init')
 endif
 
 " }}}
