@@ -62,15 +62,13 @@ function M.set_status()
     local bufname = vim.fn.bufname(bufnr)
     local filepath = vim.fn.fnamemodify(bufname, ':p')
     local dirpath = vim.fn.fnamemodify(bufname, ':p:h')
-    local buftype = vim.bo[bufnr].buftype
-    local filetype = vim.bo[bufnr].filetype
 
     local stl = {}
 
     -- Current buffer number
     table.insert(stl, string.format('[%d] ', bufnr))
 
-    if buftype == 'terminal' or filetype == 'fugitive' then
+    if vim.fn.filereadable(filepath) == 0 then
         table.insert(stl, bufname)
     else
         -- Truncated path

@@ -65,7 +65,7 @@ set foldnestmax=10              " Limit the maximum nested folds to 10
 set nofoldenable                " Disable folding by default
 
 set  laststatus=2                 " Always show the status line
-set statusline=%!v:lua.require'statusline'.set_status()
+set statusline=%!v:lua.require'custom.statusline'.set_status()
 
 filetype plugin indent on       " Detect filetype and load options
 
