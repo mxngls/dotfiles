@@ -22,4 +22,7 @@ prompt_cmd() {
     else
         GIT_INFO=""
     fi
+
+    # Append to history immediately
+    history -a
 }
