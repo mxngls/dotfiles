@@ -12,12 +12,6 @@ if type brew &> /dev/null; then
   if type docker &> /dev/null;then
     fpath=($(brew --prefix)/opt/docker-completion/share/zsh/site-functions/ $fpath)
   fi
-
-  # Needed for aws
-  if type aws &> /dev/null;then
-    autoload bashcompinit && bashcompinit
-    complete -C '/opt/homebrew/bin/aws_completer' aws
-  fi
 fi
 
 # custom completion functions
