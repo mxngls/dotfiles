@@ -2,6 +2,10 @@
 
 # zsh-completions
 if type brew &> /dev/null; then
+  # Install functions
+  fpath=(/usr/share/zsh/${ZSH_VERSION}/functions $fpath)
+  fpath=(/usr/share/zsh/${ZSH_VERSION}/site-functions $fpath)
+    
   # Completions for homebrew itself
   fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
 
