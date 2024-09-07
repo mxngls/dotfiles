@@ -1,0 +1,26 @@
+$include /etc/inputrc
+
+set colored-stats On
+set completion-ignore-case On
+set completion-prefix-display-length 3
+set mark-symlinked-directories On
+set show-all-if-ambiguous On
+set completion-ignore-case on
+set visible-stats On
+set editing-mode vi
+
+"\C-l": clear-screen
+"\C-k": history-search-backward
+"\C-j": history-search-forward
+
+set keymap vi-command
+"gg":   beginning-of-history
+"G":    end-of-history
+"H":    beginning-of-line
+"L":    end-of-line
+"U":    vi-undo
+"R":    vi-redo
+
+
+set keymap vi-insert
+TAB: menu-complete

@@ -1,9 +1,5 @@
 #!/bin/bash
 
-set -o errexit
-set -o nounset
-set -o pipefail
-
 # Dont link DS_Store files
 find . -name ".DS_Store" -exec rm {} \;
 
@@ -16,7 +12,8 @@ backup_dotfiles() {
 
   echo "Backing up current dotfiles..."
 
-  local backup="${BACKUPS_DIR}/${DOTFILES_DIR}_bk_$(date -u +"%Y%m%d%H%M%S")"
+  local backup
+  backup="${BACKUPS_DIR}/${DOTFILES_DIR}_bk_$(date -u +"%Y%m%d%H%M%S")"
 
   if [[ ! -p $backup ]]; then
     mkdir -p "$backup"
@@ -85,12 +82,11 @@ link_all() {
   echo "Linking files and directories..."
 
   # Shell related
-  link_file "${DOTFILES_DIR}/shell/zsh/.zshenv"          "${HOME}/.zshenv"
-  link_file "${DOTFILES_DIR}/shell/zsh/.zshrc"           "${HOME}/.zshrc"
   link_file "${DOTFILES_DIR}/shell/bash/.bashrc"         "${HOME}/.bashrc"
   link_file "${DOTFILES_DIR}/shell/bash/.bash_login"     "${HOME}/.bash_login"
   link_file "${DOTFILES_DIR}/shell/bash/.bash_logout"    "${HOME}/.bash_logout"
   link_file "${DOTFILES_DIR}/shell/bash/.bash_profile"   "${HOME}/.bash_profile"
+  link_file "${DOTFILES_DIR}/shell/bash/.inputrc"        "${HOME}/.inputrc"
   link_file "${DOTFILES_DIR}/shell/tmux"                 "${HOME}/.config/tmux"
   link_file "${DOTFILES_DIR}/shell/alacritty"            "${HOME}/.config/alacritty"
 
@@ -112,7 +108,6 @@ clone() {
   # Check if the repository already exists
   if [ ! -d "$repo" ]; then
     echo "Cloning $repo."
-    git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git
     echo "Successfully cloned $repo."
   else
     echo "Skipped: $repo already exists."
@@ -135,13 +130,6 @@ clone_all() {
 
   return 0
 }
-
-# Set custom env var depending if we're in light or dark mode
-if [[ "$(uname -s)" == "Darwin" ]]; then
-  [[ ! -f dark-mode-notify ]] && swiftc dark-mode-notify.swift -o dark-mode-notify
-  ln -sfn ~/dotfiles/shell/com.mxngls.dark-mode-notify.plist ~/Library/LaunchAgents/
-  launchctl load -w ~/Library/LaunchAgents/com.mxngls.dark-mode-notify.plist
-fi
 
 # Install
 backup_dotfiles

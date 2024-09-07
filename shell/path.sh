@@ -1,3 +1,5 @@
+export PATH=""
+
 function path_add(){  
     if [ -d "$1" ] ; then  
         local D=":${PATH}:";   

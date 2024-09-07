@@ -1,8 +1,14 @@
-# Functions
-source ~/dotfiles/shell/functions.sh
+# Path
+source ~/dotfiles/shell/path.sh
 
 # Aliases
-source ~/dotfiles/shell/aliases.sh
+source ~/dotfiles/shell/alias.sh
 
-# Settings
+# Global Settings
+source ~/dotfiles/shell/settings.sh
+
+# Bash Settings
 source ~/dotfiles/shell/bash/settings.bash
+
+# Prompt
+source ~/dotfiles/shell/bash/prompt.bash
