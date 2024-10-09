@@ -11,7 +11,7 @@ main() {
 
   if [[ $# -eq 1 ]] && [[ $1 == -h || $1 == --help ]]; then
     usage
-  else
+  elif [[ $# -eq 1 ]]; then
     echo 'Error: Unknown parameter supplied.'
     return 1
   fi
@@ -25,13 +25,13 @@ main() {
   declare stash_index=${stash//[!0-9]/}
   declare new_stash_name=${2:-}
 
-  stashes_total="$(($(git stash list | wc -l) - 1))"
+  stashes_total="$(git stash list | wc -l | tr -d -c 0-9)"
 
   # Validate provided reference
   if [[ ! $stash =~ stash@{[0-9]+} ]]; then
     echo 'Error: Invalid input - Specifed stash is not in a valid format.'
     return 1
-  elif [[ "$stashes_total" -le 1 ]]; then
+  elif [[ "$stashes_total" -lt 1 ]]; then
     echo 'Error: Invalid Input - No stashes found.'
     return 1
   elif [[ "$stash_index" -gt "$stashes_total" ]] ||
@@ -48,8 +48,8 @@ main() {
       "$stash" |
       sed -e 's/ / -p /g'
   )"
-  tree=$(cut -d ' ' -f 1 <<< "$stash_info")
-  parents=$(cut -d ' ' -f 2- <<< "$stash_info")
+  tree="$(cut -d ' ' -f 1 <<< "$stash_info")"
+  parents="$(cut -d ' ' -f 2- <<< "$stash_info")"
 
   # Get the commit for our new stash
   # ('$parents' is intentionally not quoted to allow expansion on whitespace)
