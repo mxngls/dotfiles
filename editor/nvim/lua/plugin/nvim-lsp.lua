@@ -30,6 +30,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', '<space>fp', function()
             vim.lsp.buf.format({ async = true })
         end, opts)
+        vim.keymap.set('n', '<leader>h', function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+        end, opts)
     end,
 })
 
@@ -60,8 +63,34 @@ lspconfig.lua_ls.setup({
     },
 })
 
-lspconfig.tsserver.setup({
-    capabilities = capabilities
+lspconfig.ts_ls.setup({
+    capabilities = capabilities,
+    settings = {
+        typescript = {
+            inlayHints = {
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+            }
+        },
+        javascript = {
+            inlayHints = {
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+            }
+        }
+    }
 })
 
 lspconfig.eslint.setup({
