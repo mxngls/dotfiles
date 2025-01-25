@@ -13,9 +13,8 @@ alias lc='last_commit'
 alias ct='~/dotfiles/shell/toggle_theme.sh -t'
 
 # Quicker navigation
-alias gr='cd "${$(git rev-parse --git-dir 2>/dev/null)%.git}"'
-alias gnv='cd ~/dotfiles/editor/nvim'
-alias gtx='cd ~/dotfiles/shell/tmux'
+alias cdr='cd "$(git rev-parse --show-toplevel 2>/dev/null)"'
+alias cdn='cd ~/dotfiles/editor/nvim'
 
 # Some Git stuff
 alias gap='git add -p'
