@@ -211,6 +211,9 @@ function! OpenDirvishBuf()
 endfunction
 nnoremap <leader>L :call OpenDirvishBuf()<CR>
 
+" Undotree
+nnoremap <leader>U :UndotreeToggle<CR>
+
 
 " }}}
 
