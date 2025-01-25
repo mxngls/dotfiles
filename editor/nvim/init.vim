@@ -268,6 +268,9 @@ if has('nvim')
     Plug 'hrsh7th/cmp-vsnip'
     Plug 'hrsh7th/vim-vsnip'
 
+    " Formatting
+    Plug 'stevearc/conform.nvim'
+
 endif
 
 " }}}
