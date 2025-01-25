@@ -18,8 +18,15 @@ require('nvim-treesitter.configs').setup {
             keymaps = {
                 ["af"] = "@function.outer",
                 ["if"] = "@function.inner",
+
                 ["ac"] = "@class.outer",
                 ["ic"] = "@class.inner",
+
+                ["aco"] = "@conditional.outer",
+                ["ico"] = "@conditional.inner",
+
+                ["al"] = "@loop.outer",
+                ["il"] = "@loop.inner",
             },
             include_surrounding_whitespace = true,
         },
