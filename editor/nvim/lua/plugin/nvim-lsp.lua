@@ -96,3 +96,7 @@ lspconfig.ts_ls.setup({
 lspconfig.eslint.setup({
     capabilities = capabilities,
 })
+
+lspconfig.html.setup({
+    capabilities = capabilities,
+})
