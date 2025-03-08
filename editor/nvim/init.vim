@@ -94,22 +94,12 @@ endif
 
 
 " }}}
-" {{{ Colors
-
 " {{{ Functions
 
 " Set the colorscheme
 function! SetColors() "{{{
-    if exists('$BASE16_THEME')
-          \ && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
-        let base16colorspace=256
-        colorscheme base16-$BASE16_THEME
-    endif
-
-    " Patch a few colors
-    hi NormalFloat guibg=#444444 ctermbg=236
-    hi CursorLineNr guifg=#f0c674 ctermfg=02
-    hi Statusline guifg=#f0c674 ctermfg=02
+    set notermguicolors
+    colorscheme sonokai
 endfunction
 "}}}
 
@@ -237,6 +227,7 @@ Plug 'mbbill/undotree'
 
 " UI
 Plug 'romainl/vim-cool'
+Plug 'sainnhe/sonokai'
 
 " Neovim specific plugins {{{2
 
@@ -270,7 +261,6 @@ if has('nvim')
 
     " Formatting
     Plug 'stevearc/conform.nvim'
-
 endif
 
 " }}}

@@ -1,11 +1,11 @@
 # Color definitions
-CYAN='\[\e[0;36m\]'
+BLUE='\[\e[0;34m\]'
 MAGENTA='\[\e[0;35m\]'
 GREEN='\[\e[0;32m\]'
 RESET='\[\e[0m\]'
 
 # Prompt segments
-time_segment="[$CYAN\A$RESET]"
+time_segment="[$BLUE\A$RESET]"
 user_host_segment="[${MAGENTA}\u@\h${RESET}]"
 directory_segment="[${GREEN}\w${RESET}]"
 
@@ -17,7 +17,7 @@ PS2=">"
 
 prompt_cmd() {
     info="$(git_info --color --bash)"
-    if [[ -n "${info// }" ]]; then
+    if [[ -n "${info// /}" ]]; then
         GIT_INFO="$(printf "%b" "-[ $info ]")"
     else
         GIT_INFO=""
