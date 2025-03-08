@@ -1,3 +1,3 @@
-set tabstop=8      " Number of spaces for each tab
-set shiftwidth=8   " Number of spaces to use for autoindenting
-set softtabstop=8  " Number of spaces for backspace and <Tab>
+setl tabstop=8      " Number of spaces for each tab
+setl shiftwidth=8   " Number of spaces to use for autoindenting
+setl softtabstop=8  " Number of spaces for backspace and <Tab>
