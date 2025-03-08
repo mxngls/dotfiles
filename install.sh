@@ -48,16 +48,16 @@ install_brew() {
         echo 'Homebrew is already installed. Continuing trying to install packages.'
     fi
 
-  # Install everything from Brewfile
-  echo 'Installing packages installed via Homebrew...'
-  if [[ -f "${DOTFILES_DIR}/Brewfile" ]]; then
-      brew bundle install --file="${DOTFILES_DIR}/Brewfile"
-      echo "Successfully installed Homebrew packages."
-  else
-      echo 'No Brewfile found. Aborting installation of Homebrew packages.'
-  fi
+    # Install everything from Brewfile
+    echo 'Installing packages installed via Homebrew...'
+    if [[ -f "${DOTFILES_DIR}/Brewfile" ]]; then
+        brew bundle install --file="${DOTFILES_DIR}/Brewfile"
+        echo "Successfully installed Homebrew packages."
+    else
+        echo 'No Brewfile found. Aborting installation of Homebrew packages.'
+    fi
 
-  return 0
+    return 0
 }
 
 # Function to create a symbolic link if it doesn't exist
@@ -106,30 +106,27 @@ link_all() {
 clone() {
     local repo="$1"
 
-  # Check if the repository already exists
-  if [ ! -d "$repo" ]; then
-      echo "Cloning $repo."
-      echo "Successfully cloned $repo."
-  else
-      echo "Skipped: $repo already exists."
-  fi
-
+    # Check if the repository already exists
+    if [ ! -d "$repo" ]; then
+        echo "Cloning $repo."
+        echo "Successfully cloned $repo."
+    else
+        echo "Skipped: $repo already exists."
+    fi
 }
 
 # Function to clone external Git repositories
 clone_all() {
-    cd "${HOME}"
+    cd "${HOME}" || exit
 
     echo 'Cloning Git repositories...'
 
     if [[ ! -d ${HOME}/Git ]]; then
-        mkdir -p Git && cd Git
+        mkdir -p Git && cd Git || exit
         echo 'Created directory to store Git repositories (Git)'
     fi
 
-  # Usage: clone REPO
-
-  return 0
+    return 0
 }
 
 # Install
