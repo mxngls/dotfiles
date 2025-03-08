@@ -1,0 +1,9 @@
+font-thicken = true
+font-thicken-strength = 0
+
+macos-non-native-fullscreen = false
+macos-titlebar-style = transparent
+
+shell-integration-features = no-cursor
+
+theme = "sonokai_custom"

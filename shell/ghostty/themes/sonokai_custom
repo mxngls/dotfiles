@@ -1,0 +1,29 @@
+# Sonokai Theme for Ghostty
+# Based on the provided Vim colorscheme
+
+# Main colors
+background = #262626
+foreground = #bcbcbc
+cursor-color = #bcbcbc
+selection-background = #3a3a3a
+selection-foreground = #87afd7
+
+# Base 16 colors (0-15)
+# "DarkOliveGreen3" appears in duplicates; we choose the darker variant #87af5f
+palette = 0=Grey3
+palette = 1=IndianRed1
+palette = 2=#87af5f
+palette = 3=LightGoldenrod3
+palette = 4=LightSkyBlue3
+palette = 5=Plum3
+palette = 6=LightSkyBlue3
+palette = 7=Grey74
+palette = 8=Grey58
+palette = 9=IndianRed1
+palette = 10=#87af5f
+palette = 11=LightGoldenrod3
+palette = 12=LightSkyBlue3
+palette = 13=Plum3
+palette = 14=LightSkyBlue3
+palette = 15=Grey74
+
