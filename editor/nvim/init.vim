@@ -34,7 +34,7 @@ set splitright                  " Open split to the right of the current window
 set number                      " Show line numbers
 set relativenumber              " Show relative line numbers
 set signcolumn=yes
-set colorcolumn=72              " Limit the visual available width to 72 characters
+set colorcolumn=100             " Limit the visual available width to 72 characters
 set textwidth=72                " And do the same practically as well
 set nowrap                      " We don't want to wrap text
 set pumheight=10                " Don't make the completion window too heigh
@@ -195,8 +195,8 @@ nnoremap <leader>fd :lua require'telescope.builtin'.lsp_definitions({ jump_type 
 " Dirvish
 function! OpenDirvishBuf()
     if &filetype != 'dirvish'
-        vert new
-        execute 'Dirvish'
+        vert split
+        Dirvish %:p:h
     endif
 endfunction
 nnoremap <leader>L :call OpenDirvishBuf()<CR>
@@ -232,7 +232,6 @@ Plug 'sainnhe/sonokai'
 " Neovim specific plugins {{{2
 
 if has('nvim')
-
     " Language server protocol
     Plug 'williamboman/mason.nvim'
     Plug 'neovim/nvim-lspconfig'

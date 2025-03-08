@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- Global config
         vim.diagnostic.config({
             severity_sort = true,
-            virtual_text = false,
+            virtual_text = true,
             float = {
                 source = true
             }
