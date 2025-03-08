@@ -1,6 +1,9 @@
 #!/bin/bash
 
-# Function to display help information
+set -o errexit
+set -o nounset
+set -o pipefail
+
 show_help() {
     cat <<EOF
 Usage: $(basename "$0") [OPTIONS]
@@ -25,18 +28,16 @@ Examples:
 EOF
 }
 
-# Function to display error messages
 error() {
     printf "%s\n" "Error: $1" >&2
     exit 1
 }
 
-# Default to no colors and no bash escapes
+# default to no colors and no bash escapes
 use_colors=false
 use_bash_escapes=false
 use_zsh_escapes=false
 
-# Parse command line options
 while [[ "$#" -gt 0 ]]; do
     case $1 in
     -c | --color) use_colors=true ;;
@@ -51,12 +52,10 @@ while [[ "$#" -gt 0 ]]; do
     shift
 done
 
-# Check if Git is installed
 if ! command -v git &>/dev/null; then
     error "Git is not installed or not in PATH."
 fi
 
-# Set color codes based on use_colors and use_bash_escapes flags
 if $use_colors; then
     if $use_bash_escapes; then
         RED='\x01\e[0;31m\x02'
@@ -77,9 +76,8 @@ else
     RESET=''
 fi
 
-# Check if we're in a Git repository
 if ! git rev-parse --is-inside-work-tree &>/dev/null; then
-    exit 0 # Exit silently if not in a Git repository
+    exit 0
 fi
 
 git_oid=""
@@ -98,8 +96,8 @@ while IFS= read -r; do
     elif [[ "$REPLY" =~ $head_reg ]]; then
         git_head="${BASH_REMATCH[1]}"
     else
-        [[ "$REPLY" =~ $ahead_reg ]] && git_ahead="${GREEN}+${BASH_REMATCH[1]}${RESET}";
-        [[ "$REPLY" =~ $behind_reg ]] && git_behind="${RED}-${BASH_REMATCH[1]}${RESET}";
+        [[ "$REPLY" =~ $ahead_reg ]] && git_ahead="${GREEN}+${BASH_REMATCH[1]}${RESET}"
+        [[ "$REPLY" =~ $behind_reg ]] && git_behind="${RED}-${BASH_REMATCH[1]}${RESET}"
     fi
 done < <(git --no-optional-locks status --porcelain=v2 --branch 2>/dev/null)
 info=""
