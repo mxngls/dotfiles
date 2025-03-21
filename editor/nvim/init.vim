@@ -67,7 +67,9 @@ set nofoldenable                " Disable folding by default
 set  laststatus=2                 " Always show the status line
 set statusline=%!v:lua.require'custom.statusline'.set_status()
 
-filetype plugin indent on       " Detect filetype and load options
+" Detect filetype and load options
+filetype plugin on
+filetype indent on
 
 " }}}
 " Better safe than sorry {{{
