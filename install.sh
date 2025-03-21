@@ -102,35 +102,7 @@ link_all() {
     echo 'Successfully linked all target files.'
 }
 
-# Function to clone Git repos (Currently unused!)
-clone() {
-    local repo="$1"
-
-    # Check if the repository already exists
-    if [ ! -d "$repo" ]; then
-        echo "Cloning $repo."
-        echo "Successfully cloned $repo."
-    else
-        echo "Skipped: $repo already exists."
-    fi
-}
-
-# Function to clone external Git repositories
-clone_all() {
-    cd "${HOME}" || exit
-
-    echo 'Cloning Git repositories...'
-
-    if [[ ! -d ${HOME}/Git ]]; then
-        mkdir -p Git && cd Git || exit
-        echo 'Created directory to store Git repositories (Git)'
-    fi
-
-    return 0
-}
-
 # Install
 backup_dotfiles
 install_brew
 link_all
-clone_all
