@@ -132,5 +132,5 @@ clone_all() {
 # Install
 backup_dotfiles
 install_brew
-link_file
+link_all
 clone_all
