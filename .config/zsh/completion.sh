@@ -1,6 +1,8 @@
+#!/bin/zsh
+
 # the following lines were added by compinstall
 
-zstyle ':completion:*' completer _list _expand _complete _ignored _match _approximate
+zstyle ':completion:*' completer _expand _complete _ignored _match _approximate
 zstyle ':completion:*' file-sort name
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' ignore-parents parent pwd
@@ -21,28 +23,3 @@ zstyle :compinstall filename '/Users/max/.zshrc'
 autoload -Uz compinit
 compinit
 # end of lines added by compinstall
-
-# history
-HISTFILE=~/.histfile
-HISTSIZE=100000
-SAVEHIST=100000
-setopt HIST_EXPIRE_DUPS_FIRST
-setopt SHARE_HISTORY
-
-# misc
-setopt extendedglob
-setopt nomatch
-setopt menu_complete
-unsetopt beep
-
-# load version control information
-autoload -Uz vcs_info
-precmd() { vcs_info }
-
-# format the vcs_info_msg_0_ variable
-zstyle ':vcs_info:git:*' formats ' (%b)'
-
-# set up the prompt (with git branch name)
-setopt PROMPT_SUBST
-
-PROMPT='%n@%m %~%F{green}${vcs_info_msg_0_}%F{%(?.white.red)} $ %F{white}'

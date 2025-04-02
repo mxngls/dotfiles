@@ -100,3 +100,11 @@ lspconfig.eslint.setup({
 lspconfig.html.setup({
     capabilities = capabilities,
 })
+
+lspconfig.ruff.setup({
+    capabilities = capabilities,
+})
+
+lspconfig.pyright.setup({
+    capabilities = capabilities,
+})
