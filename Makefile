@@ -3,6 +3,12 @@ DOTFILE_PATH := $(HOME)/dotfiles
 $(HOME)/.%: .%
 	ln -sf $(DOTFILE_PATH)/$^ $@
 
+all: brew git rg fd nvim \
+	shell bin \
+	zsh zsh_config \
+	bash bash_config \
+	ghostty 
+
 # git
 git: $(HOME)/.gitconfig $(HOME)/.gitignore $(HOME)/.gitmodules
 
@@ -16,15 +22,33 @@ fd: $(HOME)/.fdignore
 
 # terminal emulator
 $(HOME)/.config/ghostty:
-	rm -r $(HOME)/.config/ghostty
-	ln -sf $(DOTFILE_PATH)/.config/ghostty $(HOME)/.config/ghostty
+	ln -sf $(DOTFILE_PATH)/.config/ghostty $(HOME)/.config
 
 ghostty: $(HOME)/.config/ghostty
+
+# shared shell config
+$(HOME)/.config/shell:
+	ln -sf $(DOTFILE_PATH)/.config/shell $(HOME)/.config
+
+shell: $(HOME)/.config/shell
+
+# zsh
+$(HOME)/.config/zsh:
+	ln -sf $(DOTFILE_PATH)/.config/zsh $(HOME)/.config
+
+zsh_config: $(HOME)/.config/zsh
+
+# bash
+$(HOME)/.config/bash:
+	rm -r $(HOME)/.config/bash
+	ln -sf $(DOTFILE_PATH)/.config/bash $(HOME)/.config
+
+bash_config: $(HOME)/.config/bash
 
 # editor
 $(HOME)/.config/nvim:
 	rm -r $(HOME)/.config/nvim
-	ln -sf $(DOTFILE_PATH)/.config/nvim $(HOME)/.config/nvim
+	ln -sf $(DOTFILE_PATH)/.config/nvim $(HOME)/.config
 
 nvim: $(HOME)/.config/nvim
 
@@ -41,5 +65,3 @@ update:
 
 brew:
 	brew bundle --no-upgrade --force cleanup --file=$(DOTFILE_PATH)/Brewfile
-
-all: git zsh bash ghostty rg fd nvim bin brew
