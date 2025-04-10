@@ -1,11 +1,17 @@
 #!/bin/zsh
 
-# editor
-export VISUAL=nvim
-export EDITOR="$VISUAL"
+# editor (nvim)
+if command -v nvim &> /dev/null; then
+    export VISUAL=nvim
+    export EDITOR="$VISUAL"
+else
+    export VISUAL=vim
+    export EDITOR="$VISUAL"
+fi
 
 # Reduce delay for key combinations to 10ms
 export KEYTIMEOUT=1
+
 # brew
 if command -v brew &> /dev/null; then
     export HOMEBREW_PREFIX="/opt/homebrew";
