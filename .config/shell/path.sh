@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # standard path
-export PATH="/usr/bin"
+export PATH=""
 
 path_add() {
     if [ -d "$1" ]; then
@@ -41,15 +41,15 @@ path_remove() {
 path_add "/opt/homebrew/bin"
 path_add "/opt/homebrew/sbin"
 
-# standard OSX path
-path_add "/usr/bin"
-path_add "/bin"
-path_add "/usr/sbin"
-path_add "/sbin"
-
 # local
 path_add "/usr/local/bin"
 path_add "/usr/local/sbin"
 
 # other custom local executables
 path_add "$HOME/.local/bin"
+
+# standard OSX path
+path_add "/usr/bin"
+path_add "/bin"
+path_add "/usr/sbin"
+path_add "/sbin"
