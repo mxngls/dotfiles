@@ -21,4 +21,6 @@ if command -v brew &> /dev/null; then
     if [[ -z "${MANPATH-}" ]]; then
         export MANPATH=":${MANPATH#:}";
     fi
+
+    eval "$(brew shellenv)"
 fi
