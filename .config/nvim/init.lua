@@ -1,13 +1,13 @@
 -- set before anything else
-vim.g.mapleader = ' '
+vim.g.mapleader = " "
 
 -- config
-require 'user.autocommands'
-require 'user.options'
-require 'user.keymaps'
+require("user.autocommands")
+require("user.options")
+require("user.keymaps")
 
 -- plugins
-require 'plug'
-require 'plugin'
+require("plug")
+require("plugin")
 
-vim.cmd.colorscheme('sonokai')
+vim.cmd.colorscheme("sonokai")
