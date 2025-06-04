@@ -2,6 +2,13 @@ local Plug = vim.fn["plug#"]
 
 vim.call("plug#begin")
 
+-- java
+Plug("mfussenegger/nvim-jdtls")
+Plug("mfussenegger/nvim-lint")
+
+-- tests
+Plug("vim-test/vim-test")
+
 -- git
 Plug("tpope/vim-fugitive")
 
