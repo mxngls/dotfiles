@@ -5,6 +5,13 @@ vim.call("plug#begin")
 -- html
 Plug("tronikelis/ts-autotag.nvim")
 
+-- java
+Plug("mfussenegger/nvim-jdtls")
+Plug("mfussenegger/nvim-lint")
+
+-- tests
+Plug("vim-test/vim-test")
+
 -- git
 Plug("tpope/vim-fugitive")
 
