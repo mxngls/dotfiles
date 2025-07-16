@@ -16,8 +16,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		})
 
 		-- Global mappings.
-		vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
-		vim.keymap.set("n", "<space>v", vim.diagnostic.setloclist)
+		vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
+		vim.keymap.set("n", "<leader>v", vim.diagnostic.setqflist)
 		vim.keymap.set("n", "[d", function()
 			vim.diagnostic.jump({ count = 1, float = true })
 		end)
@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		-- Buffer local mappings.
 		local opts = { buffer = config_opts.buf }
-		vim.keymap.set("n", "<space>fp", function()
+		vim.keymap.set("n", "<leader>fp", function()
 			vim.lsp.buf.format({ async = true })
 		end, opts)
 		vim.keymap.set("n", "<leader>h", function()
