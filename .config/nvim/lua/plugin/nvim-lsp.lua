@@ -99,6 +99,13 @@ lspconfig.eslint.setup({
 
 lspconfig.html.setup({
 	capabilities = capabilities,
+	settings = {
+		html = {
+			format = {
+				unformatted = "pre",
+			},
+		},
+	},
 })
 
 lspconfig.rust_analyzer.setup({
