@@ -18,3 +18,16 @@ vim.api.nvim_create_autocmd("BufRead", {
 		end
 	end,
 })
+
+vim.api.nvim_create_augroup("text_files", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "html", "text", "markdown", "gitcommit", "mail" },
+	group = "text_files",
+	callback = function()
+		vim.bo.textwidth = 72
+		vim.wo.colorcolumn = "72"
+
+		vim.wo.spell = true
+		vim.bo.spelllang = "en_us"
+	end,
+})
