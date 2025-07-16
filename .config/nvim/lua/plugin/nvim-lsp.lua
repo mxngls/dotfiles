@@ -17,9 +17,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		-- Global mappings.
 		vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
-		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-		vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 		vim.keymap.set("n", "<space>v", vim.diagnostic.setloclist)
+		vim.keymap.set("n", "[d", function()
+			vim.diagnostic.jump({ count = 1, float = true })
+		end)
+		vim.keymap.set("n", "]d", function()
+			vim.diagnostic.jump({ count = 1, float = true })
+		end)
 
 		-- Buffer local mappings.
 		local opts = { buffer = config_opts.buf }
