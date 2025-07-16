@@ -1,2 +1,5 @@
 # smart case (case-insensitive if all lowercase, case-sensitive otherwise)
---smart-case
+--smart-case 
+
+# show hidden directories (still respects .gitignore)
+--hidden
