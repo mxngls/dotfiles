@@ -1,4 +1,5 @@
 local telescope = require("telescope")
+local builtin = require("telescope.builtin")
 
 telescope.setup({
 	defaults = {
@@ -14,12 +15,25 @@ telescope.setup({
 	},
 })
 
--- load extensions
 telescope.load_extension("fzy_native")
 
--- keybindings
-vim.keymap.set("n", "<leader>ff", ":Telescope find_files hidden=true<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>fw", ":Telescope lsp_workspace_symbols<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>fs", ":Telescope lsp_document_symbols<CR>", { noremap = true, silent = true })
+-- keybindings using the Lua API
+vim.keymap.set("n", "<leader>fb", builtin.buffers, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>ff", builtin.find_files, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>fq", builtin.quickfix, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>fd", function()
+	builtin.lsp_definitions({ jump_type = "vsplit" })
+end, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>fw", builtin.lsp_workspace_symbols, { noremap = true, silent = true })
+
+-- autocommands
+vim.api.nvim_create_autocmd("User", {
+	pattern = "TelescopePreviewerLoaded",
+	group = vim.api.nvim_create_augroup("UserTelescopeConfig", {}),
+	callback = function()
+		vim.wo.number = true
+	end,
+})
