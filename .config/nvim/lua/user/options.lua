@@ -17,6 +17,8 @@ vim.o.shiftwidth = 4
 
 vim.o.inccommand = "split"
 
+vim.o.foldenable = false
+vim.o.foldmethod = "indent"
 -- new buffers
 vim.o.splitbelow = true
 vim.o.splitright = true

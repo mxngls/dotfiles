@@ -20,6 +20,11 @@ vim.keymap.set("n", "<c-l>", "<c-w>l", { noremap = true, silent = true })
 -- create a new buffer in the current dir
 vim.keymap.set("n", "<leader>o", ":e <c-r>=expand('%:p:h') . '/'<cr>", { noremap = true, silent = false })
 
+-- folds _can_ be useful
+vim.keymap.set("n", "<leader>fm", function()
+	vim.o.foldmethod = vim.o.foldmethod == "indent" and "manual" or "indent"
+end, { noremap = true, silent = false })
+
 -- terminal
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 vim.keymap.set("n", "<leader>t", function()
