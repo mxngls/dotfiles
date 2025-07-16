@@ -10,7 +10,7 @@ bindkey -M vicmd v edit-command-line
 
 # history
 bindkey '^R' history-incremental-search-backward
-bindkey '^S' history-incremental-search-forward
+bindkey '^F' history-incremental-search-forward
 bindkey '^P' history-search-backward
 bindkey '^N' history-search-forward
 
