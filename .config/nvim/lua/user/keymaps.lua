@@ -1,15 +1,15 @@
 -- make saving and leaving a buffer more pleasant
-vim.keymap.set("n", "<leader>w", ":w<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>nw", ":noa w<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>q", ":q<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>w", ":w<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>nw", ":noa w<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>q", ":q<cr>", { noremap = true, silent = true })
 
 -- moving _between_ lines
 vim.keymap.set("n", "k", "gk", { noremap = true, silent = true })
 vim.keymap.set("n", "j", "gj", { noremap = true, silent = true })
 
 -- moving _in_ lines
-vim.keymap.set("n", "hh", "^", { noremap = true, silent = true })
-vim.keymap.set("n", "ll", "$", { noremap = true, silent = true })
+vim.keymap.set("", "H", "^", { noremap = false, silent = true })
+vim.keymap.set("", "L", "$", { noremap = false, silent = true })
 
 -- switch windows
 vim.keymap.set("n", "<c-h>", "<c-w>h", { noremap = true, silent = true })
