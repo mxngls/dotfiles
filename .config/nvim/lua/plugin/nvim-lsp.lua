@@ -101,10 +101,14 @@ lspconfig.html.setup({
 	capabilities = capabilities,
 })
 
-lspconfig.ruff.setup({
+lspconfig.rust_analyzer.setup({
 	capabilities = capabilities,
-})
-
-lspconfig.pyright.setup({
-	capabilities = capabilities,
+	settings = {
+		["rust-analyzer"] = {
+			checkOnSave = true,
+			check = {
+				command = "clippy",
+			},
+		},
+	},
 })

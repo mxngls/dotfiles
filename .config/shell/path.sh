@@ -48,6 +48,9 @@ path_add "/usr/local/sbin"
 # other custom local executables
 path_add "$HOME/.local/bin"
 
+# cargo
+path_add "$HOME/.cargo/bin"
+
 # standard OSX path
 path_add "/usr/bin"
 path_add "/bin"
