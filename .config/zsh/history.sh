@@ -12,5 +12,5 @@ setopt HIST_IGNORE_ALL_DUPS   # Delete old recorded entry if new entry is a dupl
 setopt HIST_IGNORE_DUPS       # Dont record an entry that was just recorded again.
 setopt HIST_IGNORE_SPACE      # Dont record an entry starting with a space.
 setopt HIST_SAVE_NO_DUPS      # Dont write duplicate entries in the history file.
-setopt INC_APPEND_HISTORY     # Immediately append to history file.
+setopt APPEND_HISTORY     	  # Append to history file when shell exits.
 setopt SHARE_HISTORY          # Share history between all sessions.
