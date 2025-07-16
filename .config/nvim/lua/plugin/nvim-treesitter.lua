@@ -27,6 +27,9 @@ require("nvim-treesitter.configs").setup({
 
 				["al"] = "@loop.outer",
 				["il"] = "@loop.inner",
+
+				["ca"] = "@call.outer",
+				["ci"] = "@call.inner",
 			},
 			include_surrounding_whitespace = true,
 		},
