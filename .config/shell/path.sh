@@ -4,37 +4,37 @@
 export PATH=""
 
 path_add() {
-    if [ -d "$1" ]; then
-        old_path=":${PATH}:"
-        [ "${old_path%:"$1":*}" = "$old_path" ] && PATH="$PATH:$1"
-        PATH="${PATH#:}"
-        PATH="${PATH%:}"
-        unset old_path
-        export PATH
-    fi
+	if [ -d "$1" ]; then
+		old_path=":${PATH}:"
+		[ "${old_path%:"$1":*}" = "$old_path" ] && PATH="$PATH:$1"
+		PATH="${PATH#:}"
+		PATH="${PATH%:}"
+		unset old_path
+		export PATH
+	fi
 }
 
 path_remove() {
-    old_path=":${PATH}:"
-    if [ "${old_path%:"$1":*}" != "$old_path" ]; then
-        new_path=""
-        IFS=:
-        for p in $PATH; do
-            if [ "$p" != "$1" ]; then
-                if [ -z "$new_path" ]; then
-                    new_path="$p"
-                else
-                    new_path="$new_path:$p"
-                fi
-            fi
-        done
-        PATH="$new_path"
-        unset new_path
-    fi
-    PATH="${PATH#:}"
-    PATH="${PATH%:}"
-    unset old_path
-    export PATH
+	old_path=":${PATH}:"
+	if [ "${old_path%:"$1":*}" != "$old_path" ]; then
+		new_path=""
+		IFS=:
+		for p in $PATH; do
+			if [ "$p" != "$1" ]; then
+				if [ -z "$new_path" ]; then
+					new_path="$p"
+				else
+					new_path="$new_path:$p"
+				fi
+			fi
+		done
+		PATH="$new_path"
+		unset new_path
+	fi
+	PATH="${PATH#:}"
+	PATH="${PATH%:}"
+	unset old_path
+	export PATH
 }
 
 # Homebrew

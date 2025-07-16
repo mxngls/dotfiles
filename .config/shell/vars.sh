@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if command -v rg >/dev/null 2>&1; then
-    export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+	export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 fi
 
 if command -v colima >/dev/null 2>&1 && command -v jq >/dev/null 2>&1; then
