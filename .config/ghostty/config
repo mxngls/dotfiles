@@ -7,3 +7,5 @@ macos-titlebar-style = transparent
 shell-integration-features = no-cursor
 
 theme = "sonokai_custom"
+
+keybind = shift+enter=text:\n
