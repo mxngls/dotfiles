@@ -6,3 +6,5 @@ current-theme.conf
 kitty.conf.bak
 undo-dir
 spell
+target
+.local/bin

@@ -1,0 +1,3 @@
+[workspace]
+members = ["journal"]
+resolver = "2"

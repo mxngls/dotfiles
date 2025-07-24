@@ -54,10 +54,15 @@ nvim: $(HOME)/.config/nvim
 
 # custom scripts
 $(HOME)/.local/bin:
-	mkdir -p $(HOME)/.local
-	ln -sf $(DOTFILE_PATH)/.local/bin $(HOME)/.local
+	mkdir -p $(HOME)/.local/bin
 
 bin: $(HOME)/.local/bin
+	git -C $(DOTFILE_PATH)/.local/share/bin submodule update \
+		--init \
+		--recursive || true
+	$(MAKE) -C $(DOTFILE_PATH)/.local/share/bin
+	rm -rf $(HOME)/.local/bin
+	ln -sf $(DOTFILE_PATH)/.local/bin $(HOME)/.local/bin
 
 update:
 	git -C $(DOTFILE_PATH) pull
