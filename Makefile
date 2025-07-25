@@ -59,6 +59,7 @@ $(HOME)/.local/bin:
 bin: $(HOME)/.local/bin
 	git -C $(DOTFILE_PATH)/.local/share/bin submodule update \
 		--init \
+		--remote \
 		--recursive || true
 	$(MAKE) -C $(DOTFILE_PATH)/.local/share/bin
 	rm -rf $(HOME)/.local/bin
