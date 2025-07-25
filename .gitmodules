@@ -4,3 +4,6 @@
 [submodule ".local/share/bin/journal"]
 	path = .local/share/bin/journal
 	url = https://github.com/mxngls/journal.git
+[submodule ".local/share/bin/grs"]
+	path = .local/share/bin/grs
+	url = https://github.com/mxngls/grs.git

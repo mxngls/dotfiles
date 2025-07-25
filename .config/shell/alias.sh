@@ -20,7 +20,6 @@ alias gla='git log --graph --format=oneline --abbrev-commit -n 10 --first-parent
 alias glam='git log --graph --format=medium  --abbrev-commit -n 10 --first-parent'
 alias gls='git stash list --color=always'
 alias glu='git log --graph --format=oneline --abbrev-commit -n 10 @{u}..'
-alias grs='rename_stash'
 alias glc='last_commit'
 alias gs='git status -sb -uall'
 
