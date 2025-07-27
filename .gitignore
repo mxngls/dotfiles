@@ -7,4 +7,4 @@ kitty.conf.bak
 undo-dir
 spell
 target
-.local/bin
+.local/bin/**/*
