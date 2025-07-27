@@ -1,3 +1,3 @@
 [workspace]
-members = ["grs", "journal"]
+members = [ "gfd","grs", "journal"]
 resolver = "2"
