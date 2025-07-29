@@ -9,6 +9,10 @@ Plug("tronikelis/ts-autotag.nvim")
 Plug("mfussenegger/nvim-jdtls")
 Plug("mfussenegger/nvim-lint")
 
+-- DB
+Plug("tpope/vim-dadbod")
+Plug("kristijanhusak/vim-dadbod-ui")
+
 -- tests
 Plug("vim-test/vim-test")
 
