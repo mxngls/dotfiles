@@ -1,4 +1,4 @@
-DOTFILE_PATH := $(HOME)/dotfiles
+DOTFILE_PATH := $(HOME)/.dotfiles
 
 $(HOME)/.%: .%
 	ln -sf $(DOTFILE_PATH)/$^ $@
