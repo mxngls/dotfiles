@@ -10,6 +10,15 @@ require("jdtls").start_or_attach({
 	root_dir = root_dir,
 	settings = {
 		java = {
+			configuration = {
+				runtimes = {
+					{
+						name = "JavaSE-21",
+						path = "/opt/homebrew/Cellar/openjdk@21/21.0.7/libexec/openjdk.jdk/Contents/Home",
+						default = true,
+					},
+				},
+			},
 			format = {
 				enabled = false,
 			},
