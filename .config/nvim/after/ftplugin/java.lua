@@ -5,15 +5,6 @@ local root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnw" }, { upw
 require("jdtls").start_or_attach({
 	cmd = {
 		vim.fn.system("/usr/libexec/java_home -v 21"):gsub("\n", "") .. "/bin/java",
-		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
-		"-Dosgi.bundles.defaultStartLevel=4",
-		"-Declipse.product=org.eclipse.jdt.ls.core.product",
-		"-Dlog.protocol=true",
-		"-Dlog.level=ALL",
-		"-Xmx1g",
-		"--add-modules=ALL-SYSTEM",
-		"--add-opens=java.base/java.util=ALL-UNNAMED",
-		"--add-opens=java.base/java.lang=ALL-UNNAMED",
 		("-javaagent:%s"):format(vim.fn.expand("$HOME/.local/share/nvim/mason/packages/jdtls/lombok.jar")),
 		"-jar",
 		vim.fn.glob(
