@@ -115,6 +115,15 @@ lspconfig.rust_analyzer.setup({
 			checkOnSave = true,
 			check = {
 				command = "clippy",
+				extraArgs = {
+					"--",
+					"-W",
+					"clippy::pedantic",
+					"-W",
+					"clippy::nursery",
+					"-A",
+					"clippy::missing_errors_doc",
+				},
 			},
 		},
 	},
