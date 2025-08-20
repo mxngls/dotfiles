@@ -19,6 +19,7 @@ vim.api.nvim_create_autocmd("BufRead", {
 	end,
 })
 
+-- let's keep things concise
 vim.api.nvim_create_augroup("text_files", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "text", "markdown", "gitcommit", "mail" },
@@ -32,6 +33,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- show us what we yanked
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
 		vim.hl.on_yank({ timeout = 150 })

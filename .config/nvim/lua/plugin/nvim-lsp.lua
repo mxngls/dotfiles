@@ -1,19 +1,27 @@
 -- Setup language servers.
 local lspconfig = require("lspconfig")
 
+-- Global diagnostic config (set once)
+vim.diagnostic.config({
+	severity_sort = true,
+	virtual_text = true,
+	float = {
+		source = true,
+	},
+})
+
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(config_opts)
-		-- Global config
-		vim.diagnostic.config({
-			severity_sort = true,
-			virtual_text = true,
-			float = {
-				source = true,
-			},
-		})
+
+		-- enable native completions
+		local client = vim.lsp.get_client_by_id(config_opts.data.client_id)
+		if client and client:supports_method("textDocument/completion") then
+			vim.lsp.completion.enable(true, client.id, config_opts.buf, { autotrigger = true })
+			vim.cmd("set completeopt+=noselect")
+		end
 
 		-- Global mappings.
 		vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)

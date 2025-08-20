@@ -42,6 +42,7 @@
 [core]
 	quotepath = off
 	editor = nvim
+	autocrlf = false
 [gui]
 	encoding = utf-8
 [gc]
