@@ -19,6 +19,7 @@ vim.api.nvim_create_autocmd("BufRead", {
 	end,
 })
 
+-- let's keep things concise
 vim.api.nvim_create_augroup("text_files", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "html", "text", "markdown", "gitcommit", "mail" },
@@ -29,5 +30,14 @@ vim.api.nvim_create_autocmd("FileType", {
 
 		vim.wo.spell = true
 		vim.bo.spelllang = "en_us"
+	end,
+})
+
+-- show us what we yanked
+vim.api.nvim_create_augroup("highlight_yank", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = "highlight_yank",
+	callback = function()
+		vim.hl.on_yank({ timeout = 200 })
 	end,
 })
