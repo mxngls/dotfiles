@@ -19,10 +19,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 		vim.keymap.set("n", "<leader>v", vim.diagnostic.setqflist)
 		vim.keymap.set("n", "[d", function()
-			vim.diagnostic.jump({ count = 1, float = true })
+			vim.diagnostic.jump({ count = 1 })
 		end)
 		vim.keymap.set("n", "]d", function()
-			vim.diagnostic.jump({ count = 1, float = true })
+			vim.diagnostic.jump({ count = 1 })
 		end)
 
 		-- Buffer local mappings.
