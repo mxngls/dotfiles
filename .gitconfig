@@ -9,6 +9,7 @@
 	ui = true
 [merge]
 	tool = nvim -d
+	conflictStyle = zdiff3
 [pull]
   rebase = false
 	ff = only
