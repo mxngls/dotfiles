@@ -30,6 +30,9 @@ require("nvim-treesitter.configs").setup({
 
 				["ca"] = "@call.outer",
 				["ci"] = "@call.inner",
+
+				["aa"] = "@assignment.outer",
+				["ia"] = "@assignment.inner",
 			},
 			include_surrounding_whitespace = true,
 		},

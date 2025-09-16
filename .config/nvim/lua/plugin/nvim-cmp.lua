@@ -11,8 +11,8 @@ cmp.setup({
 
 	-- Performance settings
 	performance = {
-		debounce = 800,
-		throttle = 100,
+		-- debounce = 800,
+		-- throttle = 100,
 	},
 
 	-- Completion sources

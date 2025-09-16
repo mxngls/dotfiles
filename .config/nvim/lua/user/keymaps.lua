@@ -34,3 +34,10 @@ vim.keymap.set("n", "<leader>t", function()
 	vim.wo.winfixheight = true
 	vim.cmd.term()
 end)
+
+-- copy path of current buffer to clipboard
+vim.keymap.set("n", "<leader>cp", function()
+	local full_path = vim.fn.expand("%:p")
+	vim.fn.setreg("+", full_path)
+	print("Copied: " .. full_path)
+end, { noremap = true, silent = true, desc = "Copy full path of current buffer" })
