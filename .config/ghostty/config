@@ -11,3 +11,7 @@ shell-integration-features = no-cursor
 theme = "sonokai_custom"
 
 keybind = shift+enter=text:\n
+
+copy-on-select = "clipboard"
+
+custom-shader = "./cursor.glsl"

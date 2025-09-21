@@ -6,105 +6,105 @@ set -o pipefail
 
 main() {
 
-    TMP_GIT="$(git rev-parse --git-dir 2>/dev/null)"
-    local PARENT_DIR="${TMP_GIT%.git}"
-    PARENT_DIR=${PARENT_DIR:-.}
-    local FILES=()
-    local ALL=0
-    local RECURSE=0
-    local LS_OPT='--exclude-standard'
+	TMP_GIT="$(git rev-parse --git-dir 2>/dev/null)"
+	local PARENT_DIR="${TMP_GIT%.git}"
+	PARENT_DIR=${PARENT_DIR:-.}
+	local FILES=()
+	local ALL=0
+	local RECURSE=0
+	local LS_OPT='--exclude-standard'
 
-    # exit if more than two arguments are supplied
-    if [[ $# -gt 2 ]]; then
-        echo 'Error: Too many arguments. Expects at most two arguments.'
-        usage
-    fi
+	# exit if more than two arguments are supplied
+	if [[ $# -gt 2 ]]; then
+		echo 'Error: Too many arguments. Expects at most two arguments.'
+		usage
+	fi
 
-    # print helpful information about the intended usage
-    if [[ $# -eq 1 ]] && [[ $1 == '-h' || $1 == '--help' ]]; then
-        usage
-    fi
+	# print helpful information about the intended usage
+	if [[ $# -eq 1 ]] && [[ $1 == '-h' || $1 == '--help' ]]; then
+		usage
+	fi
 
-    # parse command line options
-    while getopts ":ar" opt; do
-        case $opt in
-        a)
-            ALL=1
-            break
-            ;;
-        r)
-            RECURSE=1
-            break
-            ;;
-        *)
-            echo "Error: Invalid option: -$OPTARG"
-            usage
-            ;;
-        esac
-    done
+	# parse command line options
+	while getopts ":ar" opt; do
+		case $opt in
+		a)
+			ALL=1
+			break
+			;;
+		r)
+			RECURSE=1
+			break
+			;;
+		*)
+			echo "Error: Invalid option: -$OPTARG"
+			usage
+			;;
+		esac
+	done
 
-    # decrements the argument pointer so it points to next argument.
-    # $1 now references the first non-option item supplied on the command-line
-    # if one exists.
-    shift $((OPTIND - 1))
+	# decrements the argument pointer so it points to next argument.
+	# $1 now references the first non-option item supplied on the command-line
+	# if one exists.
+	shift $((OPTIND - 1))
 
-    DIRECTORY="${1:-}"
+	DIRECTORY="${1:-}"
 
-    if [[ -n "${DIRECTORY}" ]]; then
-        if [[ ! -d $1 ]]; then
-            echo 'Error: Invalid directory name.'
-        fi
-    else
-        DIRECTORY=''
-    fi
+	if [[ -n "${DIRECTORY}" ]]; then
+		if [[ ! -d $1 ]]; then
+			echo 'Error: Invalid directory name.'
+		fi
+	else
+		DIRECTORY=''
+	fi
 
-    # depending on the options provided grab the last commits for specific files
-    if [[ $ALL -eq 1 ]]; then
-        IFS=$'\n' read -r -d '' -a FILES < <(git ls-files \
-            "$LS_OPT" HEAD "$PARENT_DIR" && printf '\0')
-    elif [[ $RECURSE -eq 1 ]]; then
-        IFS=$'\n' read -r -d '' -a FILES < <(git ls-files \
-            "$LS_OPT" HEAD "${DIRECTORY:-.}" && printf '\0')
-    else
-        IFS=$'\n' read -r -d '' -a FILES < <(git ls-files \
-            "$LS_OPT" HEAD ":(glob)$DIRECTORY*" && printf '\0')
-    fi
+	# depending on the options provided grab the last commits for specific files
+	if [[ $ALL -eq 1 ]]; then
+		IFS=$'\n' read -r -d '' -a FILES < <(git ls-files \
+			"$LS_OPT" HEAD "$PARENT_DIR" && printf '\0')
+	elif [[ $RECURSE -eq 1 ]]; then
+		IFS=$'\n' read -r -d '' -a FILES < <(git ls-files \
+			"$LS_OPT" HEAD "${DIRECTORY:-.}" && printf '\0')
+	else
+		IFS=$'\n' read -r -d '' -a FILES < <(git ls-files \
+			"$LS_OPT" HEAD ":(glob)$DIRECTORY*" && printf '\0')
+	fi
 
-    if [[ ${#FILES[@]} -lt 1 ]]; then
-        echo 'No files tracked by Git in current directory found. Aborting.'
-        return 1
-    fi
+	if [[ ${#FILES[@]} -lt 1 ]]; then
+		echo 'No files tracked by Git in current directory found. Aborting.'
+		return 1
+	fi
 
-    max_length=0
-    for file in "${FILES[@]}"; do
-        current_length=${#file}
-        [[ $current_length -gt $max_length ]] && max_length=${#file}
-    done
+	max_length=0
+	for file in "${FILES[@]}"; do
+		current_length=${#file}
+		[[ $current_length -gt $max_length ]] && max_length=${#file}
+	done
 
-    for file in "${FILES[@]}"; do
-        # we don't care for deleted files
-        [[ ! -e "$file" ]] && continue
-        truncated_file="$file"
-        printf "%-${max_length}s -- %s\n" "$truncated_file" "$(
-            git log \
-                --color=always \
-                -1 \
-                --oneline \
-                --date='format:%Y-%m-%d %H:%M' \
-                --pretty='%Cblue%cd%Creset %h %s' \
-                "$file"
-        )"
-    done
+	for file in "${FILES[@]}"; do
+		# we don't care for deleted files
+		[[ ! -e "$file" ]] && continue
+		truncated_file="$file"
+		printf "%-${max_length}s -- %s\n" "$truncated_file" "$(
+			git log \
+				--color=always \
+				-1 \
+				--oneline \
+				--date='format:%Y-%m-%d %H:%M' \
+				--pretty='%Cblue%ad%Creset %h %s' \
+				"$file"
+		)"
+	done
 
-    return 0
+	return 0
 }
 
 usage() {
-    printf "%s\n" "Usage: $0 [-h | --help]"
-    printf "%-7s%s\n" "" "$0 [DIRECTORY]"
-    printf "%-7s%s\n" "" "$0 [-r] [DIRECTORY]"
-    printf "%-7s%s\n" "" "$0 [-a] [DIRECTORY]"
-    return 1
+	printf "%s\n" "Usage: $0 [-h | --help]"
+	printf "%-7s%s\n" "" "$0 [DIRECTORY]"
+	printf "%-7s%s\n" "" "$0 [-r] [DIRECTORY]"
+	printf "%-7s%s\n" "" "$0 [-a] [DIRECTORY]"
+	return 1
 }
 
 main "$@"
