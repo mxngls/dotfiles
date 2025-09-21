@@ -2,6 +2,9 @@ local Plug = vim.fn["plug#"]
 
 vim.call("plug#begin")
 
+-- html
+Plug("tronikelis/ts-autotag.nvim")
+
 -- git
 Plug("tpope/vim-fugitive")
 
