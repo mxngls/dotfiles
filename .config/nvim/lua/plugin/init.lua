@@ -6,3 +6,5 @@ require("plugin/nvim-cmp")
 require("plugin/nvim-lsp")
 require("plugin/nvim-treesitter")
 require("plugin/telescope")
+
+require("ts-autotag").setup()
