@@ -9,12 +9,6 @@ cmp.setup({
 		end,
 	},
 
-	-- Performance settings
-	performance = {
-		-- debounce = 800,
-		-- throttle = 100,
-	},
-
 	-- Completion sources
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
