@@ -1,20 +1,20 @@
 -- Setup language servers.
 local lspconfig = require("lspconfig")
 
+-- Global diagnostic config
+vim.diagnostic.config({
+	severity_sort = true,
+	virtual_text = true,
+	float = {
+		source = true,
+	},
+})
+
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(config_opts)
-		-- Global config
-		vim.diagnostic.config({
-			severity_sort = true,
-			virtual_text = true,
-			float = {
-				source = true,
-			},
-		})
-
 		-- Global mappings.
 		vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 		vim.keymap.set("n", "<leader>v", vim.diagnostic.setqflist)
@@ -95,16 +95,21 @@ lspconfig.ts_ls.setup({
 
 lspconfig.eslint.setup({
 	capabilities = capabilities,
+	on_attach = function(client, bufnr)
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			buffer = bufnr,
+			command = "EslintFixAll",
+		})
+	end,
+	settings = {
+		workingDirectories = { mode = "auto" },
+	},
 })
 
 lspconfig.html.setup({
 	capabilities = capabilities,
-	settings = {
-		html = {
-			format = {
-				unformatted = "pre",
-			},
-		},
+	init_options = {
+		provideFormatter = false,
 	},
 })
 
