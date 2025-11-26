@@ -1,19 +1,12 @@
 require("conform").setup({
 	formatters = {
 		prettier = {
-			require_cwd = false,
-			---@diagnostic disable-next-line: param-type-mismatch
 			prepend_args = function()
-				local textwidth = vim.bo.textwidth ~= 0 and vim.bo.textwidth or vim.o.textwidth
-				local args = {
-					"--print-width",
-					tostring(textwidth),
-					"--tab-width",
-					tostring(vim.bo.tabstop),
-					"--use-tabs",
-					tostring(not vim.bo.expandtab),
+				return {
+					"--print-width", vim.o.textwidth,
+					"--tab-width", vim.o.tabstop,
+					"--use-tabs", vim.o.expandtab and "false" or "true",
 				}
-				return args
 			end,
 		},
 	},
@@ -21,7 +14,9 @@ require("conform").setup({
 		lua = { "stylua" },
 		javascript = { "prettier" },
 		typescript = { "prettier" },
+		htm = { "prettier" },
 		html = { "prettier" },
+		css = { "prettier" },
 		c = { "clang-format" },
 		rust = { "rustfmt" },
 	},
