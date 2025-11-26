@@ -7,7 +7,8 @@ require("user.options")
 require("user.keymaps")
 
 -- plugins
-require("plug")
-require("plugin")
-
-vim.cmd.colorscheme("sonokai")
+if not vim.g.vscode then
+	require("plug")
+	require("plugin")
+	vim.cmd.colorscheme("sonokai")
+end
