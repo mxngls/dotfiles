@@ -21,7 +21,7 @@ vim.api.nvim_create_autocmd("BufRead", {
 
 vim.api.nvim_create_augroup("text_files", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "html", "text", "markdown", "gitcommit", "mail" },
+	pattern = { "text", "markdown", "gitcommit", "mail" },
 	group = "text_files",
 	callback = function()
 		vim.bo.textwidth = 72

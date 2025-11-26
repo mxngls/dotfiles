@@ -108,6 +108,17 @@ lspconfig.html.setup({
 	},
 })
 
+lspconfig.cssls.setup({
+	capabilities = capabilities,
+	settings = {
+		html = {
+			format = {
+				unformatted = "pre",
+			},
+		},
+	},
+})
+
 lspconfig.rust_analyzer.setup({
 	capabilities = capabilities,
 	settings = {
