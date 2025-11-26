@@ -1,15 +1,4 @@
 -- Setup language servers.
-local lspconfig = require("lspconfig")
-
--- Global diagnostic config
-vim.diagnostic.config({
-	severity_sort = true,
-	virtual_text = true,
-	float = {
-		source = true,
-	},
-})
-
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -41,15 +30,17 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- Server setup --------------------------------------------------------
 
-lspconfig.bashls.setup({
+vim.lsp.config("bashls", {
 	capabilities = capabilities,
 })
+vim.lsp.enable("bashls")
 
-lspconfig.clangd.setup({
+vim.lsp.config("clangd", {
 	capabilities = capabilities,
 })
+vim.lsp.enable("clangd")
 
-lspconfig.lua_ls.setup({
+vim.lsp.config("lua_ls", {
 	capabilities = capabilities,
 	settings = {
 		Lua = {
@@ -62,8 +53,9 @@ lspconfig.lua_ls.setup({
 		},
 	},
 })
+vim.lsp.enable("lua_ls")
 
-lspconfig.ts_ls.setup({
+vim.lsp.config("ts_ls", {
 	capabilities = capabilities,
 	settings = {
 		typescript = {
@@ -93,7 +85,9 @@ lspconfig.ts_ls.setup({
 	},
 })
 
-lspconfig.eslint.setup({
+vim.lsp.enable("ts_ls")
+
+vim.lsp.config("eslint", {
 	capabilities = capabilities,
 	on_attach = function(client, bufnr)
 		vim.api.nvim_create_autocmd("BufWritePre", {
@@ -105,26 +99,22 @@ lspconfig.eslint.setup({
 		workingDirectories = { mode = "auto" },
 	},
 })
+vim.lsp.enable("eslint")
 
-lspconfig.html.setup({
+vim.lsp.config("html", {
 	capabilities = capabilities,
 	init_options = {
 		provideFormatter = false,
 	},
 })
+vim.lsp.enable("html")
 
-lspconfig.cssls.setup({
+vim.lsp.config("cssls", {
 	capabilities = capabilities,
-	settings = {
-		html = {
-			format = {
-				unformatted = "pre",
-			},
-		},
-	},
 })
+vim.lsp.enable("cssls")
 
-lspconfig.rust_analyzer.setup({
+vim.lsp.config("rust_analyzer", {
 	capabilities = capabilities,
 	settings = {
 		["rust-analyzer"] = {
@@ -144,3 +134,4 @@ lspconfig.rust_analyzer.setup({
 		},
 	},
 })
+vim.lsp.enable("rust_analyzer")
