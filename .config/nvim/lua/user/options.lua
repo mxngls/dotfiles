@@ -7,6 +7,8 @@ vim.o.swapfile = false
 vim.o.confirm = true
 vim.o.clipboard = "unnamed"
 
+vim.o.wrap = false
+
 vim.o.undofile = true
 
 vim.o.ignorecase = true
