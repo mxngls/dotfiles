@@ -42,4 +42,8 @@ vim.o.cursorline = true
 
 vim.o.pumheight = 12
 vim.o.wildignorecase = true
-vim.o.completeopt = "menu,noselect"
+vim.o.completeopt = 'menu,noselect'
+
+vim.opt.fillchars = {
+	diff = " ",
+}
