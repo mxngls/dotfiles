@@ -41,3 +41,6 @@ vim.keymap.set("n", "<leader>cp", function()
 	vim.fn.setreg("+", full_path)
 	print("Copied: " .. full_path)
 end, { noremap = true, silent = true, desc = "Copy full path of current buffer" })
+
+-- misc
+vim.keymap.set("n", "<leader>s", ":s/<c-r><c-w>//g<left><left>", { noremap = true, silent = false })
