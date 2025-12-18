@@ -5,6 +5,10 @@ if [ "$(uname)" = "Darwin" ]; then
 	defaults write NSGlobalDomain InitialKeyRepeat -int 10 # Normal minimum is 15 (225 ms)
 	defaults write NSGlobalDomain KeyRepeat -int 1         # Normal minimum is 2 (30 ms)
 
+	# only show currently open applications in dock
+	defaults write com.apple.dock static-only -bool true
+	killall Dock
+
 	if [ -z "$HIDUTIL_REMAPPING_APPLIED" ]; then
 
 		# Remapping Keys in macOS:
