@@ -1,0 +1,28 @@
+# Rustdoc Dark Theme for Ghostty
+# Based on the Neovim rustdoc colorscheme
+# Source: https://github.com/rust-lang/rust/blob/master/src/librustdoc/html/static/css/rustdoc.css
+
+# Main colors
+background = #2A2A2A
+foreground = #dddddd
+cursor-color = #dddddd
+selection-background = #505050
+selection-foreground = #dddddd
+
+# Base 16 colors (0-15)
+palette = 0=#2a2a2a
+palette = 1=#ee6868
+palette = 2=#83a300
+palette = 3=#d97f26
+palette = 4=#769acb
+palette = 5=#ab8ac1
+palette = 6=#3e999f
+palette = 7=#dddddd
+palette = 8=#505050
+palette = 9=#ee6868
+palette = 10=#83a300
+palette = 11=#d2991d
+palette = 12=#3b91e2
+palette = 13=#b78cf2
+palette = 14=#2dbfb8
+palette = 15=#dddddd

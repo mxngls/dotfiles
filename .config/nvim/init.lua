@@ -10,5 +10,8 @@ require("user.keymaps")
 if not vim.g.vscode then
 	require("plug")
 	require("plugin")
-	vim.cmd.colorscheme("sonokai")
+	require("user.colorscheme")
+else
+	-- Enable key repeat for VSCode
+	os.execute("defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false")
 end
