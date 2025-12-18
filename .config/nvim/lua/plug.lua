@@ -47,7 +47,8 @@ Plug("nvim-telescope/telescope-fzy-native.nvim")
 
 -- treesitter
 Plug("nvim-treesitter/nvim-treesitter", { ["do"] = ":TSUpdate" })
-Plug("nvim-treesitter/nvim-treesitter-textobjects")
+Plug("nvim-treesitter/nvim-treesitter-textobjects", { ["branch"] = "main" })
+Plug("nvim-treesitter/nvim-treesitter-context")
 
 -- autocompletion
 Plug("hrsh7th/nvim-cmp")
