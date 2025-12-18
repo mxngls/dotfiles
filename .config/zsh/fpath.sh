@@ -4,7 +4,9 @@
 # See: https://docs.brew.sh/Shell-Completion
 if command -v brew &>/dev/null; then
     FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
 
-    autoload -Uz compinit
-    compinit
+# Add Rust/Cargo completions
+if command -v rustc &>/dev/null; then
+    FPATH="$(rustc --print sysroot)/share/zsh/site-functions:${FPATH}"
 fi

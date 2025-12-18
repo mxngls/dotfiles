@@ -45,10 +45,6 @@ path_add "/opt/homebrew/sbin"
 path_add "/usr/local/bin"
 path_add "/usr/local/sbin"
 
-# cargo
-path_add "$HOME/.cargo/bin"
-path_add "$HOME/.rustup"
-
 # other custom local executables
 path_add "$HOME/.local/bin"
 

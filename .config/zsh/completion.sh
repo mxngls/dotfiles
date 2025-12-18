@@ -1,5 +1,8 @@
 #!/bin/zsh
 
+# Load fpath configuration first to set up completion directories
+source "${0:A:h}/fpath.sh"
+
 # the following lines were added by compinstall
 
 zstyle ':completion:*' completer _expand _complete _ignored _match _approximate
