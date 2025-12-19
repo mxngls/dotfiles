@@ -32,6 +32,7 @@ Plug("mbbill/undotree")
 -- ui
 Plug("romainl/vim-cool")
 Plug("sainnhe/sonokai")
+Plug("yorickpeterse/nvim-pqf")
 
 -- language server protocol
 Plug("williamboman/mason.nvim")

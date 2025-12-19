@@ -10,3 +10,4 @@ require("plugin/nvim-treesitter-context")
 require("plugin/telescope")
 
 require("ts-autotag").setup()
+require("pqf").setup()
