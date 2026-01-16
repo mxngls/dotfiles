@@ -2,66 +2,39 @@ local Plug = vim.fn["plug#"]
 
 vim.call("plug#begin")
 
--- html
-Plug("tronikelis/ts-autotag.nvim")
+Plug("tpope/vim-fugitive")     -- Git
 
--- java
-Plug("mfussenegger/nvim-jdtls")
-Plug("mfussenegger/nvim-lint")
-
--- DB
-Plug("tpope/vim-dadbod")
-Plug("kristijanhusak/vim-dadbod-ui")
-
--- tests
-Plug("vim-test/vim-test")
-
--- git
-Plug("tpope/vim-fugitive")
-
--- misc
+Plug("folke/persistence.nvim") -- improving Vim
+Plug("justinmk/vim-dirvish")
+Plug("mbbill/undotree")
+Plug("romainl/vim-cool")
+Plug("samjwill/nvim-unception")
 Plug("tpope/vim-surround")
 Plug("tpope/vim-unimpaired")
-
--- file explorer
-Plug("justinmk/vim-dirvish")
-
--- undo list visualizier
-Plug("mbbill/undotree")
-
--- ui
-Plug("romainl/vim-cool")
-Plug("sainnhe/sonokai")
+Plug("tronikelis/ts-autotag.nvim")
 Plug("yorickpeterse/nvim-pqf")
 
--- language server protocol
-Plug("williamboman/mason.nvim")
+Plug(vim.fn.expand("~/dev/rustdoc.nvim")) -- colorscheme
+Plug(vim.fn.expand("~/dev/simple"))
+
+Plug("williamboman/mason.nvim") -- LSP
 Plug("neovim/nvim-lspconfig")
 
--- replace terminal multiplexers
-Plug("samjwill/nvim-unception")
-
--- telescope
-Plug("nvim-lua/plenary.nvim")
+Plug("nvim-lua/plenary.nvim") -- Telescope
 Plug("nvim-telescope/telescope.nvim")
-Plug("nvim-telescope/telescope-fzy-native.nvim")
 
 -- Treesitter
 Plug("nvim-treesitter/nvim-treesitter", { ["branch"] = "main", ["do"] = ":TSUpdate" })
 Plug("nvim-treesitter/nvim-treesitter-textobjects", { ["branch"] = "main" })
 Plug("nvim-treesitter/nvim-treesitter-context")
 
--- autocompletion
-Plug("hrsh7th/nvim-cmp")
+Plug("hrsh7th/nvim-cmp") -- autocompletion
 Plug("hrsh7th/cmp-nvim-lsp")
 Plug("hrsh7th/cmp-nvim-lua")
 Plug("hrsh7th/cmp-buffer")
 Plug("hrsh7th/cmp-path")
 Plug("hrsh7th/cmp-cmdline")
-Plug("hrsh7th/cmp-vsnip")
-Plug("hrsh7th/vim-vsnip")
 
--- formatting
-Plug("stevearc/conform.nvim")
+Plug("stevearc/conform.nvim") -- formatting
 
 vim.call("plug#end")

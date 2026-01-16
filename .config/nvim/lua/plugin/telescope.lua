@@ -15,8 +15,6 @@ telescope.setup({
 	},
 })
 
-telescope.load_extension("fzy_native")
-
 -- keybindings using the Lua API
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { noremap = true, silent = true })

@@ -2,18 +2,10 @@
 local cmp = require("cmp")
 
 cmp.setup({
-	-- REQUIRED - you must specify a snippet engine
-	snippet = {
-		expand = function(args)
-			vim.fn["vsnip#anonymous"](args.body)
-		end,
-	},
-
 	-- Completion sources
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
-		{ name = "vsnip" },
 		{ name = "path" },
 		{ name = "buffer" },
 	}),
