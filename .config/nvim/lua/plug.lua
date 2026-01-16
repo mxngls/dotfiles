@@ -46,8 +46,8 @@ Plug("nvim-lua/plenary.nvim")
 Plug("nvim-telescope/telescope.nvim")
 Plug("nvim-telescope/telescope-fzy-native.nvim")
 
--- treesitter
-Plug("nvim-treesitter/nvim-treesitter", { ["do"] = ":TSUpdate" })
+-- Treesitter
+Plug("nvim-treesitter/nvim-treesitter", { ["branch"] = "main", ["do"] = ":TSUpdate" })
 Plug("nvim-treesitter/nvim-treesitter-textobjects", { ["branch"] = "main" })
 Plug("nvim-treesitter/nvim-treesitter-context")
 
