@@ -19,20 +19,10 @@ vim.api.nvim_create_autocmd("BufRead", {
 	end,
 })
 
-vim.api.nvim_create_augroup("text_files", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "text", "markdown", "gitcommit", "mail" },
-	group = "text_files",
-	callback = function()
-		vim.bo.textwidth = 72
-		vim.wo.colorcolumn = "72"
-
-		vim.wo.spell = true
-		vim.bo.spelllang = "en_us"
-	end,
-})
-
+-- Highlight yanks temporarily
+vim.api.nvim_create_augroup("highlight_yank", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
+	group = "highlight_yank",
 	callback = function()
 		vim.hl.on_yank({ timeout = 150 })
 	end,

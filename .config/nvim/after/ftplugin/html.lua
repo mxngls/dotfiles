@@ -9,3 +9,6 @@ vim.api.nvim_set_hl(0, "Conceal", {})
 vim.fn.matchadd("Conceal", "\\(href\\|src\\|cite\\)=[\"']\\zs.\\{-\\}\\ze[\"']", 10, -1, { conceal = "X" })
 
 vim.bo.formatexpr = ""
+
+vim.wo.spell = true
+vim.bo.spelllang = "en_us"
