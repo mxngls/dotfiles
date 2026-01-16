@@ -25,6 +25,7 @@ conform.setup({
 		css = { "prettier" },
 		c = { "clang-format" },
 		rust = { "rustfmt" },
+		json = { "prettier" },
 		djot = { "djotfmt" },
 	},
 	format_on_save = {
