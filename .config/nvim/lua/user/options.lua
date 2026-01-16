@@ -22,7 +22,8 @@ vim.o.expandtab = false
 vim.o.inccommand = "split"
 
 vim.o.foldenable = false
-vim.o.foldmethod = "indent"
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 
 vim.opt.diffopt:append({ "iwhite" })
 
@@ -48,4 +49,8 @@ vim.o.completeopt = 'menu,noselect'
 
 vim.opt.fillchars = {
 	diff = " ",
+	fold = " ",
+	foldopen = " ",
+	foldclose = " ",
+	foldsep = " ",
 }
