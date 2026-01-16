@@ -1,0 +1,5 @@
+# Format: Either a crate name, or cargo install arguments for git repos
+# Examples:
+#   stylua
+#   --git https://github.com/user/repo
+--git https://github.com/black-desk/djotfmt

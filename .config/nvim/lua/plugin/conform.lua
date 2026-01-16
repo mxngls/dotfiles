@@ -1,4 +1,6 @@
-require("conform").setup({
+local conform = require("conform")
+
+conform.setup({
 	formatters = {
 		prettier = {
 			prepend_args = function()
@@ -8,6 +10,10 @@ require("conform").setup({
 					"--use-tabs", vim.o.expandtab and "false" or "true",
 				}
 			end,
+		},
+		djotfmt = {
+			command = "djotfmt",
+			stdin = true,
 		},
 	},
 	formatters_by_ft = {
@@ -19,6 +25,7 @@ require("conform").setup({
 		css = { "prettier" },
 		c = { "clang-format" },
 		rust = { "rustfmt" },
+		djot = { "djotfmt" },
 	},
 	format_on_save = {
 		timeout_ms = 2000,

@@ -4,6 +4,7 @@ $(HOME)/.%: .%
 	ln -sf $(DOTFILE_PATH)/$^ $@
 
 all: brew git rg fd nvim \
+all: brew cargo-binaries git rg fd nvim \
 	shell bin \
 	zsh zsh_config \
 	bash bash_config \
