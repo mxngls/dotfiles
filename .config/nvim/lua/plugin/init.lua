@@ -11,3 +11,7 @@ require("plugin/telescope")
 
 require("ts-autotag").setup()
 require("pqf").setup()
+
+-- plugins (writtien in Vimscript)
+-- plugins (written in Vimscript)
+require("plugin/fugitive")
