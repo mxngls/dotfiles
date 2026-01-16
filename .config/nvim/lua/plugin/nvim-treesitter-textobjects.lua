@@ -1,5 +1,7 @@
--- configuration
-require("nvim-treesitter-textobjects").setup({
+local textobjects = require("nvim-treesitter-textobjects")
+local select = require("nvim-treesitter-textobjects.select")
+
+textobjects.setup({
 	select = {
 		lookahead = true,
 		include_surrounding_whitespace = true,
@@ -9,38 +11,32 @@ require("nvim-treesitter-textobjects").setup({
 	},
 })
 
--- keymaps for select
-vim.keymap.set({ "x", "o" }, "af", function()
-	require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
-end)
-vim.keymap.set({ "x", "o" }, "if", function()
-	require("nvim-treesitter-textobjects.select").select_textobject("@function.inner", "textobjects")
-end)
+-- Helper function to create text object keymaps
+local function map_textobject(lhs, query)
+	vim.keymap.set({ "x", "o" }, lhs, function()
+		select.select_textobject(query, "textobjects")
+	end)
+end
 
-vim.keymap.set({ "x", "o" }, "ac", function()
-	require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects")
-end)
-vim.keymap.set({ "x", "o" }, "ic", function()
-	require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects")
-end)
+-- Text object keymaps
+local keymaps_to_textobjects = {
+	{ "af",  "@function.outer" },
+	{ "if",  "@function.inner" },
+	{ "ac",  "@class.outer" },
+	{ "ic",  "@class.inner" },
+	{ "aco", "@conditional.outer" },
+	{ "ico", "@conditional.inner" },
+	{ "al",  "@loop.outer" },
+	{ "il",  "@loop.inner" },
+	{ "aa",  "@assignment.outer" },
+	{ "ia",  "@assignment.inner" },
+	{ "ak",  "@call.outer" },
+	{ "ik",  "@call.inner" },
+	{ "ab",  "@block.outer" },
+	{ "ib",  "@block.inner" },
+	{ "am",  "@comment.outer" },
+}
 
-vim.keymap.set({ "x", "o" }, "aco", function()
-	require("nvim-treesitter-textobjects.select").select_textobject("@conditional.outer", "textobjects")
-end)
-vim.keymap.set({ "x", "o" }, "ico", function()
-	require("nvim-treesitter-textobjects.select").select_textobject("@conditional.inner", "textobjects")
-end)
-
-vim.keymap.set({ "x", "o" }, "al", function()
-	require("nvim-treesitter-textobjects.select").select_textobject("@loop.outer", "textobjects")
-end)
-vim.keymap.set({ "x", "o" }, "il", function()
-	require("nvim-treesitter-textobjects.select").select_textobject("@loop.inner", "textobjects")
-end)
-
-vim.keymap.set({ "x", "o" }, "aa", function()
-	require("nvim-treesitter-textobjects.select").select_textobject("@assignment.outer", "textobjects")
-end)
-vim.keymap.set({ "x", "o" }, "ia", function()
-	require("nvim-treesitter-textobjects.select").select_textobject("@assignment.inner", "textobjects")
-end)
+for _, mapping in ipairs(keymaps_to_textobjects) do
+	map_textobject(mapping[1], mapping[2])
+end
