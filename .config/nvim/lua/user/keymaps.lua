@@ -25,6 +25,14 @@ vim.keymap.set("n", "<leader>fm", function()
 	vim.o.foldmethod = vim.o.foldmethod == "indent" and "manual" or "indent"
 end, { noremap = true, silent = false })
 
+-- scratch buffer in vertical split
+vim.keymap.set("n", "<leader>sb", function()
+	vim.cmd.vnew()
+	vim.bo.buftype = "nofile"
+	vim.bo.bufhidden = "hide"
+	vim.bo.swapfile = false
+end, { noremap = true, silent = true, desc = "Open scratch buffer in vertical split" })
+
 -- terminal
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 vim.keymap.set("n", "<leader>t", function()
