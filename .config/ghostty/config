@@ -13,5 +13,3 @@ theme = light:rustdoc-light,dark:rustdoc-dark
 keybind = shift+enter=text:\n
 
 copy-on-select = "clipboard"
-
-custom-shader = "./cursor.glsl"
